@@ -23,3 +23,25 @@ export function createUser(email, password, name) {
       console.log("**AXIOS ERROR: ", err.response.data);
     });
 }
+
+export function loginUser(email, password) {
+  let userData = JSON.stringify({
+    email: email,
+    password: password,
+  });
+
+  let axiosConfig = {
+    headers: {
+      "Content-Type": "application/json;charset=UTF-8",
+      "Access-Control-Allow-Origin": "*",
+    },
+  };
+  axios
+    .post(`${Base_URL}/user/login/`, userData, axiosConfig)
+    .then((res) => {
+      console.log("**Login RESPONSE RECEIVED: ", res.data.token);
+    })
+    .catch((err) => {
+      console.log("**AXIOS ERROR: ", err.response.data);
+    });
+}

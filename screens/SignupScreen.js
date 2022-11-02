@@ -8,7 +8,15 @@ function SignupScreen() {
 
   async function signupHandler({ email, password, name }) {
     setIsAuthenticating(true);
-    await createUser(email, password, name);
+    try {
+      createUser(email, password, name);
+    } catch (error) {
+      Alert.alert(
+        "Authentication failed!",
+        "Could not create user, please check your input and try again later."
+      );
+    }
+
     setIsAuthenticating(false);
   }
 
