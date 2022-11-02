@@ -11,8 +11,8 @@ function AuthContent({ isLogin, onAuthenticate }) {
   const [credentialsInvalid, setCredentialsInvalid] = useState({
     email: false,
     password: false,
-    confirmEmail: false,
     confirmPassword: false,
+    name: false,
   });
 
   function switchAuthModeHandler() {
@@ -22,31 +22,33 @@ function AuthContent({ isLogin, onAuthenticate }) {
   }
 
   function submitHandler(credentials) {
-    let { email, confirmEmail, password, confirmPassword } = credentials;
+    let { email, password, confirmPassword, name } =
+      credentials;
 
     email = email.trim();
     password = password.trim();
+    name = name.trim();
 
     const emailIsValid = email.includes("@");
     const passwordIsValid = password.length > 6;
-    const emailsAreEqual = email === confirmEmail;
     const passwordsAreEqual = password === confirmPassword;
+    const nameIsValid = name.length > 2 && name.length < 20;
 
     if (
       !emailIsValid ||
       !passwordIsValid ||
-      (!isLogin && (!emailsAreEqual || !passwordsAreEqual))
+      (!isLogin &&  !passwordsAreEqual)
     ) {
       Alert.alert("Invalid input", "Please check your entered credentials.");
       setCredentialsInvalid({
         email: !emailIsValid,
-        confirmEmail: !emailIsValid || !emailsAreEqual,
         password: !passwordIsValid,
         confirmPassword: !passwordIsValid || !passwordsAreEqual,
+        name: !nameIsValid || !nameIsValid,
       });
       return;
     }
-    onAuthenticate({ email, password });
+    onAuthenticate({ email, password, name });
   }
 
   return (
