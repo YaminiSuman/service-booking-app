@@ -10,7 +10,7 @@ function CategoryGridTile({ id, title, color, icon }) {
   const [serviceCategoryId, setServiceCategoryId] = useState(null);
 
   const handleServiceWorkers = (workerDetails) => {
-    navigation.navigate("WorkerList", {
+    navigation.navigate("ProfessionalList", {
       workerDetails: workerDetails,
     });
   };
