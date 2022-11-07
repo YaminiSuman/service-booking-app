@@ -6,12 +6,13 @@ import { useContext } from "react";
 import LoginScreen from "./screens/LoginScreen";
 import SignupScreen from "./screens/SignupScreen";
 import WelcomeScreen from "./screens/WelcomeScreen";
+import CategoriesScreen from "./screens/CategoryScreen";
+import WorkerList from "./screens/WorkerList";
 import { Colors } from "./constants/styles";
 import AuthContextProvider from "./store/AuthContext";
 import { AuthContext } from "./store/AuthContext";
 import IconButton from "./components/ui/IconButton";
-import CategoriesScreen
-  from "./screens/CategoryScreen";
+
 const Stack = createNativeStackNavigator();
 
 function AuthStack() {
@@ -24,6 +25,7 @@ function AuthStack() {
       }}
     >
       <Stack.Screen name="Categories" component={CategoriesScreen} />
+      <Stack.Screen name="WorkerList" component={WorkerList} />
       <Stack.Screen name="Login" component={LoginScreen} />
       <Stack.Screen name="Signup" component={SignupScreen} />
     </Stack.Navigator>

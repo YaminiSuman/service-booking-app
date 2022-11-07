@@ -6,7 +6,7 @@ import { getCategories } from "../util/Auth";
 
 function renderCategoryItem(itemData) {
   return (
-    <CategoryGridTile title={itemData.item.name} color={Colors.primary500} icon={itemData.item.icon} />
+    <CategoryGridTile id={ itemData.item.id} title={itemData.item.name} color={Colors.primary500} icon={itemData.item.icon} />
   );
 }
 
