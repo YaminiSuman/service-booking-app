@@ -1,4 +1,4 @@
-import { StyleSheet, View, Button, Modal, Image,Alert } from "react-native";
+import { StyleSheet, View, Button, Modal, Image, Alert } from "react-native";
 import { useState, useCallback } from "react";
 import DropDownPicker from "react-native-dropdown-picker";
 import {
@@ -7,8 +7,10 @@ import {
   endTimeSlots,
 } from "../../util/Common";
 import { displayAvailableServiceWorkers } from "../../util/Auth";
+import { useNavigation } from "@react-navigation/native";
 
 function ServiceInputModal(props) {
+  const navigation = useNavigation();
 
   const [openDateDropDown, setOpenDateDropDown] = useState(false);
   const [dateDropDownValue, setDateDropDownValue] = useState(null);
@@ -30,7 +32,7 @@ function ServiceInputModal(props) {
 
   const onOpenDateDropDown = useCallback(() => {
     setOpenDateDropDown(true);
-    setOpenTimeDropDown(false);
+    setOpenStartTimeDropDown(false);
     setOpenEndTimeDropDown(false);
   }, []);
 
@@ -47,7 +49,6 @@ function ServiceInputModal(props) {
   }, []);
 
   async function handleAddGoal() {
-    // make a call to backend
     try {
       const workerDetails = await displayAvailableServiceWorkers(
         props.id,
@@ -55,7 +56,12 @@ function ServiceInputModal(props) {
         startTimeDropDownValue,
         endTimeDropDownValue
       );
-      props.handleServiceWorkers(workerDetails);
+      navigation.navigate("ProfessionalList", {
+        workerDetails: workerDetails,
+        selectedDate: dateDropDownValue,
+        selectedStartTime: startTimeDropDownValue,
+        selectedEndTime: endTimeDropDownValue,
+      });
     } catch (error) {
       Alert.alert(
         "Something went wrong",

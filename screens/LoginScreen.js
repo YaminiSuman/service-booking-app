@@ -6,16 +6,19 @@ import LoadingOverlay from "../components/ui/LoadingOverlay";
 import { AuthContext } from "../store/AuthContext";
 import { loginUser } from "../util/Auth";
 
-function LoginScreen() {
+function LoginScreen({ navigation, route }) {
   const [isAuthenticating, setIsAuthenticating] = useState(false);
   const authCtx = useContext(AuthContext);
+  const redirectScreenName = route.params?.screenName;
 
   async function loginHandler({ email, password }) {
     setIsAuthenticating(true);
     try {
       const token = await loginUser(email, password);
-      console.log("login token - ",token)
       authCtx.authenticate(token);
+      if (screenName) {
+        navigation.navigate(redirectScreenName);
+      }
     } catch (error) {
       Alert.alert(
         "Authentication failed!",

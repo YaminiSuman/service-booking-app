@@ -61,6 +61,21 @@ function AuthenticatedStack() {
           ),
         }}
       />
+      <Stack.Screen
+        name="ProfessionalList"
+        component={ProfessionalList}
+        options={{
+          title: "Professional List",
+          headerRight: ({ tintColor }) => (
+            <IconButton
+              icon="exit"
+              color={tintColor}
+              size={24}
+              onPress={authCtx.logout}
+            />
+          ),
+        }}
+      />
     </Stack.Navigator>
   );
 }

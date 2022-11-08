@@ -61,14 +61,15 @@ export async function displayAvailableServiceWorkers(
   startTime,
   endTime
 ) {
+  const start_time = `${day} ${startTime}`;
+  const end_time = `${day} ${endTime}`;
 
   let userData = JSON.stringify({
     profession_type_id: id,
-    date: day,
-    start_time: startTime,
-    end_time: endTime,
+    start_time: start_time,
+    end_time: end_time,
   });
-  
+
   let axiosConfig = {
     headers: {
       "Content-Type": "application/json;charset=UTF-8",
@@ -78,11 +79,37 @@ export async function displayAvailableServiceWorkers(
   return axios
     .post(`${Base_URL}/profession/availableOfType/`, userData, axiosConfig)
     .then((res) => {
-      console.log("**Service RESPONSE RECEIVED: ", res.data);
+      console.log("**Available Professional Service RECEIVED: ", res.data);
       return res.data;
     })
     .catch((err) => {
-      
+      console.log("**AXIOS ERROR: ", err.response.data);
+    });
+}
+
+export async function confirmBookingRequest(id, startTime, endTime, token) {
+  const gen_user = 1;
+  let userData = JSON.stringify({
+    general_user: gen_user,
+    profession: id,
+    start_at: startTime,
+    end_at: endTime,
+  });
+
+  let axiosConfig = {
+    headers: {
+      "Content-Type": "application/json;charset=UTF-8",
+      "Access-Control-Allow-Origin": "*",
+      Authorization: `${token}`,
+    },
+  };
+  return axios
+    .post(`${Base_URL}/booking/byMe/`, userData, axiosConfig)
+    .then((res) => {
+      console.log("Booking RESPONSE RECEIVED: ", res.data);
+      return res.data;
+    })
+    .catch((err) => {
       console.log("**AXIOS ERROR: ", err.response.data);
     });
 }
