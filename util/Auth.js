@@ -113,3 +113,16 @@ export async function confirmBookingRequest(id, startTime, endTime, token) {
       console.log("**AXIOS ERROR: ", err.response.data);
     });
 }
+
+
+export async function getMyBookings(token) {
+    let axiosConfig = {
+      headers: {
+        "Content-Type": "application/json;charset=UTF-8",
+        "Access-Control-Allow-Origin": "*",
+        Authorization: `${token}`,
+      },
+    };
+  const { data } = await axios.get(`${Base_URL}/booking/byMe/`, axiosConfig);
+  return data;
+}

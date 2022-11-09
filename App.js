@@ -91,55 +91,71 @@ function AuthStack() {
   );
 }
 
-function AuthenticatedStack() {
-  const authCtx = useContext(AuthContext);
-  return (
-    <Stack.Navigator
-      screenOptions={{
-        headerStyle: { backgroundColor: Colors.primary500 },
-        headerTintColor: "white",
-        contentStyle: { backgroundColor: Colors.primary100 },
-      }}
-    >
-      <Stack.Screen
-        name="Welcome"
-        component={WelcomeScreen}
-        options={{
-          headerRight: ({ tintColor }) => (
-            <IconButton
-              icon="exit"
-              color={tintColor}
-              size={24}
-              onPress={authCtx.logout}
-            />
-          ),
-        }}
-      />
-      <Stack.Screen
-        name="ProfessionalList"
-        component={ProfessionalList}
-        options={{
-          title: "Professional List",
-          headerRight: ({ tintColor }) => (
-            <IconButton
-              icon="exit"
-              color={tintColor}
-              size={24}
-              onPress={authCtx.logout}
-            />
-          ),
-        }}
-      />
-    </Stack.Navigator>
-  );
-}
+// function AuthenticatedStack() {
+//   const authCtx = useContext(AuthContext);
+//   return (
+//     <Stack.Navigator
+//       screenOptions={{
+//         headerStyle: { backgroundColor: Colors.primary500 },
+//         headerTintColor: "white",
+//         contentStyle: { backgroundColor: Colors.primary100 },
+//       }}
+//     >
+//       <Stack.Screen
+//         name="Welcome"
+//         component={WelcomeScreen}
+//         options={{
+//           headerRight: ({ tintColor }) => (
+//             <IconButton
+//               icon="exit"
+//               color={tintColor}
+//               size={24}
+//               onPress={authCtx.logout}
+//             />
+//           ),
+//         }}
+//       />
+//       <Stack.Screen
+//         name="ProfessionalList"
+//         component={ProfessionalList}
+//         options={{
+//           title: "Professional List",
+//           headerRight: ({ tintColor }) => (
+//             <IconButton
+//               icon="exit"
+//               color={tintColor}
+//               size={24}
+//               onPress={authCtx.logout}
+//             />
+//           ),
+//         }}
+//       />
+//       <Stack.Screen
+//         name="MyBookingList"
+//         component={MyBookingList}
+//         options={{
+//           title: "Booking List",
+//           headerRight: ({ tintColor }) => (
+//             <IconButton
+//               icon="exit"
+//               color={tintColor}
+//               size={24}
+//               onPress={authCtx.logout}
+//             />
+//           ),
+//         }}
+//       />
+//     </Stack.Navigator>
+//   );
+// }
 
 function Navigation() {
   const authCtx = useContext(AuthContext);
   return (
     <NavigationContainer>
-      {!authCtx.isAuthenticated && <AuthStack />}
-      {authCtx.isAuthenticated && <AuthenticatedStack />}
+      <AuthStack/>
+      {/* {!authCtx.isAuthenticated && <AuthStack />}
+      {authCtx.isAuthenticated && <AuthenticatedStack />} */}
     </NavigationContainer>
   );
 }
