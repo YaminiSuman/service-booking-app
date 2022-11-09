@@ -124,5 +124,6 @@ export async function getMyBookings(token) {
       },
     };
   const { data } = await axios.get(`${Base_URL}/booking/byMe/`, axiosConfig);
+  console.log("Booking List Response: ", data);
   return data;
 }

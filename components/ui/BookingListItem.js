@@ -2,24 +2,18 @@ import { Pressable, StyleSheet, Text, View, Alert } from "react-native";
 
 import { Colors } from "../../constants/styles";
 
-function BookingListItem({
-  id,
-  profession,
-  name,
-  startTime,
-  endTime,
-}) {
+function BookingListItem({ id, profession, name, startTime, endTime, cost }) {
   return (
     <View style={styles.listItem}>
       <View>
         <Text style={[styles.textBase, styles.description]}>
-          {name ? name : "xyz"}
+          {`${name} - (${profession})`}
         </Text>
         <Text style={styles.textBase}>{startTime}</Text>
       </View>
-      {/* <View style={styles.costContainer}>
+      <View style={styles.costContainer}>
         <Text style={styles.amount}>{`$${cost}`}</Text>
-      </View> */}
+      </View>
     </View>
   );
 }
@@ -47,6 +41,7 @@ const styles = StyleSheet.create({
   },
   textBase: {
     color: Colors.primary50,
+    marginRight: 5,
   },
   description: {
     fontSize: 16,
