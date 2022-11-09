@@ -4,6 +4,8 @@ import IconButton from "../ui/IconButton";
 import ServiceInputModal from "./ServiceInputModal";
 import { useNavigation } from "@react-navigation/native";
 
+import { Colors } from "../../constants/styles";
+
 function CategoryGridTile({ id, title, color, icon }) {
   const navigation = useNavigation();
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -55,7 +57,7 @@ const styles = StyleSheet.create({
     height: 120,
     borderRadius: 8,
     elevation: 4,
-    backgroundColor: "white",
+    backgroundColor: Colors.primary800,
     shadowColor: "black",
     shadowOpacity: 0.25,
     shadowOffset: { width: 0, height: 2 },

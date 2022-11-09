@@ -1,4 +1,5 @@
 import { NavigationContainer } from "@react-navigation/native";
+import { Alert } from "react-native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { StatusBar } from "expo-status-bar";
@@ -20,6 +21,8 @@ const Stack = createNativeStackNavigator();
 const BottomTabs = createBottomTabNavigator();
 
 function ProfessionsOverview() {
+  const authCtx = useContext(AuthContext);
+
   return (
     <BottomTabs.Navigator
       screenOptions={({ navigation }) => ({
@@ -27,16 +30,55 @@ function ProfessionsOverview() {
         headerTintColor: "white",
         tabBarStyle: { backgroundColor: Colors.primary500 },
         tabBarActiveTintColor: "white",
-        headerRight: ({ tintColor }) => (
-          <IconButton
-            icon="add"
-            size={24}
-            color={tintColor}
-            onPress={() => {
-              navigation.navigate("Welcome");
-            }}
-          />
-        ),
+        headerRight: ({ tintColor }) => {
+          if (authCtx.isAuthenticated) {
+            return (
+              <IconButton
+                icon="settings-outline"
+                size={24}
+                color={tintColor}
+                onPress={() => {
+                  Alert.alert("Confirm Booking!", "Are you sure?", [
+                    {
+                      text: "Update Profile",
+                      onPress: () => console.log("Update Profile Pressed"),
+                    },
+                    { text: "Logout", onPress: () => authCtx.logout() },
+                    {
+                      text: "Cancel",
+                      onPress: () => console.log("Cancel Pressed"),
+                      style: "cancel",
+                    },
+                  ]);
+                }}
+              />
+            );
+          } else {
+            return (
+              <IconButton
+                icon="power-outline"
+                size={24}
+                color={tintColor}
+                onPress={() => {
+                  Alert.alert("Have an account?", "Sign up or Login!", [
+                    {
+                      text: "Login",
+                      onPress: () =>
+                        navigation.navigate("Login", {
+                          redirectScreenName: "Categories",
+                        }),
+                    },
+                    {
+                      text: "Cancel",
+                      onPress: () => console.log("Cancel Pressed"),
+                      style: "cancel",
+                    },
+                  ]);
+                }}
+              />
+            );
+          }
+        },
       })}
     >
       <BottomTabs.Screen
@@ -153,7 +195,7 @@ function Navigation() {
   const authCtx = useContext(AuthContext);
   return (
     <NavigationContainer>
-      <AuthStack/>
+      <AuthStack />
       {/* {!authCtx.isAuthenticated && <AuthStack />}
       {authCtx.isAuthenticated && <AuthenticatedStack />} */}
     </NavigationContainer>

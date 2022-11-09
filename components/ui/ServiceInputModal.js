@@ -9,6 +9,8 @@ import {
 import { displayAvailableServiceWorkers } from "../../util/Auth";
 import { useNavigation } from "@react-navigation/native";
 
+import { Colors } from "../../constants/styles";
+
 function ServiceInputModal(props) {
   const navigation = useNavigation();
 
@@ -163,7 +165,8 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#311b6b",
+    backgroundColor: Colors.primary800,
+    
   },
   image: {
     width: 100,

@@ -1,6 +1,6 @@
-import { Text, FlatList } from "react-native";
+import { Text, FlatList, View, StyleSheet } from "react-native";
 import { useState, useEffect, useContext } from "react";
-
+import { Colors } from "../../constants/styles";
 import { getMyBookings } from "../../util/Auth";
 import { AuthContext } from "../../store/AuthContext";
 import BookingListItem from "../ui/BookingListItem";
@@ -33,12 +33,21 @@ function BookingList() {
   }, []);
 
   return (
-    <FlatList
-      data={bookings}
-      keyExtractor={(item) => item.id}
-      renderItem={renderBookingItem}
-    />
+    <View style={styles.container}>
+      <FlatList
+        data={bookings}
+        keyExtractor={(item) => item.id}
+        renderItem={renderBookingItem}
+      />
+    </View>
   );
 }
 
 export default BookingList;
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: Colors.primary100,
+  },
+});

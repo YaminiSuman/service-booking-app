@@ -11,7 +11,7 @@ function LoginScreen({ navigation, route }) {
   const authCtx = useContext(AuthContext);
   
   const redirectScreenName = route.params?.redirectScreenName;
-console.log(redirectScreenName);
+
   async function loginHandler({ email, password }) {
     setIsAuthenticating(true);
     try {
