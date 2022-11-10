@@ -127,3 +127,27 @@ export async function getMyBookings(token) {
   console.log("Booking List Response: ", data);
   return data;
 }
+
+export async function updateUserPassword(password, token) {
+  
+  let userData = JSON.stringify({
+    password: password,
+  });
+
+  let axiosConfig = {
+    headers: {
+      "Content-Type": "application/json;charset=UTF-8",
+      "Access-Control-Allow-Origin": "*",
+      Authorization: `${token}`,
+    },
+  };
+  return axios
+    .patch(`${Base_URL}/user/me/`, userData, axiosConfig)
+    .then((res) => {
+      console.log("Password Reset Successful: ", res.data);
+      return res.data;
+    })
+    .catch((err) => {
+      console.log("**AXIOS ERROR: ", err);
+    });
+}

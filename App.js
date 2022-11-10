@@ -5,6 +5,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { StatusBar } from "expo-status-bar";
 import { useContext } from "react";
 import { Ionicons } from "@expo/vector-icons";
+import { RootSiblingParent } from "react-native-root-siblings";
 
 import LoginScreen from "./screens/LoginScreen";
 import SignupScreen from "./screens/SignupScreen";
@@ -16,13 +17,13 @@ import { Colors } from "./constants/styles";
 import AuthContextProvider from "./store/AuthContext";
 import { AuthContext } from "./store/AuthContext";
 import IconButton from "./components/ui/IconButton";
+import ResetPassword from "./components/ui/ResetPassword";
 
 const Stack = createNativeStackNavigator();
 const BottomTabs = createBottomTabNavigator();
 
 function ProfessionsOverview() {
   const authCtx = useContext(AuthContext);
-
   return (
     <BottomTabs.Navigator
       screenOptions={({ navigation }) => ({
@@ -38,10 +39,10 @@ function ProfessionsOverview() {
                 size={24}
                 color={tintColor}
                 onPress={() => {
-                  Alert.alert("Confirm Booking!", "Are you sure?", [
+                  Alert.alert("Update Profile!", "Are you sure?", [
                     {
-                      text: "Update Profile",
-                      onPress: () => console.log("Update Profile Pressed"),
+                      text: "Reset Password",
+                      onPress: () => navigation.navigate("ResetPassword"),
                     },
                     { text: "Logout", onPress: () => authCtx.logout() },
                     {
@@ -126,9 +127,22 @@ function AuthStack() {
         component={ProfessionalList}
         options={{ title: "Professional List" }}
       />
-
       <Stack.Screen name="Login" component={LoginScreen} />
       <Stack.Screen name="Signup" component={SignupScreen} />
+      <Stack.Screen
+        name="Welcome"
+        component={WelcomeScreen}
+        options={{
+          headerRight: ({ tintColor }) => (
+            <IconButton icon="exit" color={tintColor} size={24} />
+          ),
+        }}
+      />
+      <Stack.Screen
+        name="ResetPassword"
+        component={ResetPassword}
+        options={{ title: "Reset Password" }}
+      />
     </Stack.Navigator>
   );
 }
@@ -206,10 +220,11 @@ export default function App() {
   return (
     <>
       <StatusBar style="light" />
-
-      <AuthContextProvider>
-        <Navigation />
-      </AuthContextProvider>
+      <RootSiblingParent>
+        <AuthContextProvider>
+          <Navigation />
+        </AuthContextProvider>
+      </RootSiblingParent>
     </>
   );
 }
