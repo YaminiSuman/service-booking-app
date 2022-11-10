@@ -1,6 +1,7 @@
 import { Pressable, StyleSheet, Text, View, Alert } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { useContext } from "react";
+import Toast from "react-native-root-toast";
 
 import { Colors } from "../../constants/styles";
 import { AuthContext } from "../../store/AuthContext";
@@ -23,14 +24,16 @@ function ProfessionalListItem({
   async function confirmBooking() {
     try {
       const res = await confirmBookingRequest(id, startTime, endTime, token);
-     
+      navigation.navigate("MyBookingList");
+      Toast.show("Booking Successful", {
+        duration: Toast.durations.LONG,
+      });
     } catch (error) {
       Alert.alert(
         "Booking failed!",
         "Something went wrong. Please try again later!"
       );
     }
-     Alert.alert("Booking Successful");
   }
 
   function workerDetailHandler() {

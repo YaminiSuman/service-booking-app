@@ -6,6 +6,7 @@ import { StatusBar } from "expo-status-bar";
 import { useContext } from "react";
 import { Ionicons } from "@expo/vector-icons";
 import { RootSiblingParent } from "react-native-root-siblings";
+import Toast from "react-native-root-toast";
 
 import LoginScreen from "./screens/LoginScreen";
 import SignupScreen from "./screens/SignupScreen";
@@ -18,12 +19,32 @@ import AuthContextProvider from "./store/AuthContext";
 import { AuthContext } from "./store/AuthContext";
 import IconButton from "./components/ui/IconButton";
 import ResetPassword from "./components/ui/ResetPassword";
+import BookingForMe from "./screens/BookingForMe";
+import { switchToProfessionalUser } from "./util/Auth"
+
 
 const Stack = createNativeStackNavigator();
 const BottomTabs = createBottomTabNavigator();
 
+async function handleSwitchToProfessionalUser(token) {
+  try {
+    const res = await switchToProfessionalUser(true, token);
+    
+    Toast.show("Switched to professional account successfully", {
+      duration: Toast.durations.LONG,
+    });
+  } catch (error) {
+    console.log(error);
+    Alert.alert(
+      "Something went wrong",
+      "Could not switch to professional. Please try again later!"
+    );
+  }
+}
+
 function ProfessionsOverview() {
   const authCtx = useContext(AuthContext);
+
   return (
     <BottomTabs.Navigator
       screenOptions={({ navigation }) => ({
@@ -39,18 +60,57 @@ function ProfessionsOverview() {
                 size={24}
                 color={tintColor}
                 onPress={() => {
-                  Alert.alert("Update Profile!", "Are you sure?", [
-                    {
-                      text: "Reset Password",
-                      onPress: () => navigation.navigate("ResetPassword"),
-                    },
-                    { text: "Logout", onPress: () => authCtx.logout() },
-                    {
-                      text: "Cancel",
-                      onPress: () => console.log("Cancel Pressed"),
-                      style: "cancel",
-                    },
-                  ]);
+                  Alert.alert(
+                    "Update Profile!",
+                    "Are you sure?",
+                    !authCtx.profUser
+                      ? [
+                          {
+                            text: "Reset Password",
+                            onPress: () => navigation.navigate("ResetPassword"),
+                          },
+                          {
+                            text: "Switch to Professional",
+                            onPress: () => {
+                              Alert.alert(
+                                "Switch to Professional account",
+                                "Are you sure?",
+                                [
+                                  {
+                                    text: "Yes,Please",
+                                    onPress: () => {
+                                      authCtx.setProfUser(true);
+                                      handleSwitchToProfessionalUser(
+                                        authCtx.token
+                                      );
+                                    },
+                                  },
+                                  {
+                                    text: "Cancel",
+                                    style: "cancel",
+                                  },
+                                ]
+                              );
+                            },
+                          },
+                          { text: "Logout", onPress: () => authCtx.logout() },
+                          {
+                            text: "Cancel",
+                            style: "cancel",
+                          },
+                        ]
+                      : [
+                          {
+                            text: "Reset Password",
+                            onPress: () => navigation.navigate("ResetPassword"),
+                          },
+                          { text: "Logout", onPress: () => authCtx.logout() },
+                          {
+                            text: "Cancel",
+                            style: "cancel",
+                          },
+                        ]
+                  );
                 }}
               />
             );
@@ -104,6 +164,19 @@ function ProfessionsOverview() {
           ),
         }}
       />
+      {authCtx.profUser && (
+        <BottomTabs.Screen
+          name="BookingForMe"
+          component={BookingForMe}
+          options={{
+            title: "Booking For Me",
+            tabBarLabel: "Booking For Me",
+            tabBarIcon: ({ color, size }) => (
+              <Ionicons name="cash-outline" size={size} color="white" />
+            ),
+          }}
+        />
+      )}
     </BottomTabs.Navigator>
   );
 }

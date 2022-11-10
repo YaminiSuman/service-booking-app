@@ -15,8 +15,9 @@ function LoginScreen({ navigation, route }) {
   async function loginHandler({ email, password }) {
     setIsAuthenticating(true);
     try {
-      const token = await loginUser(email, password);
-      authCtx.authenticate(token);
+      const data = await loginUser(email, password);
+      authCtx.authenticate(data.token);
+      authCtx.setProfUser(data.is_prof_user);
       if (redirectScreenName) {
         
         navigation.navigate(redirectScreenName);

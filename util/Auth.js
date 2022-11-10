@@ -43,7 +43,7 @@ export async function loginUser(email, password) {
     .post(`${Base_URL}/user/login/`, userData, axiosConfig)
     .then((res) => {
       console.log("**Login RESPONSE RECEIVED: ", res.data.token);
-      return res.data.token;
+      return res.data;
     })
     .catch((err) => {
       console.log("**AXIOS ERROR: ", err.response.data);
@@ -150,4 +150,40 @@ export async function updateUserPassword(password, token) {
     .catch((err) => {
       console.log("**AXIOS ERROR: ", err);
     });
+}
+
+export async function switchToProfessionalUser(is_prof_user, token) {
+  let userData = JSON.stringify({
+    is_prof_user: true,
+  });
+
+  let axiosConfig = {
+    headers: {
+      "Content-Type": "application/json;charset=UTF-8",
+      "Access-Control-Allow-Origin": "*",
+      Authorization: `${token}`,
+    },
+  };
+  return axios
+    .patch(`${Base_URL}/user/me/`, userData, axiosConfig)
+    .then((res) => {
+      console.log("User switched to professional account ", res.data);
+      return res.data;
+    })
+    .catch((err) => {
+      console.log("**AXIOS ERROR: ", err);
+    });
+}
+
+export async function getProfUserBookings(token) {
+  let axiosConfig = {
+    headers: {
+      "Content-Type": "application/json;charset=UTF-8",
+      "Access-Control-Allow-Origin": "*",
+      Authorization: `${token}`,
+    },
+  };
+  const { data } = await axios.get(`${Base_URL}/booking/forMe/`, axiosConfig);
+  console.log("Booking for me Response: ", data);
+  return data;
 }
