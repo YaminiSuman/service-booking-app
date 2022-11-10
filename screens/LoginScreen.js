@@ -9,8 +9,9 @@ import { loginUser } from "../util/Auth";
 function LoginScreen({ navigation, route }) {
   const [isAuthenticating, setIsAuthenticating] = useState(false);
   const authCtx = useContext(AuthContext);
-  
+
   const redirectScreenName = route.params?.redirectScreenName;
+  const callBackFunction = route.params?.callBackFunction;
 
   async function loginHandler({ email, password }) {
     setIsAuthenticating(true);
@@ -19,8 +20,10 @@ function LoginScreen({ navigation, route }) {
       authCtx.authenticate(data.token);
       authCtx.setProfUser(data.is_prof_user);
       if (redirectScreenName) {
-        
         navigation.navigate(redirectScreenName);
+      }
+      if (callBackFunction) {
+        callBackFunction(data.token);
       }
     } catch (error) {
       console.log(error.message);

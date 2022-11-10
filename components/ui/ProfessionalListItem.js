@@ -21,14 +21,39 @@ function ProfessionalListItem({
   const startTime = `${selectedDate} ${selectedStartTime}`;
   const endTime = `${selectedDate} ${selectedEndTime}`;
 
+  async function handleConfirmBookingRequest(token) {
+    try {
+      const booking = await confirmBookingRequest(
+        id,
+        startTime,
+        endTime,
+        token
+      );
+      if (booking) {
+        authCtx.setBookingByMe(booking);
+        navigation.navigate("MyBookingList");
+        Toast.show("Booking Successful", {
+          duration: Toast.durations.LONG,
+          position: Toast.positions.CENTER,
+        });
+      }
+    } catch (error) {
+      Alert.alert(
+        "Booking failed!",
+        "Something went wrong. Please try again later!"
+      );
+    }
+  }
+
   async function confirmBooking() {
     try {
-      const booking = await confirmBookingRequest(id, startTime, endTime, token);
-      authCtx.setBookingByMe(booking);
-      navigation.navigate("MyBookingList");
-      Toast.show("Booking Successful", {
-        duration: Toast.durations.LONG,
-      });
+      if (!authCtx.isAuthenticated) {
+        navigation.navigate("Login", {
+          callBackFunction: handleConfirmBookingRequest,
+        });
+      } else {
+        handleConfirmBookingRequest(token);
+      }
     } catch (error) {
       Alert.alert(
         "Booking failed!",
@@ -39,20 +64,14 @@ function ProfessionalListItem({
 
   function workerDetailHandler() {
     {
-      if (!authCtx.isAuthenticated) {
-        navigation.navigate("Login", {
-          redirectScreenName: "ProfessionalList",
-        });
-      } else {
-        Alert.alert("Confirm Booking!", "Are you sure?", [
-          {
-            text: "Cancel",
-            onPress: () => console.log("Cancel Pressed"),
-            style: "cancel",
-          },
-          { text: "Yes", onPress: () => confirmBooking() },
-        ]);
-      }
+      Alert.alert("Confirm Booking!", "Are you sure?", [
+        {
+          text: "Cancel",
+          onPress: () => console.log("Cancel Pressed"),
+          style: "cancel",
+        },
+        { text: "Yes", onPress: () => confirmBooking() },
+      ]);
     }
   }
   return (
