@@ -19,8 +19,9 @@ function renderBookingItem(itemData) {
 }
 
 function BookingList() {
-  const [bookings, setBookings] = useState([]);
+  
   const authCtx = useContext(AuthContext);
+  const [bookings, setBookings] = useState(authCtx.bookingByMe);
   const token = authCtx.token;
 
   useEffect(() => {
@@ -30,7 +31,7 @@ function BookingList() {
     };
 
     fetchBookings().catch(console.error);
-  }, []);
+  }, [authCtx]);
 
   return (
     <View style={styles.container}>

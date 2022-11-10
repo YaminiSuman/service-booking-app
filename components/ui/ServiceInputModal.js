@@ -50,7 +50,7 @@ function ServiceInputModal(props) {
     setOpenEndTimeDropDown(true);
   }, []);
 
-  async function handleAddGoal() {
+  async function handleGetDetails() {
     try {
       const workerDetails = await displayAvailableServiceWorkers(
         props.id,
@@ -144,7 +144,7 @@ function ServiceInputModal(props) {
             <View style={styles.button}>
               <Button
                 title="Get Details"
-                onPress={handleAddGoal}
+                onPress={handleGetDetails}
                 color="#b180f0"
               />
             </View>

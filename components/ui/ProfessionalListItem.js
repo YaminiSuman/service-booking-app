@@ -23,7 +23,8 @@ function ProfessionalListItem({
 
   async function confirmBooking() {
     try {
-      const res = await confirmBookingRequest(id, startTime, endTime, token);
+      const booking = await confirmBookingRequest(id, startTime, endTime, token);
+      authCtx.setBookingByMe(booking);
       navigation.navigate("MyBookingList");
       Toast.show("Booking Successful", {
         duration: Toast.durations.LONG,
