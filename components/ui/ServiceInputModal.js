@@ -52,18 +52,30 @@ function ServiceInputModal(props) {
 
   async function handleGetDetails() {
     try {
-      const workerDetails = await displayAvailableServiceWorkers(
-        props.id,
-        dateDropDownValue,
-        startTimeDropDownValue,
-        endTimeDropDownValue
-      );
-      navigation.navigate("ProfessionalList", {
-        workerDetails: workerDetails,
-        selectedDate: dateDropDownValue,
-        selectedStartTime: startTimeDropDownValue,
-        selectedEndTime: endTimeDropDownValue,
-      });
+      console.log("dateDropDownValue", dateDropDownValue);
+      console.log("startTimeDropDownValue", startTimeDropDownValue);
+      console.log("endTimeDropDownValue", endTimeDropDownValue);
+      if (!(dateDropDownValue && startTimeDropDownValue && endTimeDropDownValue))
+       {
+        console.log("***inside***");
+        Alert.alert(
+          "Required Field !!!",
+          "You need to fill in all the values to get details"
+        );
+      } else {
+        const workerDetails = await displayAvailableServiceWorkers(
+          props.id,
+          dateDropDownValue,
+          startTimeDropDownValue,
+          endTimeDropDownValue
+        );
+        navigation.navigate("ProfessionalList", {
+          workerDetails: workerDetails,
+          selectedDate: dateDropDownValue,
+          selectedStartTime: startTimeDropDownValue,
+          selectedEndTime: endTimeDropDownValue,
+        });
+      }
     } catch (error) {
       Alert.alert(
         "Something went wrong",
@@ -71,7 +83,7 @@ function ServiceInputModal(props) {
       );
     }
 
-    props.onCancel();
+     props.onCancel();
   }
 
   return (
@@ -166,7 +178,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: Colors.primary800,
-    
   },
   image: {
     width: 100,
