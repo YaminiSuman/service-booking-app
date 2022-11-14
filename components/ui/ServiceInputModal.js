@@ -52,12 +52,8 @@ function ServiceInputModal(props) {
 
   async function handleGetDetails() {
     try {
-      console.log("dateDropDownValue", dateDropDownValue);
-      console.log("startTimeDropDownValue", startTimeDropDownValue);
-      console.log("endTimeDropDownValue", endTimeDropDownValue);
       if (!(dateDropDownValue && startTimeDropDownValue && endTimeDropDownValue))
        {
-        console.log("***inside***");
         Alert.alert(
           "Required Field !!!",
           "You need to fill in all the values to get details"

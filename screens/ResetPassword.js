@@ -23,12 +23,13 @@ function ResetPassword() {
       } else if (password === confirmPassword) {
         const token = authCtx.token;
         const res = await updateUserPassword(password, token);
-        console.log(res);
-        // Add a Toast on screen.
-        Toast.show("Password changed successfully", {
-          duration: Toast.durations.LONG,
-        });
-        navigation.navigate("Categories");
+
+        if (res) {
+          Toast.show("Password changed successfully", {
+            duration: Toast.durations.LONG,
+          });
+          navigation.navigate("Categories");
+        }
       }
     } catch (error) {
       console.log(error);

@@ -152,11 +152,11 @@ export async function updateUserPassword(password, token) {
 
 export async function switchToProfessionalUser(is_prof_user,prof_id,county,area,cost, token) {
   let userData = JSON.stringify({
-    is_prof_user: true,
-    profession_type_id: 2,
-    county: "Dublin",
-    area: "Dublin 2",
-    cost: 50,
+    is_prof_user: is_prof_user,
+    profession_type_id: prof_id,
+    county: county,
+    area: area,
+    cost: cost,
   });
 
   let axiosConfig = {

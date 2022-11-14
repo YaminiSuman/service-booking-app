@@ -72,30 +72,19 @@ export const endTimeSlots = () => {
   ];
 };
 
-// async function dropDownValueHandler() {
-//   try {
-//     const data = await getDropDownValuesForProfAccountSwitching();
-//     return data;
-//   } catch (error) {
-//     console.log(error.message);
-//   }
-// }
-
-// const dropDownItemsForSwitching = await dropDownValueHandler();
-
 export async function dropDownItemsForCounty() {
   try {
     const data = await getDropDownValuesForProfAccountSwitching();
     let dropDownValue = data.county;
     let dropDownArr = [];
-    console.log("dropDownItemsForCounty", dropDownValue);
+
     for (let i = 0; i < dropDownValue.length; i++) {
       dropDownArr.push({
         label: dropDownValue[i],
         value: dropDownValue[i],
       });
     }
-    console.log("dropDownItemsForCounty", dropDownArr);
+
     return dropDownArr;
   } catch (error) {
     console.log(error.message);
@@ -114,7 +103,7 @@ export async function dropDownItemsForArea() {
         value: dropDownValue[i],
       });
     }
-    console.log("dropDownItemsForArea", dropDownArr);
+
     return dropDownArr;
   } catch (error) {
     console.log(error.message);
@@ -133,7 +122,7 @@ export async function dropDownItemsForCategory() {
         value: dropDownValue[i].id,
       });
     }
-    console.log("dropDownItemsForCategory", dropDownArr);
+
     return dropDownArr;
   } catch (error) {
     console.log(error.message);

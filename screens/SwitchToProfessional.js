@@ -71,9 +71,6 @@ function SwitchToProfessional() {
         Alert.alert("Please fill all the fields");
       } else {
         const token = authCtx.token;
-        console.log(
-          `${countyDropDownValue} -- ${areaDropDownValue} -- ${categoryDropDownValue}`
-        );
         const res = await switchToProfessionalUser(
           true,
           categoryDropDownValue,
@@ -82,7 +79,7 @@ function SwitchToProfessional() {
           cost,
           token
         );
-        console.log(res);
+        
         if (!!res) {
           Toast.show("Switched to professional account successfully", {
             duration: Toast.durations.LONG,
