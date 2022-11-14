@@ -18,10 +18,9 @@ import { Colors } from "./constants/styles";
 import AuthContextProvider from "./store/AuthContext";
 import { AuthContext } from "./store/AuthContext";
 import IconButton from "./components/ui/IconButton";
-import ResetPassword from "./components/ui/ResetPassword";
+import ResetPassword from "./screens/ResetPassword";
 import BookingForMe from "./screens/BookingForMe";
-import { switchToProfessionalUser } from "./util/Auth"
-
+import { switchToProfessionalUser } from "./util/Auth";
 
 const Stack = createNativeStackNavigator();
 const BottomTabs = createBottomTabNavigator();
@@ -29,7 +28,7 @@ const BottomTabs = createBottomTabNavigator();
 async function handleSwitchToProfessionalUser(token) {
   try {
     const res = await switchToProfessionalUser(true, token);
-    
+
     Toast.show("Switched to professional account successfully", {
       duration: Toast.durations.LONG,
     });

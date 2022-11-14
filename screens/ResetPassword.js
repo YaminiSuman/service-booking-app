@@ -3,10 +3,10 @@ import { useState, useContext } from "react";
 import { useNavigation } from "@react-navigation/native";
 import Toast from "react-native-root-toast";
 
-import { Colors } from "../../constants/styles";
-import Button from "./Button";
-import { AuthContext } from "../../store/AuthContext";
-import { updateUserPassword } from "../../util/Auth";
+import { Colors } from "../constants/styles";
+import Button from "../components/ui/Button";
+import { AuthContext } from "../store/AuthContext";
+import { updateUserPassword } from "../util/Auth";
 
 function ResetPassword() {
   const navigation = useNavigation();
