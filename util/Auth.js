@@ -114,22 +114,20 @@ export async function confirmBookingRequest(id, startTime, endTime, token) {
     });
 }
 
-
 export async function getMyBookings(token) {
-    let axiosConfig = {
-      headers: {
-        "Content-Type": "application/json;charset=UTF-8",
-        "Access-Control-Allow-Origin": "*",
-        Authorization: `${token}`,
-      },
-    };
+  let axiosConfig = {
+    headers: {
+      "Content-Type": "application/json;charset=UTF-8",
+      "Access-Control-Allow-Origin": "*",
+      Authorization: `${token}`,
+    },
+  };
   const { data } = await axios.get(`${Base_URL}/booking/byMe/`, axiosConfig);
   console.log("Booking List Response: ", data);
   return data;
 }
 
 export async function updateUserPassword(password, token) {
-  
   let userData = JSON.stringify({
     password: password,
   });
@@ -148,13 +146,17 @@ export async function updateUserPassword(password, token) {
       return res.data;
     })
     .catch((err) => {
-      console.log("**AXIOS ERROR: ", err);
+      console.log("**AXIOS ERROR: ", err.response.data);
     });
 }
 
-export async function switchToProfessionalUser(is_prof_user, token) {
+export async function switchToProfessionalUser(is_prof_user,prof_id,county,area,cost, token) {
   let userData = JSON.stringify({
     is_prof_user: true,
+    profession_type_id: 2,
+    county: "Dublin",
+    area: "Dublin 2",
+    cost: 50,
   });
 
   let axiosConfig = {
@@ -165,13 +167,17 @@ export async function switchToProfessionalUser(is_prof_user, token) {
     },
   };
   return axios
-    .patch(`${Base_URL}/user/me/`, userData, axiosConfig)
+    .post(
+      `${Base_URL}/profession/switch_to_prof_user/`,
+      userData,
+      axiosConfig
+    )
     .then((res) => {
       console.log("User switched to professional account ", res.data);
       return res.data;
     })
     .catch((err) => {
-      console.log("**AXIOS ERROR: ", err);
+      console.log("**AXIOS ERROR: ", err.response.data);
     });
 }
 
@@ -185,5 +191,20 @@ export async function getProfUserBookings(token) {
   };
   const { data } = await axios.get(`${Base_URL}/booking/forMe/`, axiosConfig);
   console.log("Booking for me Response: ", data);
+  return data;
+}
+
+export async function getDropDownValuesForProfAccountSwitching() {
+  let axiosConfig = {
+    headers: {
+      "Content-Type": "application/json;charset=UTF-8",
+      "Access-Control-Allow-Origin": "*",
+    },
+  };
+  const { data } = await axios.get(
+    `${Base_URL}/profession/professionalUserOptions/`,
+    axiosConfig
+  );
+  console.log("Dropdown value response: ", data);
   return data;
 }

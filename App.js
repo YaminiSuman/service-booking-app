@@ -20,26 +20,10 @@ import { AuthContext } from "./store/AuthContext";
 import IconButton from "./components/ui/IconButton";
 import ResetPassword from "./screens/ResetPassword";
 import BookingForMe from "./screens/BookingForMe";
-import { switchToProfessionalUser } from "./util/Auth";
+import SwitchToProfessional from "./screens/SwitchToProfessional";
 
 const Stack = createNativeStackNavigator();
 const BottomTabs = createBottomTabNavigator();
-
-async function handleSwitchToProfessionalUser(token) {
-  try {
-    const res = await switchToProfessionalUser(true, token);
-
-    Toast.show("Switched to professional account successfully", {
-      duration: Toast.durations.LONG,
-    });
-  } catch (error) {
-    console.log(error);
-    Alert.alert(
-      "Something went wrong",
-      "Could not switch to professional. Please try again later!"
-    );
-  }
-}
 
 function ProfessionsOverview() {
   const authCtx = useContext(AuthContext);
@@ -77,12 +61,10 @@ function ProfessionsOverview() {
                                 [
                                   {
                                     text: "Yes,Please",
-                                    onPress: () => {
-                                      authCtx.setProfUser(true);
-                                      handleSwitchToProfessionalUser(
-                                        authCtx.token
-                                      );
-                                    },
+                                    onPress: () =>
+                                      navigation.navigate(
+                                        "SwitchToProfessional"
+                                      ),
                                   },
                                   {
                                     text: "Cancel",
@@ -214,6 +196,11 @@ function AuthStack() {
         name="ResetPassword"
         component={ResetPassword}
         options={{ title: "Reset Password" }}
+      />
+      <Stack.Screen
+        name="SwitchToProfessional"
+        component={SwitchToProfessional}
+        options={{ title: "Switch To Professional Account" }}
       />
     </Stack.Navigator>
   );
