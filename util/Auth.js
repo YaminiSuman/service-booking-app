@@ -3,7 +3,7 @@ import axios from "axios";
 // const Base_URL = "http://10.10.165.37:8000/api";
 const Base_URL = "http://10.10.165.62:8081/api";
 
-export function createUser(email, password, name) {
+export async function createUser(email, password, name) {
   let userData = JSON.stringify({
     email: email,
     password: password,
@@ -16,11 +16,11 @@ export function createUser(email, password, name) {
       "Access-Control-Allow-Origin": "*",
     },
   };
-  axios
+  return axios
     .post(`${Base_URL}/user/create/`, userData, axiosConfig)
     .then((res) => {
-      console.log("**Signup RESPONSE RECEIVED: ", res);
-      return res.data.token;
+      console.log("**Signup RESPONSE RECEIVED: ", res.data);
+      return res.data;
     })
     .catch((err) => {
       console.log("**AXIOS ERROR: ", err.response.data);

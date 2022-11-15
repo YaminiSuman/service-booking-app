@@ -35,6 +35,7 @@ function ProfessionsOverview() {
         headerTintColor: "white",
         tabBarStyle: { backgroundColor: Colors.primary500 },
         tabBarActiveTintColor: "white",
+        tabBarInactiveTintColor: "#454443",
         headerRight: ({ tintColor }) => {
           if (authCtx.isAuthenticated) {
             return (
@@ -46,7 +47,7 @@ function ProfessionsOverview() {
                   Alert.alert(
                     "Update Profile!",
                     "Are you sure?",
-                    authCtx.profUser
+                    !authCtx.profUser
                       ? [
                           {
                             text: "Reset Password",
@@ -145,7 +146,7 @@ function ProfessionsOverview() {
           ),
         }}
       />
-      {authCtx.profUser && (
+      {authCtx.profUser && authCtx.token && (
         <BottomTabs.Screen
           name="BookingForMe"
           component={BookingForMe}

@@ -17,8 +17,14 @@ function LoginScreen({ navigation, route }) {
     setIsAuthenticating(true);
     try {
       const data = await loginUser(email, password);
-      authCtx.authenticate(data.token);
-      authCtx.setProfUser(data.is_prof_user);
+      if (data.token) {
+        authCtx.authenticate(data.token);
+        authCtx.setProfUser(data.is_prof_user);
+        if (!redirectScreenName) {
+          navigation.navigate("Categories");
+        }
+      }
+
       if (redirectScreenName) {
         navigation.navigate(redirectScreenName);
       }
@@ -27,10 +33,7 @@ function LoginScreen({ navigation, route }) {
       }
     } catch (error) {
       console.log(error.message);
-      Alert.alert(
-        "Authentication failed!",
-        "Could not log you in. Please check your credentials or try again later!"
-      );
+      Alert.alert("Authentication failed!", "Could not log you in. Please check your credentials or try again later!");
     }
 
     setIsAuthenticating(false);

@@ -89,7 +89,7 @@ function SwitchToProfessional() {
         }
       }
     } catch (error) {
-      console.log(error);
+      console.log(error.message);
       Alert.alert(
         "Something went wrong",
         "Could not switch to professional. Please try again later!"
@@ -101,9 +101,10 @@ function SwitchToProfessional() {
     <View style={styles.inputContainer}>
       <TextInput
         style={styles.input}
-        placeholder="Enter your service charge"
+        placeholder="Enter your cost per hour"
         value={cost}
         onChangeText={setCost}
+        keyboardType="number-pad"
       />
       <DropDownPicker
         placeholder="Select County"

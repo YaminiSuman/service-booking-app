@@ -46,6 +46,7 @@ function ProfessionalListItem({
         });
       }
     } catch (error) {
+      console.log(error.message);
       Alert.alert(
         "Booking failed!",
         "Something went wrong. Please try again later!"
@@ -56,13 +57,25 @@ function ProfessionalListItem({
   async function confirmBooking() {
     try {
       if (!authCtx.isAuthenticated) {
-        navigation.navigate("Login", {
-          callBackFunction: handleConfirmBookingRequest,
-        });
+        Alert.alert("Not Authenticated !!", "Take me to login?", [
+          {
+            text: "Cancel",
+            onPress: () => console.log("Cancel Pressed"),
+            style: "cancel",
+          },
+          {
+            text: "Yes, Please",
+            onPress: () =>
+              navigation.navigate("Login", {
+                callBackFunction: handleConfirmBookingRequest,
+              }),
+          },
+        ]);
       } else {
         handleConfirmBookingRequest(token);
       }
     } catch (error) {
+      console.log(error.message);
       Alert.alert(
         "Booking failed!",
         "Something went wrong. Please try again later!"

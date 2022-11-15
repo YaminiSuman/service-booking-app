@@ -32,7 +32,7 @@ function ResetPassword() {
         }
       }
     } catch (error) {
-      console.log(error);
+      console.log(error.message);
       Alert.alert(
         "Something went wrong",
         "Could not update password. Please try again later!"
@@ -46,14 +46,14 @@ function ResetPassword() {
         style={styles.input}
         placeholder="password"
         value={password}
-        secure
+        secureTextEntry={true}
         onChangeText={setPassword}
       />
       <TextInput
         style={styles.input}
         placeholder="confirm password"
         value={confirmPassword}
-        secure
+        secureTextEntry={true}
         onChangeText={setConfirmPassword}
       />
 

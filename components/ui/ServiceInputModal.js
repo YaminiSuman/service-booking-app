@@ -77,6 +77,7 @@ function ServiceInputModal(props) {
         });
       }
     } catch (error) {
+      console.log(error.message);
       Alert.alert(
         "Something went wrong",
         "Could not get details. Please try again later!"
