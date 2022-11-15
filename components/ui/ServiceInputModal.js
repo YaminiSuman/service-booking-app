@@ -1,4 +1,4 @@
-import { StyleSheet, View, Button, Modal, Image, Alert } from "react-native";
+import { StyleSheet, View, Modal, Image, Alert } from "react-native";
 import { useState, useCallback } from "react";
 import DropDownPicker from "react-native-dropdown-picker";
 import {
@@ -10,7 +10,7 @@ import { displayAvailableServiceWorkers } from "../../util/Auth";
 import { useNavigation } from "@react-navigation/native";
 
 import { Colors } from "../../constants/styles";
-
+import Button from "./Button";
 function ServiceInputModal(props) {
   const navigation = useNavigation();
 
@@ -52,8 +52,9 @@ function ServiceInputModal(props) {
 
   async function handleGetDetails() {
     try {
-      if (!(dateDropDownValue && startTimeDropDownValue && endTimeDropDownValue))
-       {
+      if (
+        !(dateDropDownValue && startTimeDropDownValue && endTimeDropDownValue)
+      ) {
         Alert.alert(
           "Required Field !!!",
           "You need to fill in all the values to get details"
@@ -67,6 +68,7 @@ function ServiceInputModal(props) {
         );
         navigation.navigate("ProfessionalList", {
           workerDetails: workerDetails,
+          category:props.category,
           selectedDate: dateDropDownValue,
           selectedStartTime: startTimeDropDownValue,
           selectedEndTime: endTimeDropDownValue,
@@ -79,7 +81,7 @@ function ServiceInputModal(props) {
       );
     }
 
-     props.onCancel();
+    props.onCancel();
   }
 
   return (
@@ -150,14 +152,12 @@ function ServiceInputModal(props) {
           />
           <View style={styles.buttonContainer}>
             <View style={styles.button}>
-              <Button
-                title="Get Details"
-                onPress={handleGetDetails}
-                color="#b180f0"
-              />
+              <Button onPress={handleGetDetails}>
+                Get Available Professionals
+              </Button>
             </View>
             <View style={styles.button}>
-              <Button title="Cancel" onPress={props.onCancel} color="#f31282" />
+              <Button onPress={props.onCancel}>Cancel</Button>
             </View>
           </View>
         </View>
@@ -196,6 +196,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
   },
   button: {
-    width: "30%",
+    marginHorizontal: 10,
+    //width: "30%",
   },
 });

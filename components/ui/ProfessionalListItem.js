@@ -1,6 +1,6 @@
 import { Pressable, StyleSheet, Text, View, Alert } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import { useContext } from "react";
+import { useEffect, useContext } from "react";
 import Toast from "react-native-root-toast";
 
 import { Colors } from "../../constants/styles";
@@ -9,6 +9,7 @@ import { confirmBookingRequest } from "../../util/Auth";
 
 function ProfessionalListItem({
   id,
+  category,
   cost,
   professional_user_name,
   selectedDate,
@@ -17,6 +18,13 @@ function ProfessionalListItem({
 }) {
   const navigation = useNavigation();
   const authCtx = useContext(AuthContext);
+
+  useEffect(() => {
+    navigation.setOptions({
+      title: `${category} List`,
+    });
+  }, [navigation, category]);
+
   const token = authCtx.token;
   const startTime = `${selectedDate} ${selectedStartTime}`;
   const endTime = `${selectedDate} ${selectedEndTime}`;

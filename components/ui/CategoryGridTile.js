@@ -10,10 +10,12 @@ function CategoryGridTile({ id, title, color, icon }) {
   const navigation = useNavigation();
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [serviceCategoryId, setServiceCategoryId] = useState(null);
-
+  const [serviceCategoryTitle, setServiceCategoryTitle] = useState(null);
+  
   const openCategoryModal = () => {
     setIsModalVisible(true);
     setServiceCategoryId(id);
+    setServiceCategoryTitle(title);
   };
 
   const closeCategoryModal = () => {
@@ -42,6 +44,7 @@ function CategoryGridTile({ id, title, color, icon }) {
           visible={isModalVisible}
           onCancel={closeCategoryModal}
           id={serviceCategoryId}
+          category={serviceCategoryTitle}
         />
       )}
     </>

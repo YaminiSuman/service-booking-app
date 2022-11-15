@@ -81,6 +81,7 @@ function SwitchToProfessional() {
         );
         
         if (!!res) {
+          authCtx.setProfUser(true)
           Toast.show("Switched to professional account successfully", {
             duration: Toast.durations.LONG,
           });
