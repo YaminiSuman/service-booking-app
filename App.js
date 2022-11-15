@@ -46,7 +46,7 @@ function ProfessionsOverview() {
                   Alert.alert(
                     "Update Profile!",
                     "Are you sure?",
-                    !authCtx.profUser
+                    authCtx.profUser
                       ? [
                           {
                             text: "Reset Password",

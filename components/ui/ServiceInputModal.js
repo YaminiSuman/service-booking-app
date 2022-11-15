@@ -1,4 +1,4 @@
-import { StyleSheet, View, Modal, Image, Alert } from "react-native";
+import { StyleSheet, View, Modal, Text, Alert } from "react-native";
 import { useState, useCallback } from "react";
 import DropDownPicker from "react-native-dropdown-picker";
 import {
@@ -11,6 +11,8 @@ import { useNavigation } from "@react-navigation/native";
 
 import { Colors } from "../../constants/styles";
 import Button from "./Button";
+import FlatButton from "./FlatButton";
+
 function ServiceInputModal(props) {
   const navigation = useNavigation();
 
@@ -68,7 +70,7 @@ function ServiceInputModal(props) {
         );
         navigation.navigate("ProfessionalList", {
           workerDetails: workerDetails,
-          category:props.category,
+          category: props.category,
           selectedDate: dateDropDownValue,
           selectedStartTime: startTimeDropDownValue,
           selectedEndTime: endTimeDropDownValue,
@@ -87,77 +89,75 @@ function ServiceInputModal(props) {
   return (
     <>
       <Modal visible={props.visible} animationType="slide">
-        <View style={styles.inputContainer}>
-          <Image
-            style={styles.image}
-            source={require("../../assets/randomIcon.png")}
-          />
-          <DropDownPicker
-            placeholder="Select preferred day"
-            open={openDateDropDown}
-            value={dateDropDownValue}
-            items={dateDropDownItems}
-            onOpen={onOpenDateDropDown}
-            onClose={() => setOpenDateDropDown(false)}
-            setValue={setDateDropDownValue}
-            setItems={setDateDropDownItems}
-            style={styles.dropDownContainer}
-            dropDownDirection="AUTO"
-            zIndex={3000}
-            zIndexInverse={1000}
-            dropDownContainerStyle={{
-              backgroundColor: "#e4d0ff",
-              marginLeft: 18,
-              width: "90%",
-            }}
-          />
+        <View style={styles.modal}>
+          <View style={styles.inputContainer}>
+            <Text style={styles.instructionText}>
+              Please choose your preference
+            </Text>
+            <DropDownPicker
+              placeholder="Select day"
+              open={openDateDropDown}
+              value={dateDropDownValue}
+              items={dateDropDownItems}
+              onOpen={onOpenDateDropDown}
+              onClose={() => setOpenDateDropDown(false)}
+              setValue={setDateDropDownValue}
+              setItems={setDateDropDownItems}
+              style={styles.dropDownContainer}
+              dropDownDirection="AUTO"
+              zIndex={3000}
+              zIndexInverse={1000}
+              dropDownContainerStyle={{
+                backgroundColor: Colors.primary100,
+                borderColor: Colors.primary800,
+              }}
+            />
 
-          <DropDownPicker
-            placeholder="Select preferred start time"
-            open={openStartTimeDropDown}
-            value={startTimeDropDownValue}
-            items={startTimeDropDownItems}
-            onOpen={onOpenStartTimeDropdown}
-            onClose={() => setOpenStartTimeDropDown(false)}
-            setValue={setStartTimeDropDownValue}
-            setItems={setStartTimeDropDownItems}
-            style={styles.dropDownContainer}
-            dropDownDirection="AUTO"
-            zIndex={2000}
-            zIndexInverse={2000}
-            dropDownContainerStyle={{
-              backgroundColor: "#e4d0ff",
-              marginLeft: 18,
-              width: "90%",
-            }}
-          />
-          <DropDownPicker
-            placeholder="Select preferred end time"
-            open={openEndTimeDropDown}
-            value={endTimeDropDownValue}
-            items={endTimeDropDownItems}
-            onOpen={onOpenEndTimeDropdown}
-            onClose={() => setOpenEndTimeDropDown(false)}
-            setValue={setEndTimeDropDownValue}
-            setItems={setEndTimeDropDownItems}
-            style={styles.dropDownContainer}
-            dropDownDirection="AUTO"
-            zIndex={1000}
-            zIndexInverse={3000}
-            dropDownContainerStyle={{
-              backgroundColor: "#e4d0ff",
-              marginLeft: 18,
-              width: "90%",
-            }}
-          />
-          <View style={styles.buttonContainer}>
-            <View style={styles.button}>
-              <Button onPress={handleGetDetails}>
-                Get Available Professionals
-              </Button>
-            </View>
-            <View style={styles.button}>
-              <Button onPress={props.onCancel}>Cancel</Button>
+            <DropDownPicker
+              placeholder="Select start time"
+              open={openStartTimeDropDown}
+              value={startTimeDropDownValue}
+              items={startTimeDropDownItems}
+              onOpen={onOpenStartTimeDropdown}
+              onClose={() => setOpenStartTimeDropDown(false)}
+              setValue={setStartTimeDropDownValue}
+              setItems={setStartTimeDropDownItems}
+              style={styles.dropDownContainer}
+              dropDownDirection="AUTO"
+              zIndex={2000}
+              zIndexInverse={2000}
+              dropDownContainerStyle={{
+                backgroundColor: Colors.primary100,
+                borderColor: Colors.primary800,
+              }}
+            />
+            <DropDownPicker
+              placeholder="Select end time"
+              open={openEndTimeDropDown}
+              value={endTimeDropDownValue}
+              items={endTimeDropDownItems}
+              onOpen={onOpenEndTimeDropdown}
+              onClose={() => setOpenEndTimeDropDown(false)}
+              setValue={setEndTimeDropDownValue}
+              setItems={setEndTimeDropDownItems}
+              style={styles.dropDownContainer}
+              dropDownDirection="AUTO"
+              zIndex={1000}
+              zIndexInverse={3000}
+              dropDownContainerStyle={{
+                backgroundColor: Colors.primary100,
+                borderColor: Colors.primary800,
+              }}
+            />
+            <View style={styles.buttonContainer}>
+              <View style={styles.button}>
+                <Button onPress={handleGetDetails}>
+                  Get Available Professionals
+                </Button>
+              </View>
+              <View style={styles.button}>
+                <FlatButton onPress={props.onCancel}>Cancel</FlatButton>
+              </View>
             </View>
           </View>
         </View>
@@ -169,34 +169,43 @@ function ServiceInputModal(props) {
 export default ServiceInputModal;
 
 const styles = StyleSheet.create({
-  inputContainer: {
+  modal: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: Colors.primary800,
+    backgroundColor: Colors.primary100,
   },
-  image: {
-    width: 100,
-    height: 100,
-    margin: 20,
+  inputContainer: {
+    marginTop: 150,
+    marginHorizontal: 32,
+    padding: 16,
+    borderRadius: 8,
+    backgroundColor: Colors.primary800,
+    elevation: 2,
+    shadowColor: "black",
+    shadowOffset: { width: 1, height: 1 },
+    shadowOpacity: 0.35,
+    shadowRadius: 4,
+  },
+  instructionText: {
+    fontSize: 20,
+    marginVertical: 17,
+    fontWeight: "bold",
+    color: "white",
   },
   dropDownContainer: {
     borderWidth: 1,
-    width: "90%",
     padding: 10,
-    borderColor: "#e4d0ff",
-    backgroundColor: "#e4d0ff",
-    color: "#120438",
+    borderColor: Colors.primary100,
+    backgroundColor: Colors.primary100,
+    color: "#e4d0ff",
     borderRadius: 6,
     marginBottom: 8,
-    marginLeft: 18,
   },
   buttonContainer: {
-    marginTop: 16,
-    flexDirection: "row",
+    marginVertical: 16,
   },
   button: {
     marginHorizontal: 10,
+    marginVertical: 10,
     //width: "30%",
   },
 });
