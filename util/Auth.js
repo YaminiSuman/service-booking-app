@@ -1,6 +1,6 @@
 import axios from "axios";
 
-// const Base_URL = "http://10.10.165.37:8000/api";
+//const Base_URL = "http://kul.pythonanywhere.com/api";
 const Base_URL = "http://10.10.165.62:8081/api";
 
 export async function createUser(email, password, name) {
@@ -27,10 +27,11 @@ export async function createUser(email, password, name) {
     });
 }
 
-export async function loginUser(email, password) {
+export async function loginUser(email, password, fcmToken) {
   let userData = JSON.stringify({
     email: email,
     password: password,
+    // fcmToken: fcmToken,
   });
 
   let axiosConfig = {
@@ -150,7 +151,14 @@ export async function updateUserPassword(password, token) {
     });
 }
 
-export async function switchToProfessionalUser(is_prof_user,prof_id,county,area,cost, token) {
+export async function switchToProfessionalUser(
+  is_prof_user,
+  prof_id,
+  county,
+  area,
+  cost,
+  token
+) {
   let userData = JSON.stringify({
     is_prof_user: is_prof_user,
     profession_type_id: prof_id,
@@ -167,11 +175,7 @@ export async function switchToProfessionalUser(is_prof_user,prof_id,county,area,
     },
   };
   return axios
-    .post(
-      `${Base_URL}/profession/switch_to_prof_user/`,
-      userData,
-      axiosConfig
-    )
+    .post(`${Base_URL}/profession/switch_to_prof_user/`, userData, axiosConfig)
     .then((res) => {
       console.log("User switched to professional account ", res.data);
       return res.data;

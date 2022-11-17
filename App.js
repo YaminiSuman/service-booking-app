@@ -3,10 +3,11 @@ import { Alert } from "react-native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { StatusBar } from "expo-status-bar";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { Ionicons } from "@expo/vector-icons";
 import { RootSiblingParent } from "react-native-root-siblings";
 import Toast from "react-native-root-toast";
+import * as Notifications from "expo-notifications";
 
 import LoginScreen from "./screens/LoginScreen";
 import SignupScreen from "./screens/SignupScreen";
@@ -24,6 +25,16 @@ import SwitchToProfessional from "./screens/SwitchToProfessional";
 
 const Stack = createNativeStackNavigator();
 const BottomTabs = createBottomTabNavigator();
+
+Notifications.setNotificationHandler({
+  handleNotification: async () => {
+    return {
+      shouldPlaySound: false,
+      shouldSetBadge: false,
+      shouldShowAlert: true,
+    };
+  },
+});
 
 function ProfessionsOverview() {
   const authCtx = useContext(AuthContext);
@@ -209,6 +220,39 @@ function AuthStack() {
 
 function Navigation() {
   const authCtx = useContext(AuthContext);
+    useEffect(() => {
+      async function configurePushNotifications() {
+        const { status } = await Notifications.getPermissionsAsync();
+        let finalStatus = status;
+        console.log("finalStatus", finalStatus);
+        if (finalStatus !== "granted") {
+          const { status } = await Notifications.requestPermissionsAsync();
+          finalStatus = status;
+        }
+
+        if (finalStatus !== "granted") {
+          Alert.alert(
+            "Permission required",
+            "Push notifications need the appropriate permissions."
+          );
+          return;
+        }
+
+        const pushTokenData = await Notifications.getDevicePushTokenAsync();
+        console.log("pushTokenData", pushTokenData);
+        authCtx.setFcmToken(pushTokenData.data);
+        // pushTokenData { "data": "ExponentPushToken[8BkQ30AH25lBEzI3cW4K0Q]", "type": "expo" }
+
+        if (Platform.OS === "android") {
+          Notifications.setNotificationChannelAsync("default", {
+            name: "default",
+            importance: Notifications.AndroidImportance.DEFAULT,
+          });
+        }
+      }
+
+      configurePushNotifications();
+    }, []);
   return (
     <NavigationContainer>
       <AuthStack />
@@ -217,6 +261,8 @@ function Navigation() {
 }
 
 export default function App() {
+
+
   return (
     <>
       <StatusBar style="light" />

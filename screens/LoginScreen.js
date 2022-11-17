@@ -12,11 +12,12 @@ function LoginScreen({ navigation, route }) {
 
   const redirectScreenName = route.params?.redirectScreenName;
   const callBackFunction = route.params?.callBackFunction;
-
+  const fcmToken = authCtx.fcmToken;
+  console.log("fcmToken", fcmToken);
   async function loginHandler({ email, password }) {
     setIsAuthenticating(true);
     try {
-      const data = await loginUser(email, password);
+      const data = await loginUser(email, password, fcmToken);
       if (data.token) {
         authCtx.authenticate(data.token);
         authCtx.setProfUser(data.is_prof_user);
