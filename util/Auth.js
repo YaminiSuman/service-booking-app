@@ -31,7 +31,7 @@ export async function loginUser(email, password, fcmToken) {
   let userData = JSON.stringify({
     email: email,
     password: password,
-    // fcmToken: fcmToken,
+    fcm_token: fcmToken,
   });
 
   let axiosConfig = {

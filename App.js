@@ -29,8 +29,8 @@ const BottomTabs = createBottomTabNavigator();
 Notifications.setNotificationHandler({
   handleNotification: async () => {
     return {
-      shouldPlaySound: false,
-      shouldSetBadge: false,
+      shouldPlaySound: true,
+      shouldSetBadge: true,
       shouldShowAlert: true,
     };
   },
@@ -220,39 +220,38 @@ function AuthStack() {
 
 function Navigation() {
   const authCtx = useContext(AuthContext);
-    useEffect(() => {
-      async function configurePushNotifications() {
-        const { status } = await Notifications.getPermissionsAsync();
-        let finalStatus = status;
-        console.log("finalStatus", finalStatus);
-        if (finalStatus !== "granted") {
-          const { status } = await Notifications.requestPermissionsAsync();
-          finalStatus = status;
-        }
+  useEffect(() => {
+    async function configurePushNotifications() {
+      const { status } = await Notifications.getPermissionsAsync();
+      let finalStatus = status;
 
-        if (finalStatus !== "granted") {
-          Alert.alert(
-            "Permission required",
-            "Push notifications need the appropriate permissions."
-          );
-          return;
-        }
-
-        const pushTokenData = await Notifications.getDevicePushTokenAsync();
-        console.log("pushTokenData", pushTokenData);
-        authCtx.setFcmToken(pushTokenData.data);
-        // pushTokenData { "data": "ExponentPushToken[8BkQ30AH25lBEzI3cW4K0Q]", "type": "expo" }
-
-        if (Platform.OS === "android") {
-          Notifications.setNotificationChannelAsync("default", {
-            name: "default",
-            importance: Notifications.AndroidImportance.DEFAULT,
-          });
-        }
+      if (finalStatus !== "granted") {
+        const { status } = await Notifications.requestPermissionsAsync();
+        finalStatus = status;
       }
 
-      configurePushNotifications();
-    }, []);
+      if (finalStatus !== "granted") {
+        Alert.alert(
+          "Permission required",
+          "Push notifications need the appropriate permissions."
+        );
+        return;
+      }
+
+      const pushTokenData = (await Notifications.getDevicePushTokenAsync())
+        .data;
+      authCtx.setFcmToken(pushTokenData);
+
+      if (Platform.OS === "android") {
+        Notifications.setNotificationChannelAsync("default", {
+          name: "default",
+          importance: Notifications.AndroidImportance.DEFAULT,
+        });
+      }
+    }
+
+    configurePushNotifications();
+  }, []);
   return (
     <NavigationContainer>
       <AuthStack />
@@ -261,8 +260,6 @@ function Navigation() {
 }
 
 export default function App() {
-
-
   return (
     <>
       <StatusBar style="light" />
