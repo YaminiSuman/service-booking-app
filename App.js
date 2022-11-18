@@ -22,6 +22,7 @@ import IconButton from "./components/ui/IconButton";
 import ResetPassword from "./screens/ResetPassword";
 import BookingForMe from "./screens/BookingForMe";
 import SwitchToProfessional from "./screens/SwitchToProfessional";
+import { logout } from "./util/Auth";
 
 const Stack = createNativeStackNavigator();
 const BottomTabs = createBottomTabNavigator();
@@ -86,7 +87,12 @@ function ProfessionsOverview() {
                               );
                             },
                           },
-                          { text: "Logout", onPress: () => authCtx.logout() },
+                        {
+                          text: "Logout", onPress: () => {
+                            logout(authCtx.token).then(authCtx.logout());
+                            
+                          }
+                        },
                           {
                             text: "Cancel",
                             style: "cancel",
@@ -97,7 +103,11 @@ function ProfessionsOverview() {
                             text: "Reset Password",
                             onPress: () => navigation.navigate("ResetPassword"),
                           },
-                          { text: "Logout", onPress: () => authCtx.logout() },
+                        {
+                          text: "Logout", onPress: () => {
+                           logout(authCtx.token).then(authCtx.logout());
+                          }
+                        },
                           {
                             text: "Cancel",
                             style: "cancel",

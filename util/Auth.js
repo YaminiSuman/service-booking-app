@@ -212,3 +212,22 @@ export async function getDropDownValuesForProfAccountSwitching() {
   console.log("Dropdown value response: ", data);
   return data;
 }
+
+export async function logout(token) {
+  let axiosConfig = {
+    headers: {
+      "Content-Type": "application/json;charset=UTF-8",
+      "Access-Control-Allow-Origin": "*",
+      Authorization: `${token}`,
+    },
+  };
+  return axios
+    .post(`${Base_URL}/user/logout/`, {}, axiosConfig)
+    .then((res) => {
+      console.log("Logout Response: ", res.data);
+      return res.data;
+    })
+    .catch((err) => {
+      console.log("**AXIOS ERROR: ", err.response.data);
+    });
+}
