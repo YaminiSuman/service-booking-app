@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "service-booking-app",
-    "slug": "service-booking-app",
+    "name": "ub-neb",
+    "slug": "ub-neb",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -30,6 +30,14 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "65003f6a-575f-4c79-9c90-7d956d643217"
+      }
     }
+  },
+  "react-native-google-mobile-ads": {
+    "android_app_id": "ca-app-pub-2257380265518883~1039808487"
   }
 }

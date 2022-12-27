@@ -1,7 +1,7 @@
 import axios from "axios";
 
-//const Base_URL = "http://kul.pythonanywhere.com/api";
-const Base_URL = "http://10.10.165.62:8081/api";
+const Base_URL = "http://kul.pythonanywhere.com/api";
+//const Base_URL = "http://10.10.165.62:8081/api";
 
 export async function createUser(email, password, name) {
   let userData = JSON.stringify({
