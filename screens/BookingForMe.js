@@ -24,14 +24,15 @@ function BookingForMe() {
   const token = authCtx.token;
 
   useEffect(() => {
-    const fetchBookings = async () => {
-      const bookings = await getProfUserBookings(token);
-      setBookings(bookings);
-    };
-
-    fetchBookings().catch(console.error);
+	let interval = setInterval(async () => {
+    const bookings = await getProfUserBookings(token);
+    setBookings(bookings);
+	}, 2000);
+	return () => {
+		clearInterval(interval);
+	};
   }, []);
-
+  
   return (
     <View style={styles.container}>
       <FlatList

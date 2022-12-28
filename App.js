@@ -206,7 +206,7 @@ function AuthStack() {
       <Stack.Screen name="Login" component={LoginScreen} />
       <Stack.Screen name="Signup" component={SignupScreen} />
       <Stack.Screen
-        name="Welcome"
+        name="ConfirmBooking"
         component={WelcomeScreen}
         options={{
           headerRight: ({ tintColor }) => (
@@ -256,6 +256,8 @@ function Navigation() {
         Notifications.setNotificationChannelAsync("default", {
           name: "default",
           importance: Notifications.AndroidImportance.DEFAULT,
+          vibrationPattern: [0, 250, 250, 250],
+          lightColor: "#FF231F7C",
         });
       }
     }

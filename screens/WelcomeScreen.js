@@ -4,7 +4,7 @@ function WelcomeScreen() {
   return (
     <View style={styles.rootContainer}>
       <Text style={styles.title}>Welcome!</Text>
-      <Text>You authenticated successfully!</Text>
+      <Text>Development in progress..!</Text>
     </View>
   );
 }
