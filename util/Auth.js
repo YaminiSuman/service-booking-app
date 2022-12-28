@@ -43,7 +43,7 @@ export async function loginUser(email, password, fcmToken) {
   return axios
     .post(`${Base_URL}/user/login/`, userData, axiosConfig)
     .then((res) => {
-      console.log("**Login RESPONSE RECEIVED: ", res.data.token);
+      console.log("**Login RESPONSE RECEIVED: ", res.data);
       return res.data;
     })
     .catch((err) => {

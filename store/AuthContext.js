@@ -1,4 +1,5 @@
 import { createContext, useState } from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export const AuthContext = createContext({
   token: "",
@@ -20,8 +21,13 @@ function AuthContextProvider({ children }) {
 
   const [bookingByMe, updateBookingByMe] = useState([]);
 
-  function authenticate(token) {
+  function authenticate(token, isProfUser) {
     setAuthToken(token);
+    setProfUser(isProfUser);
+    AsyncStorage.setItem("token", token);
+    if (JSON.stringify(isProfUser)) {
+      AsyncStorage.setItem("isProfUser", JSON.stringify(isProfUser));
+    }
   }
 
   function setFcmToken(token) {
@@ -29,6 +35,8 @@ function AuthContextProvider({ children }) {
   }
 
   function logout() {
+    AsyncStorage.removeItem("token");
+    AsyncStorage.removeItem("isProfUser");
     setAuthToken(null);
   }
 

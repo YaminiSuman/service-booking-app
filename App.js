@@ -8,6 +8,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { RootSiblingParent } from "react-native-root-siblings";
 import Toast from "react-native-root-toast";
 import * as Notifications from "expo-notifications";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import LoginScreen from "./screens/LoginScreen";
 import SignupScreen from "./screens/SignupScreen";
@@ -39,7 +40,6 @@ Notifications.setNotificationHandler({
 
 function ProfessionsOverview() {
   const authCtx = useContext(AuthContext);
-
   return (
     <BottomTabs.Navigator
       screenOptions={({ navigation }) => ({
@@ -87,12 +87,12 @@ function ProfessionsOverview() {
                               );
                             },
                           },
-                        {
-                          text: "Logout", onPress: () => {
-                            logout(authCtx.token).then(authCtx.logout());
-                            
-                          }
-                        },
+                          {
+                            text: "Logout",
+                            onPress: () => {
+                              logout(authCtx.token).then(authCtx.logout());
+                            },
+                          },
                           {
                             text: "Cancel",
                             style: "cancel",
@@ -103,11 +103,12 @@ function ProfessionsOverview() {
                             text: "Reset Password",
                             onPress: () => navigation.navigate("ResetPassword"),
                           },
-                        {
-                          text: "Logout", onPress: () => {
-                           logout(authCtx.token).then(authCtx.logout());
-                          }
-                        },
+                          {
+                            text: "Logout",
+                            onPress: () => {
+                              logout(authCtx.token).then(authCtx.logout());
+                            },
+                          },
                           {
                             text: "Cancel",
                             style: "cancel",
@@ -271,13 +272,31 @@ function Navigation() {
   );
 }
 
+function Root() {
+  const authCtx = useContext(AuthContext);
+
+  useEffect(() => {
+    async function fetchToken() {
+      const storedToken = await AsyncStorage.getItem("token");
+      const profUser = await AsyncStorage.getItem("isProfUser");
+      if (storedToken) {
+        authCtx.authenticate(storedToken, JSON.parse(profUser));
+      }
+    }
+
+    fetchToken();
+  }, []);
+
+  return <Navigation />;
+}
+
 export default function App() {
   return (
     <>
       <StatusBar style="light" />
       <RootSiblingParent>
         <AuthContextProvider>
-          <Navigation />
+          <Root />
         </AuthContextProvider>
       </RootSiblingParent>
     </>
