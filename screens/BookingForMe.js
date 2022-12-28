@@ -1,5 +1,6 @@
 import { Text, FlatList, View, StyleSheet } from "react-native";
-import { useState, useEffect, useContext } from "react";
+import { useState, useContext, useCallback } from "react";
+import { useFocusEffect } from "@react-navigation/native";
 import { Colors } from "../constants/styles";
 import { getProfUserBookings } from "../util/Auth";
 import { AuthContext } from "../store/AuthContext";
@@ -23,16 +24,23 @@ function BookingForMe() {
   const authCtx = useContext(AuthContext);
   const token = authCtx.token;
 
-  useEffect(() => {
-	let interval = setInterval(async () => {
-    const bookings = await getProfUserBookings(token);
-    setBookings(bookings);
-	}, 2000);
-	return () => {
-		clearInterval(interval);
-	};
-  }, []);
-  
+  useFocusEffect(
+    useCallback(() => {
+      const fetchBookings = async () => {
+        try {
+          const bookings = await getProfUserBookings(token);
+          setBookings(bookings);
+        } catch (e) {
+          // Handle error
+        }
+      };
+
+      fetchBookings();
+
+      return () => {};
+    }, [])
+  );
+
   return (
     <View style={styles.container}>
       <FlatList
