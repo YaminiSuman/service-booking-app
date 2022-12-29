@@ -10,7 +10,7 @@ function ProfessionalList({ route }) {
   const selectedEndTime = route.params.selectedEndTime;
   const category = route.params.category;
 
-  if (professionalDetail.length) {
+  if (professionalDetail?.length) {
 
     return (
       <FlatList

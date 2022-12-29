@@ -79,13 +79,19 @@ function ServiceInputModal(props) {
           endTimeDropDownValue,
           token
         );
-        navigation.navigate("ProfessionalList", {
-          workerDetails: workerDetails,
-          category: props.category,
-          selectedDate: dateDropDownValue,
-          selectedStartTime: startTimeDropDownValue,
-          selectedEndTime: endTimeDropDownValue,
-        });
+        console.log("workerDetails", workerDetails);
+        if (workerDetails.status == "406") {
+          Alert.alert(i18n.t("End time should be later than start time"));
+        } else {
+          props.onCancel();
+          navigation.navigate("ProfessionalList", {
+            workerDetails: workerDetails,
+            category: props.category,
+            selectedDate: dateDropDownValue,
+            selectedStartTime: startTimeDropDownValue,
+            selectedEndTime: endTimeDropDownValue,
+          });
+        }
       }
     } catch (error) {
       console.log(error.message);
@@ -94,8 +100,6 @@ function ServiceInputModal(props) {
         i18n.t("Could not get details. Please try again later!")
       );
     }
-
-    props.onCancel();
   }
 
   return (
@@ -168,7 +172,9 @@ function ServiceInputModal(props) {
                 </Button>
               </View>
               <View style={styles.button}>
-                <FlatButton onPress={props.onCancel}>{i18n.t("Cancel")}</FlatButton>
+                <FlatButton onPress={props.onCancel}>
+                  {i18n.t("Cancel")}
+                </FlatButton>
               </View>
             </View>
           </View>

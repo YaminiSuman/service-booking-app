@@ -88,6 +88,7 @@ export async function displayAvailableServiceWorkers(
     })
     .catch((err) => {
       console.log("**AXIOS ERROR: ", err.response.data);
+      return err.response
     });
 }
 
