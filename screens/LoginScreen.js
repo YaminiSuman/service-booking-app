@@ -1,10 +1,16 @@
 import { useState, useContext } from "react";
 import { Alert } from "react-native";
 
+import { I18n } from "i18n-js";
+import { translations, defaultLocale } from "../i18n/supportedLanguages";
+
 import AuthContent from "../components/Auth/AuthContent";
 import LoadingOverlay from "../components/ui/LoadingOverlay";
 import { AuthContext } from "../store/AuthContext";
 import { loginUser } from "../util/Auth";
+
+const i18n = new I18n(translations);
+i18n.locale = defaultLocale;
 
 function LoginScreen({ navigation, route }) {
   const [isAuthenticating, setIsAuthenticating] = useState(false);
@@ -13,7 +19,7 @@ function LoginScreen({ navigation, route }) {
   const redirectScreenName = route.params?.redirectScreenName;
   const callBackFunction = route.params?.callBackFunction;
   const fcmToken = authCtx.fcmToken;
-  console.log("fcmToken", fcmToken);
+ 
   async function loginHandler({ email, password }) {
     setIsAuthenticating(true);
     try {
@@ -33,14 +39,14 @@ function LoginScreen({ navigation, route }) {
       }
     } catch (error) {
       console.log(error.message);
-      Alert.alert("Authentication failed!", "Could not log you in. Please check your credentials or try again later!");
+      Alert.alert(i18n.t("Authentication failed!"), i18n.t("Could not log you in. Please check your credentials or try again later!"));
     }
 
     setIsAuthenticating(false);
   }
 
   if (isAuthenticating) {
-    return <LoadingOverlay message="Logging in..." />;
+    return <LoadingOverlay message={i18n.t("Logging in...")} />;
   }
 
   return <AuthContent isLogin onAuthenticate={loginHandler} />;
