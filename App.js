@@ -4,7 +4,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { StatusBar } from "expo-status-bar";
 import { useContext, useEffect } from "react";
-import { Ionicons } from "@expo/vector-icons";
+import { MaterialIcons } from "@expo/vector-icons";
 import { RootSiblingParent } from "react-native-root-siblings";
 import * as Notifications from "expo-notifications";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -58,7 +58,7 @@ function ProfessionsOverview() {
           if (authCtx.isAuthenticated) {
             return (
               <IconButton
-                icon="settings-outline"
+                icon="settings"
                 size={24}
                 color={tintColor}
                 onPress={() => {
@@ -130,7 +130,7 @@ function ProfessionsOverview() {
           } else {
             return (
               <IconButton
-                icon="power-outline"
+                icon="login"
                 size={24}
                 color={tintColor}
                 onPress={() => {
@@ -162,7 +162,7 @@ function ProfessionsOverview() {
           title: `${i18n.t("Categories")}`,
           tabBarLabel: "Categories",
           tabBarIcon: ({ color, size }) => (
-            <Ionicons name="hourglass" size={size} color="white" />
+            <MaterialIcons name="category" size={size} color="white" />
           ),
         }}
       />
@@ -173,7 +173,7 @@ function ProfessionsOverview() {
           title: "My Bookings",
           tabBarLabel: "My Bookings",
           tabBarIcon: ({ color, size }) => (
-            <Ionicons name="calendar" size={size} color="white" />
+            <MaterialIcons name="date-range" size={size} color="white" />
           ),
         }}
       />
@@ -185,7 +185,7 @@ function ProfessionsOverview() {
             title: "Booking For Me",
             tabBarLabel: "Booking For Me",
             tabBarIcon: ({ color, size }) => (
-              <Ionicons name="cash-outline" size={size} color="white" />
+              <MaterialIcons name="work" size={size} color="white" />
             ),
           }}
         />
