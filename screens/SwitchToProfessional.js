@@ -4,6 +4,9 @@ import { useNavigation } from "@react-navigation/native";
 import Toast from "react-native-root-toast";
 import DropDownPicker from "react-native-dropdown-picker";
 
+import { I18n } from "i18n-js";
+import { translations, defaultLocale } from "./i18n/supportedLanguages";
+
 import { Colors } from "../constants/styles";
 import Button from "../components/ui/Button";
 import { AuthContext } from "../store/AuthContext";
@@ -13,6 +16,9 @@ import {
   dropDownItemsForArea,
   dropDownItemsForCategory,
 } from "../util/Common";
+
+const i18n = new I18n(translations);
+i18n.locale = defaultLocale;
 
 function SwitchToProfessional() {
   const navigation = useNavigation();
@@ -68,7 +74,7 @@ function SwitchToProfessional() {
       if (
         !(countyDropDownValue && areaDropDownValue && categoryDropDownValue)
       ) {
-        Alert.alert("Please fill all the fields");
+        Alert.alert(i18n.t("Please fill all the fields"));
       } else {
         const token = authCtx.token;
         const res = await switchToProfessionalUser(
@@ -82,7 +88,7 @@ function SwitchToProfessional() {
         
         if (!!res) {
           authCtx.setProfUser(true)
-          Toast.show("Switched to professional account successfully", {
+          Toast.show(i18n.t("Switched to professional account successfully"), {
             duration: Toast.durations.LONG,
           });
           navigation.navigate("Categories");
@@ -91,8 +97,8 @@ function SwitchToProfessional() {
     } catch (error) {
       console.log(error.message);
       Alert.alert(
-        "Something went wrong",
-        "Could not switch to professional. Please try again later!"
+        i18n.t("Something went wrong"),
+        i18n.t("Could not switch to professional. Please try again later!")
       );
     }
   }
@@ -101,13 +107,13 @@ function SwitchToProfessional() {
     <View style={styles.inputContainer}>
       <TextInput
         style={styles.input}
-        placeholder="Enter your cost per hour"
+        placeholder={i18n.t("Enter your cost per hour")}
         value={cost}
         onChangeText={setCost}
         keyboardType="number-pad"
       />
       <DropDownPicker
-        placeholder="Select County"
+        placeholder={i18n.t("Select County")}
         open={openCountyDropDown}
         value={countyDropDownValue}
         items={countyDropDownItems}
@@ -125,7 +131,7 @@ function SwitchToProfessional() {
         }}
       />
       <DropDownPicker
-        placeholder="Select Area"
+        placeholder={i18n.t("Select Area")}
         open={openAreaDropDown}
         value={areaDropDownValue}
         items={areaDropDownItems}
@@ -143,7 +149,7 @@ function SwitchToProfessional() {
         }}
       />
       <DropDownPicker
-        placeholder="Select Category"
+        placeholder={i18n.t("Select Category")}
         open={openCategoryDropDown}
         value={categoryDropDownValue}
         items={categoryDropDownItems}
@@ -163,7 +169,7 @@ function SwitchToProfessional() {
 
       <View style={styles.buttons}>
         <Button onPress={handleSwitchToProfessional}>
-          Switch to Professional Account
+          {i18n.t("Switch to Professional Account")}
         </Button>
       </View>
     </View>
