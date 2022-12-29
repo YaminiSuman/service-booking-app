@@ -63,30 +63,30 @@ function ProfessionsOverview() {
                 color={tintColor}
                 onPress={() => {
                   Alert.alert(
-                    `Hi ${user}`,
-                    "Update Profile?",
+                    `${i18n.t("Hi")} ${user}`,
+                    i18n.t("Update Profile?"),
                     !authCtx.profUser
                       ? [
                           {
-                            text: "Reset Password",
+                            text: i18n.t("Reset Password"),
                             onPress: () => navigation.navigate("ResetPassword"),
                           },
                           {
-                            text: "Switch to Professional",
+                            text: i18n.t("Switch to Professional"),
                             onPress: () => {
                               Alert.alert(
-                                "Switch to Professional account",
-                                "Are you sure?",
+                                i18n.t("Switch to Professional account"),
+                                i18n.t("Are you sure?"),
                                 [
                                   {
-                                    text: "Yes,Please",
+                                    text: i18n.t("Yes, please"),
                                     onPress: () =>
                                       navigation.navigate(
                                         "SwitchToProfessional"
                                       ),
                                   },
                                   {
-                                    text: "Cancel",
+                                    text: i18n.t("Cancel"),
                                     style: "cancel",
                                   },
                                 ]
@@ -94,29 +94,29 @@ function ProfessionsOverview() {
                             },
                           },
                           {
-                            text: "Logout",
+                            text: i18n.t("Logout"),
                             onPress: () => {
                               logout(authCtx.token).then(authCtx.logout());
                             },
                           },
                           {
-                            text: "Cancel",
+                            text: i18n.t("Cancel"),
                             style: "cancel",
                           },
                         ]
                       : [
                           {
-                            text: "Reset Password",
+                            text: i18n.t("Reset Password"),
                             onPress: () => navigation.navigate("ResetPassword"),
                           },
                           {
-                            text: "Logout",
+                            text: i18n.t("Logout"),
                             onPress: () => {
                               logout(authCtx.token).then(authCtx.logout());
                             },
                           },
                           {
-                            text: "Cancel",
+                            text: i18n.t("Cancel"),
                             style: "cancel",
                           },
                         ],
@@ -134,16 +134,16 @@ function ProfessionsOverview() {
                 size={24}
                 color={tintColor}
                 onPress={() => {
-                  Alert.alert("Have an account?", "Sign up or Login!", [
+                  Alert.alert(i18n.t("Have an account?"), i18n.t("Sign up or Login!"), [
                     {
-                      text: "Login",
+                      text: i18n.t("Login"),
                       onPress: () =>
                         navigation.navigate("Login", {
                           redirectScreenName: "Categories",
                         }),
                     },
                     {
-                      text: "Cancel",
+                      text: i18n.t("Cancel"),
                       onPress: () => console.log("Cancel Pressed"),
                       style: "cancel",
                     },
@@ -182,8 +182,8 @@ function ProfessionsOverview() {
           name="BookingForMe"
           component={BookingForMe}
           options={{
-            title: "Booking For Me",
-            tabBarLabel: "Booking For Me",
+            title: i18n.t("Booking For Me"),
+            tabBarLabel: i18n.t("Booking For Me"),
             tabBarIcon: ({ color, size }) => (
               <MaterialIcons name="work" size={size} color="white" />
             ),
@@ -211,10 +211,18 @@ function AuthStack() {
       <Stack.Screen
         name="ProfessionalList"
         component={ProfessionalList}
-        options={{ title: "Professional List" }}
+        options={{ title: i18n.t("Professional List") }}
       />
-      <Stack.Screen name="Login" component={LoginScreen} />
-      <Stack.Screen name="Signup" component={SignupScreen} />
+      <Stack.Screen
+        name="Login"
+        component={LoginScreen}
+        options={{ title: i18n.t("Login") }}
+      />
+      <Stack.Screen
+        name="Signup"
+        component={SignupScreen}
+        options={{ title: i18n.t("Signup") }}
+      />
       <Stack.Screen
         name="WelcomeScreen"
         component={WelcomeScreen}
@@ -227,12 +235,12 @@ function AuthStack() {
       <Stack.Screen
         name="ResetPassword"
         component={ResetPassword}
-        options={{ title: "Reset Password" }}
+        options={{ title: i18n.t("Reset Password") }}
       />
       <Stack.Screen
         name="SwitchToProfessional"
         component={SwitchToProfessional}
-        options={{ title: "Switch To Professional Account" }}
+        options={{ title: i18n.t("Switch To Professional Account") }}
       />
     </Stack.Navigator>
   );
@@ -252,8 +260,8 @@ function Navigation() {
 
       if (finalStatus !== "granted") {
         Alert.alert(
-          "Permission required",
-          "Push notifications need the appropriate permissions."
+          i18n.t("Permission required"),
+          i18n.t("Push notifications need the appropriate permissions.")
         );
         return;
       }
