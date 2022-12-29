@@ -28,6 +28,7 @@ function AuthContextProvider({ children }) {
     setProfUser(isProfUser);
     setUserName(userName);
     AsyncStorage.setItem("token", token);
+    AsyncStorage.setItem("userName", userName);
     if (JSON.stringify(isProfUser)) {
       AsyncStorage.setItem("isProfUser", JSON.stringify(isProfUser));
     }
@@ -40,6 +41,7 @@ function AuthContextProvider({ children }) {
   function logout() {
     AsyncStorage.removeItem("token");
     AsyncStorage.removeItem("isProfUser");
+    AsyncStorage.removeItem("userName");
     setAuthToken(null);
   }
 

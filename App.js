@@ -296,8 +296,9 @@ function Root() {
     async function fetchToken() {
       const storedToken = await AsyncStorage.getItem("token");
       const profUser = await AsyncStorage.getItem("isProfUser");
+      const userName = await AsyncStorage.getItem("userName");
       if (storedToken) {
-        authCtx.authenticate(storedToken, JSON.parse(profUser));
+        authCtx.authenticate(storedToken, JSON.parse(profUser), userName);
       }
     }
 
