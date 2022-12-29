@@ -2,10 +2,16 @@ import { useContext } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { StyleSheet, View, Text } from "react-native";
 
+import { I18n } from "i18n-js";
+import { translations, defaultLocale } from "../i18n/supportedLanguages";
+
 import { AuthContext } from "../store/AuthContext";
 import BookingList from "../components/ui/BookingList";
 import Button from "../components/ui/Button";
 import { Colors } from "../constants/styles";
+
+const i18n = new I18n(translations);
+i18n.locale = defaultLocale;
 
 function DefaultBookingInfo() {
   const navigation = useNavigation();
@@ -18,7 +24,8 @@ function DefaultBookingInfo() {
   return (
     <View style={styles.container}>
       <View style={styles.inputContainer}>
-        <Text style={styles.instructionText}>Log in to see your bookings</Text>
+        <Text style={styles.instructionText}>{i18n.t("Log in to see your bookings")}
+        </Text>
         <View style={styles.buttons}>
           <Button onPress={navigateToLogin}>Take me to Login</Button>
         </View>

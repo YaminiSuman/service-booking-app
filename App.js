@@ -6,9 +6,11 @@ import { StatusBar } from "expo-status-bar";
 import { useContext, useEffect } from "react";
 import { Ionicons } from "@expo/vector-icons";
 import { RootSiblingParent } from "react-native-root-siblings";
-import Toast from "react-native-root-toast";
 import * as Notifications from "expo-notifications";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+
+import { I18n } from "i18n-js";
+import { translations, defaultLocale } from "./i18n/supportedLanguages";
 
 import LoginScreen from "./screens/LoginScreen";
 import SignupScreen from "./screens/SignupScreen";
@@ -24,6 +26,9 @@ import ResetPassword from "./screens/ResetPassword";
 import BookingForMe from "./screens/BookingForMe";
 import SwitchToProfessional from "./screens/SwitchToProfessional";
 import { logout } from "./util/Auth";
+
+const i18n = new I18n(translations);
+i18n.locale = defaultLocale;
 
 const Stack = createNativeStackNavigator();
 const BottomTabs = createBottomTabNavigator();
@@ -154,7 +159,7 @@ function ProfessionsOverview() {
         name="Categories"
         component={CategoriesScreen}
         options={{
-          title: "Categories",
+          title: `${i18n.t("Categories")}`,
           tabBarLabel: "Categories",
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="hourglass" size={size} color="white" />
