@@ -160,7 +160,7 @@ function ProfessionsOverview() {
         component={CategoriesScreen}
         options={{
           title: `${i18n.t("Categories")}`,
-          tabBarLabel: "Categories",
+          tabBarLabel: `${i18n.t("Categories")}`,
           tabBarIcon: ({ color, size }) => (
             <MaterialIcons name="category" size={size} color="white" />
           ),
@@ -170,8 +170,8 @@ function ProfessionsOverview() {
         name="MyBookingList"
         component={MyBookingList}
         options={{
-          title: "My Bookings",
-          tabBarLabel: "My Bookings",
+          title: `${i18n.t("My Bookings")}`,
+          tabBarLabel: `${i18n.t("My Bookings")}`,
           tabBarIcon: ({ color, size }) => (
             <MaterialIcons name="date-range" size={size} color="white" />
           ),

@@ -27,7 +27,7 @@ function DefaultBookingInfo() {
         <Text style={styles.instructionText}>{i18n.t("Log in to see your bookings")}
         </Text>
         <View style={styles.buttons}>
-          <Button onPress={navigateToLogin}>Take me to Login</Button>
+          <Button onPress={navigateToLogin}>{i18n.t("Take me to Login")}</Button>
         </View>
       </View>
     </View>

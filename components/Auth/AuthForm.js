@@ -1,8 +1,14 @@
 import { useState } from "react";
 import { StyleSheet, View } from "react-native";
 
+import { I18n } from "i18n-js";
+import { translations, defaultLocale } from "../../i18n/supportedLanguages";
+
 import Button from "../ui/Button";
 import Input from "./Input";
+
+const i18n = new I18n(translations);
+i18n.locale = defaultLocale;
 
 function AuthForm({ isLogin, onSubmit, credentialsInvalid }) {
   const [enteredEmail, setEnteredEmail] = useState("");
@@ -47,7 +53,7 @@ function AuthForm({ isLogin, onSubmit, credentialsInvalid }) {
     <View style={styles.form}>
       <View>
         <Input
-          label="Email Address"
+          label={i18n.t("Email Address")}
           onUpdateValue={updateInputValueHandler.bind(this, "email")}
           value={enteredEmail}
           keyboardType="email-address"
