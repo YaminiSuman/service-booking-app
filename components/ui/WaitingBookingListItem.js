@@ -2,9 +2,15 @@ import { Pressable, StyleSheet, Text, View, Alert } from "react-native";
 import { useContext } from "react";
 import { useNavigation } from "@react-navigation/native";
 
+import { I18n } from "i18n-js";
+import { translations, defaultLocale } from "./i18n/supportedLanguages";
+
 import { Colors } from "../../constants/styles";
 import { AuthContext } from "../../store/AuthContext";
 import { patchBookingStatus } from "../../util/Auth";
+
+const i18n = new I18n(translations);
+i18n.locale = defaultLocale;
 
 function WaitingBookingListItem({
   id,
@@ -20,22 +26,22 @@ function WaitingBookingListItem({
   const token = authCtx.token;
   function workerDetailHandler() {
     {
-      Alert.alert("Update Booking Status", "Are you sure?", [
+      Alert.alert(i18n.t("Update Booking Status"), i18n.t("Are you sure?"), [
         {
-          text: "Reject",
+          text: i18n.t("Reject"),
           onPress: () =>
             patchBookingStatus("C", token, id).then(
               navigation.navigate("Categories")
             ),
         },
         {
-          text: "Confirm",
+          text: i18n.t("Confirm"),
           onPress: () =>
             patchBookingStatus("B", token, id).then(
               navigation.navigate("Categories")
             ),
         },
-        { text: "Maybe later", style: "cancel" },
+        { text: i18n.t("Maybe later"), style: "cancel" },
       ]);
     }
   }

@@ -1,8 +1,14 @@
 import { useNavigation } from "@react-navigation/native";
 import { StyleSheet, View, Text } from "react-native";
 
+import { I18n } from "i18n-js";
+import { translations, defaultLocale } from "./i18n/supportedLanguages";
+
 import Button from "../ui/Button";
 import { Colors } from "../../constants/styles";
+
+const i18n = new I18n(translations);
+i18n.locale = defaultLocale;
 
 function EmptyListDialog() {
     const navigation = useNavigation();
@@ -10,15 +16,14 @@ function EmptyListDialog() {
         navigation.navigate("Categories");
     };
     
-  console.log("Inside empty list");
   return (
     <View style={styles.container}>
       <View style={styles.inputContainer}>
         <Text style={styles.instructionText}>
-          Professionals not available at the moment
+          {i18n.t("Professionals not available at the moment")}
         </Text>
         <View style={styles.buttons}>
-          <Button onPress={navigateToCategory}>Take me Back!</Button>
+          <Button onPress={navigateToCategory}>{i18n.t("Take me Back!")}</Button>
         </View>
       </View>
     </View>

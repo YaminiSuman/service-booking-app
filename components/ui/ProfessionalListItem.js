@@ -3,9 +3,15 @@ import { useNavigation } from "@react-navigation/native";
 import { useEffect, useContext } from "react";
 import Toast from "react-native-root-toast";
 
+import { I18n } from "i18n-js";
+import { translations, defaultLocale } from "./i18n/supportedLanguages";
+
 import { Colors } from "../../constants/styles";
 import { AuthContext } from "../../store/AuthContext";
 import { confirmBookingRequest } from "../../util/Auth";
+
+const i18n = new I18n(translations);
+i18n.locale = defaultLocale;
 
 function ProfessionalListItem({
   id,
@@ -21,7 +27,7 @@ function ProfessionalListItem({
 
   useEffect(() => {
     navigation.setOptions({
-      title: `${category} List`,
+      title: `${category} ${i18n.t(List)}`,
     });
   }, [navigation, category]);
 
@@ -40,7 +46,7 @@ function ProfessionalListItem({
       if (booking) {
         authCtx.setBookingByMe(booking);
         navigation.navigate("MyBookingList");
-        Toast.show("Booking Successful", {
+        Toast.show(i18n.t("Booking Successful"), {
           duration: Toast.durations.LONG,
           position: Toast.positions.CENTER,
         });
@@ -48,8 +54,8 @@ function ProfessionalListItem({
     } catch (error) {
       console.log(error.message);
       Alert.alert(
-        "Booking failed!",
-        "Something went wrong. Please try again later!"
+        i18n.t("Booking failed!"),
+        i18n.t("Something went wrong. Please try again later!")
       );
     }
   }
@@ -57,14 +63,14 @@ function ProfessionalListItem({
   async function confirmBooking() {
     try {
       if (!authCtx.isAuthenticated) {
-        Alert.alert("Not Authenticated !!", "Take me to login?", [
+        Alert.alert(i18n.t("Not Authenticated !!"), i18n.t("Take me to login?"), [
           {
-            text: "Cancel",
+            text: i18n.t("Cancel"),
             onPress: () => console.log("Cancel Pressed"),
             style: "cancel",
           },
           {
-            text: "Yes, Please",
+            text: i18n.t("Yes, please"),
             onPress: () =>
               navigation.navigate("Login", {
                 callBackFunction: handleConfirmBookingRequest,
@@ -77,21 +83,21 @@ function ProfessionalListItem({
     } catch (error) {
       console.log(error.message);
       Alert.alert(
-        "Booking failed!",
-        "Something went wrong. Please try again later!"
+        i18n.t("Booking failed!"),
+        i18n.t("Something went wrong. Please try again later!")
       );
     }
   }
 
   function workerDetailHandler() {
     {
-      Alert.alert("Confirm Booking!", "Are you sure?", [
+      Alert.alert(i18n.t("Confirm Booking!"), i18n.t("Are you sure?"), [
         {
-          text: "Cancel",
+          text: i18n.t("Cancel"),
           onPress: () => console.log("Cancel Pressed"),
           style: "cancel",
         },
-        { text: "Yes", onPress: () => confirmBooking() },
+        { text: i18n.t("Yes"), onPress: () => confirmBooking() },
       ]);
     }
   }
@@ -103,7 +109,7 @@ function ProfessionalListItem({
       <View style={styles.listItem}>
         <View>
           <Text style={[styles.textBase, styles.description]}>
-            {professional_user_name ? professional_user_name : "xyz"}
+            {professional_user_name ? professional_user_name : i18n.t("no name provided")}
           </Text>
         </View>
         <View style={styles.costContainer}>

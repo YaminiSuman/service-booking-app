@@ -2,9 +2,15 @@ import { useState } from "react";
 import { Alert, StyleSheet, View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
+import { I18n } from "i18n-js";
+import { translations, defaultLocale } from "../../i18n/supportedLanguages";
+
 import FlatButton from "../ui/FlatButton";
 import AuthForm from "./AuthForm";
 import { Colors } from "../../constants/styles";
+
+const i18n = new I18n(translations);
+i18n.locale = defaultLocale;
 
 function AuthContent({ isLogin, onAuthenticate }) {
   const navigation = useNavigation();
@@ -39,7 +45,7 @@ function AuthContent({ isLogin, onAuthenticate }) {
       !passwordIsValid ||
       (!isLogin &&  !passwordsAreEqual)
     ) {
-      Alert.alert("Invalid input", "Please check your entered credentials.");
+      Alert.alert(i18n.t("Invalid input"), i18n.t("Please check your entered credentials."));
       setCredentialsInvalid({
         email: !emailIsValid,
         password: !passwordIsValid,
@@ -60,7 +66,7 @@ function AuthContent({ isLogin, onAuthenticate }) {
       />
       <View style={styles.buttons}>
         <FlatButton onPress={switchAuthModeHandler}>
-          {isLogin ? "Create a new user" : "Log in instead"}
+          {isLogin ? i18n.t("Create a new user") : i18n.t("Log in instead")}
         </FlatButton>
       </View>
     </View>

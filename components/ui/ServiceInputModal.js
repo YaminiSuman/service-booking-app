@@ -1,18 +1,24 @@
 import { StyleSheet, View, Modal, Text, Alert } from "react-native";
 import { useState, useCallback, useContext } from "react";
 import DropDownPicker from "react-native-dropdown-picker";
+import { useNavigation } from "@react-navigation/native";
+
+import { I18n } from "i18n-js";
+import { translations, defaultLocale } from "./i18n/supportedLanguages";
+
 import {
   dropDownItemsForXDays,
   startTimeSlots,
   endTimeSlots,
 } from "../../util/Common";
 import { displayAvailableServiceWorkers } from "../../util/Auth";
-import { useNavigation } from "@react-navigation/native";
-
 import { Colors } from "../../constants/styles";
 import Button from "./Button";
 import FlatButton from "./FlatButton";
 import { AuthContext } from "../../store/AuthContext";
+
+const i18n = new I18n(translations);
+i18n.locale = defaultLocale;
 
 function ServiceInputModal(props) {
   const navigation = useNavigation();
@@ -62,8 +68,8 @@ function ServiceInputModal(props) {
         !(dateDropDownValue && startTimeDropDownValue && endTimeDropDownValue)
       ) {
         Alert.alert(
-          "Required Field !!!",
-          "You need to fill in all the values to get details"
+          i18n.t("Required Field !!!"),
+          i18n.t("You need to fill in all the values to get details")
         );
       } else {
         const workerDetails = await displayAvailableServiceWorkers(
@@ -84,8 +90,8 @@ function ServiceInputModal(props) {
     } catch (error) {
       console.log(error.message);
       Alert.alert(
-        "Something went wrong",
-        "Could not get details. Please try again later!"
+        i18n.t("Something went wrong"),
+        i18n.t("Could not get details. Please try again later!")
       );
     }
 
@@ -98,10 +104,10 @@ function ServiceInputModal(props) {
         <View style={styles.modal}>
           <View style={styles.inputContainer}>
             <Text style={styles.instructionText}>
-              Please choose your preference
+              {i18n.t("Please choose your preference")}
             </Text>
             <DropDownPicker
-              placeholder="Select day"
+              placeholder={i18n.t("Select day")}
               open={openDateDropDown}
               value={dateDropDownValue}
               items={dateDropDownItems}
@@ -120,7 +126,7 @@ function ServiceInputModal(props) {
             />
 
             <DropDownPicker
-              placeholder="Select start time"
+              placeholder={i18n.t("Select start time")}
               open={openStartTimeDropDown}
               value={startTimeDropDownValue}
               items={startTimeDropDownItems}
@@ -138,7 +144,7 @@ function ServiceInputModal(props) {
               }}
             />
             <DropDownPicker
-              placeholder="Select end time"
+              placeholder={i18n.t("Select end time")}
               open={openEndTimeDropDown}
               value={endTimeDropDownValue}
               items={endTimeDropDownItems}
@@ -158,11 +164,11 @@ function ServiceInputModal(props) {
             <View style={styles.buttonContainer}>
               <View style={styles.button}>
                 <Button onPress={handleGetDetails}>
-                  Get Available Professionals
+                  {i18n.t("Get Available Professionals")}
                 </Button>
               </View>
               <View style={styles.button}>
-                <FlatButton onPress={props.onCancel}>Cancel</FlatButton>
+                <FlatButton onPress={props.onCancel}>{i18n.t("Cancel")}</FlatButton>
               </View>
             </View>
           </View>

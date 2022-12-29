@@ -60,7 +60,7 @@ function AuthForm({ isLogin, onSubmit, credentialsInvalid }) {
           isInvalid={emailIsInvalid}
         />
         <Input
-          label="Password"
+          label={i18n.t("Password")}
           onUpdateValue={updateInputValueHandler.bind(this, "password")}
           secure
           value={enteredPassword}
@@ -68,7 +68,7 @@ function AuthForm({ isLogin, onSubmit, credentialsInvalid }) {
         />
         {!isLogin && (
           <Input
-            label="Confirm Password"
+            label={i18n.t("Confirm Password")}
             onUpdateValue={updateInputValueHandler.bind(
               this,
               "confirmPassword"
@@ -80,7 +80,7 @@ function AuthForm({ isLogin, onSubmit, credentialsInvalid }) {
         )}
         {!isLogin && (
           <Input
-            label="Full Name"
+            label={i18n.t("Full Name")}
             onUpdateValue={updateInputValueHandler.bind(this, "fullName")}
             value={enteredFullName}
             keyboardType="default"
@@ -89,7 +89,7 @@ function AuthForm({ isLogin, onSubmit, credentialsInvalid }) {
         )}
         <View style={styles.buttons}>
           <Button onPress={submitHandler}>
-            {isLogin ? "Log In" : "Sign Up"}
+            {isLogin ? i18n.t("Log In") : i18n.t("Sign Up")}
           </Button>
         </View>
       </View>

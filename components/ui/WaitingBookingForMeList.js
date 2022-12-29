@@ -1,6 +1,13 @@
 import { Text, FlatList, View, StyleSheet } from "react-native";
+
+import { I18n } from "i18n-js";
+import { translations, defaultLocale } from "./i18n/supportedLanguages";
+
 import { Colors } from "../../constants/styles";
 import WaitingBookingListItem from "../../components/ui/WaitingBookingListItem";
+
+const i18n = new I18n(translations);
+i18n.locale = defaultLocale;
 
 function renderBookingItem(itemData) {
   return (
@@ -24,7 +31,7 @@ function WaitingBookingForMeList({ bookings }) {
           keyExtractor={(item) => item.id}
           renderItem={renderBookingItem}
           ListHeaderComponent={() => {
-            return <Text style={styles.textStatus}>Awaiting Confirmation</Text>;
+            return <Text style={styles.textStatus}>{i18n.t("Awaiting Confirmation")}</Text>;
           }}
         />
       </View>
