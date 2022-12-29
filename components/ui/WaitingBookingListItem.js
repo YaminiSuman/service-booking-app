@@ -27,7 +27,6 @@ function WaitingBookingListItem({
             patchBookingStatus("C", token, id).then(
               navigation.navigate("Categories")
             ),
-          style: "cancel",
         },
         {
           text: "Confirm",
@@ -36,6 +35,7 @@ function WaitingBookingListItem({
               navigation.navigate("Categories")
             ),
         },
+        { text: "Maybe later", style: "cancel" },
       ]);
     }
   }

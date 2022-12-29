@@ -40,6 +40,7 @@ Notifications.setNotificationHandler({
 
 function ProfessionsOverview() {
   const authCtx = useContext(AuthContext);
+  const user = authCtx.userName;
   return (
     <BottomTabs.Navigator
       screenOptions={({ navigation }) => ({
@@ -57,8 +58,8 @@ function ProfessionsOverview() {
                 color={tintColor}
                 onPress={() => {
                   Alert.alert(
-                    "Update Profile!",
-                    "Are you sure?",
+                    `Hi ${user}`,
+                    "Update Profile?",
                     !authCtx.profUser
                       ? [
                           {
@@ -113,7 +114,10 @@ function ProfessionsOverview() {
                             text: "Cancel",
                             style: "cancel",
                           },
-                        ]
+                        ],
+                    {
+                      cancelable: true,
+                    }
                   );
                 }}
               />

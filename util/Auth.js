@@ -60,8 +60,10 @@ export async function displayAvailableServiceWorkers(
   id,
   day,
   startTime,
-  endTime
+  endTime,
+  token = null
 ) {
+  console.log("token in displayAvailableServiceWorkers",token);
   const start_time = `${day} ${startTime}`;
   const end_time = `${day} ${endTime}`;
 
@@ -75,6 +77,7 @@ export async function displayAvailableServiceWorkers(
     headers: {
       "Content-Type": "application/json;charset=UTF-8",
       "Access-Control-Allow-Origin": "*",
+      Authorization: `${token}`,
     },
   };
   return axios

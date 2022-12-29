@@ -19,7 +19,7 @@ function LoginScreen({ navigation, route }) {
     try {
       const data = await loginUser(email, password, fcmToken);
       if (data.token) {
-        authCtx.authenticate(data.token, data.is_prof_user);
+        authCtx.authenticate(data.token, data.is_prof_user, data.user_name);
         if (!redirectScreenName) {
           navigation.navigate("Categories");
         }

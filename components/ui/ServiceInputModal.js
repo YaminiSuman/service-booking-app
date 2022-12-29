@@ -1,5 +1,5 @@
 import { StyleSheet, View, Modal, Text, Alert } from "react-native";
-import { useState, useCallback } from "react";
+import { useState, useCallback, useContext } from "react";
 import DropDownPicker from "react-native-dropdown-picker";
 import {
   dropDownItemsForXDays,
@@ -12,6 +12,7 @@ import { useNavigation } from "@react-navigation/native";
 import { Colors } from "../../constants/styles";
 import Button from "./Button";
 import FlatButton from "./FlatButton";
+import { AuthContext } from "../../store/AuthContext";
 
 function ServiceInputModal(props) {
   const navigation = useNavigation();
@@ -52,6 +53,9 @@ function ServiceInputModal(props) {
     setOpenEndTimeDropDown(true);
   }, []);
 
+  const authCtx = useContext(AuthContext);
+  const token = authCtx.token;
+
   async function handleGetDetails() {
     try {
       if (
@@ -66,7 +70,8 @@ function ServiceInputModal(props) {
           props.id,
           dateDropDownValue,
           startTimeDropDownValue,
-          endTimeDropDownValue
+          endTimeDropDownValue,
+          token
         );
         navigation.navigate("ProfessionalList", {
           workerDetails: workerDetails,

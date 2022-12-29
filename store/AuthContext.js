@@ -7,11 +7,13 @@ export const AuthContext = createContext({
   isAuthenticated: false,
   bookingByMe: [],
   fcmToken: "",
+  userName: "",
   authenticate: (token) => {},
   logout: () => {},
   setProfUser: () => {},
   setBookingByMe: () => {},
-  setFcmToken: () => { },
+  setFcmToken: () => {},
+  setUserName: () => {},
 });
 
 function AuthContextProvider({ children }) {
@@ -20,10 +22,11 @@ function AuthContextProvider({ children }) {
   const [pushNotificationToken, updatePushNotificationToken] = useState(null);
 
   const [bookingByMe, updateBookingByMe] = useState([]);
-
-  function authenticate(token, isProfUser) {
+  const [user, setUser] = useState("");
+  function authenticate(token, isProfUser, userName) {
     setAuthToken(token);
     setProfUser(isProfUser);
+    setUserName(userName);
     AsyncStorage.setItem("token", token);
     if (JSON.stringify(isProfUser)) {
       AsyncStorage.setItem("isProfUser", JSON.stringify(isProfUser));
@@ -48,16 +51,21 @@ function AuthContextProvider({ children }) {
     updateBookingByMe([...bookingByMe, booking]);
   }
 
+  function setUserName(userName) {
+    setUser(userName);
+  }
   const value = {
     token: authToken,
     profUser: isProfUser,
     isAuthenticated: !!authToken,
     fcmToken: pushNotificationToken,
+    userName: user,
     authenticate: authenticate,
     logout: logout,
     setProfUser: setProfUser,
     setBookingByMe: setBookingByMe,
     setFcmToken: setFcmToken,
+    setUserName: setUserName,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
