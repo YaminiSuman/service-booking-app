@@ -3,10 +3,16 @@ import { useState, useContext } from "react";
 import { useNavigation } from "@react-navigation/native";
 import Toast from "react-native-root-toast";
 
+import { I18n } from "i18n-js";
+import { translations, defaultLocale } from "./i18n/supportedLanguages";
+
 import { Colors } from "../constants/styles";
 import Button from "../components/ui/Button";
 import { AuthContext } from "../store/AuthContext";
 import { updateUserPassword } from "../util/Auth";
+
+const i18n = new I18n(translations);
+i18n.locale = defaultLocale;
 
 function ResetPassword() {
   const navigation = useNavigation();
@@ -17,15 +23,15 @@ function ResetPassword() {
   async function resetPassword() {
     try {
       if (password !== confirmPassword) {
-        Alert.alert("Password does not match");
+        Alert.alert(i18n.t("Password does not match"));
       } else if (password.length < 7) {
-        Alert.alert("Password is too short");
+        Alert.alert(i18n.t("Password is too short"));
       } else if (password === confirmPassword) {
         const token = authCtx.token;
         const res = await updateUserPassword(password, token);
 
         if (res) {
-          Toast.show("Password changed successfully", {
+          Toast.show(i18n.t("Password changed successfully"), {
             duration: Toast.durations.LONG,
           });
           navigation.navigate("Categories");
@@ -34,8 +40,8 @@ function ResetPassword() {
     } catch (error) {
       console.log(error.message);
       Alert.alert(
-        "Something went wrong",
-        "Could not update password. Please try again later!"
+        i18n.t("Something went wrong"),
+        i18n.t("Could not update password. Please try again later!")
       );
     }
   }
@@ -44,21 +50,21 @@ function ResetPassword() {
     <View style={styles.inputContainer}>
       <TextInput
         style={styles.input}
-        placeholder="password"
+        placeholder={i18n.t("password")}
         value={password}
         secureTextEntry={true}
         onChangeText={setPassword}
       />
       <TextInput
         style={styles.input}
-        placeholder="confirm password"
+        placeholder={i18n.t("confirm password")}
         value={confirmPassword}
         secureTextEntry={true}
         onChangeText={setConfirmPassword}
       />
 
       <View style={styles.buttons}>
-        <Button onPress={resetPassword}>Reset Password</Button>
+        <Button onPress={resetPassword}>{i18n.t("Reset Password")}</Button>
       </View>
     </View>
   );

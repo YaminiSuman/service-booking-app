@@ -11,7 +11,7 @@ function ProfessionalList({ route }) {
   const category = route.params.category;
 
   if (professionalDetail.length) {
-    console.log("professionalDetail", professionalDetail);
+
     return (
       <FlatList
         data={professionalDetail}

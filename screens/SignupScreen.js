@@ -1,39 +1,46 @@
-import { useState, useContext } from "react";
+import { useState } from "react";
 import { Alert } from "react-native";
+
+import { I18n } from "i18n-js";
+import { translations, defaultLocale } from "./i18n/supportedLanguages";
 
 import AuthContent from "../components/Auth/AuthContent";
 import LoadingOverlay from "../components/ui/LoadingOverlay";
 import { createUser } from "../util/Auth";
-import { AuthContext } from "../store/AuthContext";
+
+const i18n = new I18n(translations);
+i18n.locale = defaultLocale;
 
 function SignupScreen({ navigation }) {
   const [isAuthenticating, setIsAuthenticating] = useState(false);
-  const authCtx = useContext(AuthContext);
 
   async function signupHandler({ email, password, name }) {
     setIsAuthenticating(true);
     try {
       const data = await createUser(email, password, name);
-      
+
       if (data) {
-        console.log("data- signup", data);
-        Alert.alert("Sign up successful !!", "Take me to login?", [
-          {
-            text: "Cancel",
-            onPress: () => console.log("Cancel Pressed"),
-            style: "cancel",
-          },
-          {
-            text: "Yes, Please",
-            onPress: () => navigation.navigate("Login"),
-          },
-        ]);
+        Alert.alert(
+          i18n.t("Sign up successful !!"),
+          i18n.t("Take me to login?"),
+          [
+            {
+              text: i18n.t("Cancel"),
+              onPress: () => console.log("Cancel Pressed"),
+              style: "cancel",
+            },
+            {
+              text: i18n.t("Yes, please"),
+              onPress: () => navigation.navigate("Login"),
+            },
+          ]
+        );
       }
     } catch (error) {
       console.log(error.message);
       Alert.alert(
-        "Authentication failed!",
-        "Could not create user, please check your input and try again later."
+        i18n.t("Authentication failed!"),
+        i18n.t("Could not create user, please check your input and try again later.")
       );
     }
 
@@ -41,7 +48,7 @@ function SignupScreen({ navigation }) {
   }
 
   if (isAuthenticating) {
-    return <LoadingOverlay message="Creating user..." />;
+    return <LoadingOverlay message={i18n.t("Creating user...")} />;
   }
 
   return <AuthContent onAuthenticate={signupHandler} />;
