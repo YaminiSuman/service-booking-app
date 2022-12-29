@@ -4,7 +4,7 @@ import DropDownPicker from "react-native-dropdown-picker";
 import { useNavigation } from "@react-navigation/native";
 
 import { I18n } from "i18n-js";
-import { translations, defaultLocale } from "./i18n/supportedLanguages";
+import { translations, defaultLocale } from "../../i18n/supportedLanguages";
 
 import {
   dropDownItemsForXDays,

@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Alert } from "react-native";
 
 import { I18n } from "i18n-js";
-import { translations, defaultLocale } from "./i18n/supportedLanguages";
+import { translations, defaultLocale } from "../i18n/supportedLanguages";
 
 import AuthContent from "../components/Auth/AuthContent";
 import LoadingOverlay from "../components/ui/LoadingOverlay";

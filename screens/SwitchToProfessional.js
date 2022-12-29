@@ -5,7 +5,7 @@ import Toast from "react-native-root-toast";
 import DropDownPicker from "react-native-dropdown-picker";
 
 import { I18n } from "i18n-js";
-import { translations, defaultLocale } from "./i18n/supportedLanguages";
+import { translations, defaultLocale } from "../i18n/supportedLanguages";
 
 import { Colors } from "../constants/styles";
 import Button from "../components/ui/Button";

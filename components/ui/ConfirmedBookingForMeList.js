@@ -1,7 +1,7 @@
 import { Text, FlatList, View, StyleSheet } from "react-native";
 
 import { I18n } from "i18n-js";
-import { translations, defaultLocale } from "./i18n/supportedLanguages";
+import { translations, defaultLocale } from "../../i18n/supportedLanguages";
 
 import { Colors } from "../../constants/styles";
 import BookingListItem from "../../components/ui/BookingListItem";

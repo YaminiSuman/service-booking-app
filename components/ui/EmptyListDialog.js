@@ -2,7 +2,7 @@ import { useNavigation } from "@react-navigation/native";
 import { StyleSheet, View, Text } from "react-native";
 
 import { I18n } from "i18n-js";
-import { translations, defaultLocale } from "./i18n/supportedLanguages";
+import { translations, defaultLocale } from "../../i18n/supportedLanguages";
 
 import Button from "../ui/Button";
 import { Colors } from "../../constants/styles";

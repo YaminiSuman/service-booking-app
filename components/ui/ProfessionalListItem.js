@@ -4,7 +4,7 @@ import { useEffect, useContext } from "react";
 import Toast from "react-native-root-toast";
 
 import { I18n } from "i18n-js";
-import { translations, defaultLocale } from "./i18n/supportedLanguages";
+import { translations, defaultLocale } from "../../i18n/supportedLanguages";
 
 import { Colors } from "../../constants/styles";
 import { AuthContext } from "../../store/AuthContext";
