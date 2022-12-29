@@ -24,7 +24,7 @@ function ResetPassword() {
     try {
       if (password !== confirmPassword) {
         Alert.alert(i18n.t("Password does not match"));
-      } else if (password.length < 7) {
+      } else if (password.length < 5) {
         Alert.alert(i18n.t("Password is too short"));
       } else if (password === confirmPassword) {
         const token = authCtx.token;

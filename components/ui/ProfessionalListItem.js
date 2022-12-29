@@ -27,7 +27,7 @@ function ProfessionalListItem({
 
   useEffect(() => {
     navigation.setOptions({
-      title: `${category} ${i18n.t(List)}`,
+      title: `${category} ${i18n.t("List")}`,
     });
   }, [navigation, category]);
 

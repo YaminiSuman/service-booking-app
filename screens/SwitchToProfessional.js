@@ -71,10 +71,13 @@ function SwitchToProfessional() {
 
   async function handleSwitchToProfessional() {
     try {
+      if (!Number.isFinite(cost)) {
+        return Alert.alert(i18n.t("Cost should be numeric"));
+      }
       if (
         !(countyDropDownValue && areaDropDownValue && categoryDropDownValue)
       ) {
-        Alert.alert(i18n.t("Please fill all the fields"));
+        return Alert.alert(i18n.t("Please fill all the fields"));
       } else {
         const token = authCtx.token;
         const res = await switchToProfessionalUser(
@@ -85,9 +88,9 @@ function SwitchToProfessional() {
           cost,
           token
         );
-        
+
         if (!!res) {
-          authCtx.setProfUser(true)
+          authCtx.setProfUser(true);
           Toast.show(i18n.t("Switched to professional account successfully"), {
             duration: Toast.durations.LONG,
           });
