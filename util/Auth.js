@@ -231,3 +231,25 @@ export async function logout(token) {
       console.log("**AXIOS ERROR: ", err.response.data);
     });
 }
+
+export async function patchBookingStatus(status, token, id) {
+  let data = JSON.stringify({
+    status: status,
+  });
+  let axiosConfig = {
+    headers: {
+      "Content-Type": "application/json;charset=UTF-8",
+      "Access-Control-Allow-Origin": "*",
+      Authorization: `${token}`,
+    },
+  };
+  return axios
+    .patch(`${Base_URL}/booking/forMe/${id}/`, data, axiosConfig)
+    .then((res) => {
+      console.log("Booking Patch Response: ", res.data);
+      return res.data;
+    })
+    .catch((err) => {
+      console.log("**AXIOS ERROR: ", err.response.data);
+    });
+}

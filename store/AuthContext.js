@@ -11,7 +11,7 @@ export const AuthContext = createContext({
   logout: () => {},
   setProfUser: () => {},
   setBookingByMe: () => {},
-  setFcmToken: () => {},
+  setFcmToken: () => { },
 });
 
 function AuthContextProvider({ children }) {

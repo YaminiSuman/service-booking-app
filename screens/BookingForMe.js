@@ -5,6 +5,8 @@ import { Colors } from "../constants/styles";
 import { getProfUserBookings } from "../util/Auth";
 import { AuthContext } from "../store/AuthContext";
 import BookingListItem from "../components/ui/BookingListItem";
+import WaitingBookingForMeList from "../components/ui/WaitingBookingForMeList";
+import ConfirmedBookingForMeList from "../components/ui/ConfirmedBookingForMeList";
 
 function renderBookingItem(itemData) {
   return (
@@ -41,13 +43,17 @@ function BookingForMe() {
     }, [])
   );
 
+  const confirmedBookings = bookings.filter(
+    (booking) => booking.status === "B"
+  );
+
+  const awaitingConfirmationBookings = bookings.filter(
+    (booking) => booking.status === "W"
+  );
   return (
     <View style={styles.container}>
-      <FlatList
-        data={bookings}
-        keyExtractor={(item) => item.id}
-        renderItem={renderBookingItem}
-      />
+      <WaitingBookingForMeList bookings={awaitingConfirmationBookings} />
+      <ConfirmedBookingForMeList bookings={confirmedBookings} />
     </View>
   );
 }
@@ -58,5 +64,10 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: Colors.primary100,
+  },
+  textStatus: {
+    color: Colors.primary800,
+    fontWeight: "bold",
+    marginLeft: 20,
   },
 });

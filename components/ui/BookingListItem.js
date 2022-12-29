@@ -1,33 +1,29 @@
 import { Pressable, StyleSheet, Text, View, Alert } from "react-native";
-import { useNavigation } from "@react-navigation/native";
 
 import { Colors } from "../../constants/styles";
 
-function BookingListItem({ id, profession, name, startTime, endTime, cost }) {
-const navigation = useNavigation();
-  function confirmBookingHandle() {
-    {
-      navigation.navigate("ConfirmBooking");
-    }
-  }
-  
+function BookingListItem({
+  id,
+  profession,
+  name,
+  startTime,
+  endTime,
+  cost,
+  status,
+}) {
   return (
-    <Pressable
-      onPress={confirmBookingHandle}
-      style={({ pressed }) => pressed && styles.pressed}
-    >
-      <View style={styles.listItem}>
-        <View>
-          <Text style={[styles.textBase, styles.description]}>
-            {`${name} - (${profession})`}
-          </Text>
-          <Text style={styles.textBase}>{startTime}</Text>
-        </View>
-        <View style={styles.costContainer}>
-          <Text style={styles.amount}>{`$${cost}`}</Text>
-        </View>
+    <View style={styles.listItem}>
+      <View>
+        <Text style={styles.textStatus}>{status}</Text>
+        <Text style={[styles.textBase, styles.description]}>
+          {`${name} - (${profession})`}
+        </Text>
+        <Text style={styles.textBase}>{startTime}</Text>
       </View>
-    </Pressable>
+      <View style={styles.costContainer}>
+        <Text style={styles.amount}>{`$${cost}`}</Text>
+      </View>
+    </View>
   );
 }
 
@@ -55,6 +51,10 @@ const styles = StyleSheet.create({
   textBase: {
     color: Colors.primary50,
     marginRight: 5,
+  },
+  textStatus: {
+    color: Colors.primary800,
+    fontWeight: "bold",
   },
   description: {
     fontSize: 16,

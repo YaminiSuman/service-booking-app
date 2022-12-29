@@ -9,11 +9,12 @@ function renderBookingItem(itemData) {
   return (
     <BookingListItem
       id={itemData.item.id}
-      profession={itemData.item.professional_type_name }
+      profession={itemData.item.professional_type_name}
       name={itemData.item.professional_user_name}
       startTime={itemData.item.start_at}
       endTime={itemData.item.end_at}
       cost={itemData.item.cost}
+      status={itemData.item.long_status_name}
     />
   );
 }
