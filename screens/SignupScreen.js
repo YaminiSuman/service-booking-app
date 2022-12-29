@@ -48,7 +48,7 @@ function SignupScreen({ navigation }) {
   }
 
   if (isAuthenticating) {
-    return <LoadingOverlay message={i18n.t("Creating user...")} />;
+    return <LoadingOverlay message={i18n.t("USER_IN_CREATION")} />;
   }
 
   return <AuthContent onAuthenticate={signupHandler} />;

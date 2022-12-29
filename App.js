@@ -75,7 +75,7 @@ function ProfessionsOverview() {
                             text: i18n.t("Switch to Professional"),
                             onPress: () => {
                               Alert.alert(
-                                i18n.t("Switch to Professional account"),
+                                i18n.t("SWITCH_TO_PROF_USER"),
                                 i18n.t("Are you sure?"),
                                 [
                                   {
@@ -240,7 +240,7 @@ function AuthStack() {
       <Stack.Screen
         name="SwitchToProfessional"
         component={SwitchToProfessional}
-        options={{ title: i18n.t("Switch To Professional Account") }}
+        options={{ title: i18n.t("SWITCH_TO_PROF_USER") }}
       />
     </Stack.Navigator>
   );

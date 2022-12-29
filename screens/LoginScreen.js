@@ -39,14 +39,14 @@ function LoginScreen({ navigation, route }) {
       }
     } catch (error) {
       console.log(error.message);
-      Alert.alert(i18n.t("Authentication failed!"), i18n.t("Could not log you in. Please check your credentials or try again later!"));
+      Alert.alert(i18n.t("Authentication failed!"), i18n.t("INVALID_CREDENTIALS"));
     }
 
     setIsAuthenticating(false);
   }
 
   if (isAuthenticating) {
-    return <LoadingOverlay message={i18n.t("Logging in...")} />;
+    return <LoadingOverlay message={i18n.t("Logging in")} />;
   }
 
   return <AuthContent isLogin onAuthenticate={loginHandler} />;

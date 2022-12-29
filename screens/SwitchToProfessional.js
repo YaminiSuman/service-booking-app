@@ -169,7 +169,7 @@ function SwitchToProfessional() {
 
       <View style={styles.buttons}>
         <Button onPress={handleSwitchToProfessional}>
-          {i18n.t("Switch to Professional Account")}
+          {i18n.t("SWITCH_TO_PROF_USER")}
         </Button>
       </View>
     </View>
