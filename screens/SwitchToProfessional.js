@@ -71,7 +71,7 @@ function SwitchToProfessional() {
 
   async function handleSwitchToProfessional() {
     try {
-      if (!Number.isFinite(cost)) {
+      if (!Number.isFinite(Number(cost))) {
         return Alert.alert(i18n.t("Cost should be numeric"));
       }
       if (
