@@ -55,6 +55,7 @@ const styles = StyleSheet.create({
   textStatus: {
     color: Colors.primary800,
     fontWeight: "bold",
+    paddingBottom: 5,
   },
   description: {
     color: Colors.primary50,
@@ -67,6 +68,7 @@ const styles = StyleSheet.create({
   costContainer: {
     paddingHorizontal: 12,
     paddingVertical: 4,
+    marginHorizontal: 5,
     backgroundColor: "white",
     justifyContent: "center",
     alignItems: "center",
