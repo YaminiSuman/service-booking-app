@@ -121,7 +121,7 @@ const translations = {
       "Mudou para a conta profissional com sucesso ",
     "Could not switch to professional. Please try again later!":
       "Não poderia mudar para profissional. Por favor, tente novamente mais tarde!",
-    "Enter your cost per hour": "Entre no seu custo por hora ",
+    "Enter your cost per hour": "Preço Inicia",
     "Select County": "Selecione Condado ",
     "Select Area": "Selecione área ",
     "Select Category": "Selecione a Categoria",

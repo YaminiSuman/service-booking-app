@@ -109,11 +109,13 @@ function ProfessionalListItem({
       <View style={styles.listItem}>
         <View>
           <Text style={[styles.textBase, styles.description]}>
-            {professional_user_name ? professional_user_name : i18n.t("no name provided")}
+            {professional_user_name
+              ? professional_user_name
+              : i18n.t("no name provided")}
           </Text>
         </View>
         <View style={styles.costContainer}>
-          <Text style={styles.amount}>{`$${cost}`}</Text>
+          <Text style={styles.amount}>{`Kz${cost}`}</Text>
         </View>
       </View>
     </Pressable>
@@ -152,6 +154,7 @@ const styles = StyleSheet.create({
   costContainer: {
     paddingHorizontal: 12,
     paddingVertical: 4,
+    marginHorizontal: 5,
     backgroundColor: "white",
     justifyContent: "center",
     alignItems: "center",

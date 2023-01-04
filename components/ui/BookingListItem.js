@@ -14,14 +14,14 @@ function BookingListItem({
   return (
     <View style={styles.listItem}>
       <View>
-        <Text style={styles.textStatus}>{status}</Text>
-        <Text style={[styles.textBase, styles.description]}>
-          {`${name} - (${profession})`}
+        {status && <Text style={styles.textStatus}>{status}</Text>}
+        <Text style={styles.description} numberOfLines={1} >
+          {`${name} (${profession})`}
         </Text>
         <Text style={styles.textBase}>{startTime}</Text>
       </View>
       <View style={styles.costContainer}>
-        <Text style={styles.amount}>{`$${cost}`}</Text>
+        <Text style={styles.amount}>{`Kz${cost}`}</Text>
       </View>
     </View>
   );
@@ -57,6 +57,9 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   description: {
+    color: Colors.primary50,
+    marginRight: 5,
+    width: 200,
     fontSize: 16,
     marginBottom: 4,
     fontWeight: "bold",
