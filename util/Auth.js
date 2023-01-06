@@ -1,7 +1,7 @@
 import axios from "axios";
 
-const Base_URL = "http://kul.pythonanywhere.com/api";
-//const Base_URL = "http://10.10.165.62:8081/api";
+// const Base_URL = "http://kul.pythonanywhere.com/api";
+const Base_URL = "http://10.10.165.37:8081/api";
 
 export async function createUser(email, password, name) {
   let userData = JSON.stringify({
@@ -63,7 +63,7 @@ export async function displayAvailableServiceWorkers(
   endTime,
   token = null
 ) {
-  console.log("token in displayAvailableServiceWorkers",token);
+  console.log("token in displayAvailableServiceWorkers", token);
   const start_time = `${day} ${startTime}`;
   const end_time = `${day} ${endTime}`;
 
@@ -88,7 +88,7 @@ export async function displayAvailableServiceWorkers(
     })
     .catch((err) => {
       console.log("**AXIOS ERROR: ", err.response.data);
-      return err.response
+      return err.response;
     });
 }
 
@@ -155,31 +155,78 @@ export async function updateUserPassword(password, token) {
     });
 }
 
+const createFormData = (businessLogo, profCertificate, userData) => {
+  const data = new FormData();
+
+  let businessURI = businessLogo;
+  let businessLogofilename = businessURI.split("/").pop();
+
+  let ProfCertURI = profCertificate;
+  let profCertFilename = ProfCertURI.split("/").pop();
+
+  let match = /\.(\w+)$/.exec(businessLogofilename);
+  let type = match ? `image/${match[1]}` : `image`;
+
+  let match2 = /\.(\w+)$/.exec(profCertFilename);
+  let typeCert = match ? `image/${match2[1]}` : `image`;
+
+  data.append("business_logo", {
+    uri:
+      Platform.OS === "android"
+        ? businessURI
+        : businessURI.replace("file://", ""),
+    name: businessLogofilename,
+    type,
+  });
+
+  data.append("certificate", {
+    uri:
+      Platform.OS === "android"
+        ? profCertificate
+        : profCertificate.replace("file://", ""),
+    name: profCertFilename,
+    type: typeCert,
+  });
+
+  Object.keys(userData).forEach((key) => {
+    data.append(key, userData[key]);
+  });
+
+  return data;
+};
+
 export async function switchToProfessionalUser(
   is_prof_user,
   prof_id,
   county,
   area,
   cost,
+  businessLogo,
+  profCertificate,
+  notes,
   token
 ) {
-  let userData = JSON.stringify({
+  let userData = {
+    user: 1,
     is_prof_user: is_prof_user,
-    profession_type_id: prof_id,
+    profession_type: prof_id,
     county: county,
     area: area,
     cost: cost,
-  });
+    note_text:notes,
+  };
 
+  const formData = createFormData(businessLogo, profCertificate, userData);
+  console.log("formData", JSON.stringify(formData));
   let axiosConfig = {
     headers: {
-      "Content-Type": "application/json;charset=UTF-8",
+      "Content-Type": "multipart/form-data",
       "Access-Control-Allow-Origin": "*",
       Authorization: `${token}`,
     },
   };
   return axios
-    .post(`${Base_URL}/profession/switch_to_prof_user/`, userData, axiosConfig)
+    .post(`${Base_URL}/profession/mine/`, formData, axiosConfig)
     .then((res) => {
       console.log("User switched to professional account ", res.data);
       return res.data;
@@ -229,6 +276,26 @@ export async function logout(token) {
     .post(`${Base_URL}/user/logout/`, {}, axiosConfig)
     .then((res) => {
       console.log("Logout Response: ", res.data);
+      return res.data;
+    })
+    .catch((err) => {
+      console.log("**AXIOS ERROR: ", err.response.data);
+    });
+}
+
+export async function switchToGenUser(token) {
+  let axiosConfig = {
+    headers: {
+      "Content-Type": "application/json;charset=UTF-8",
+      "Access-Control-Allow-Origin": "*",
+      Authorization: `${token}`,
+    },
+  };
+  console.log("token for switch to gen", token);
+  return axios
+    .delete(`${Base_URL}/profession/switch_to_gen_user/`, axiosConfig)
+    .then((res) => {
+      console.log("Switch to Gen User Response: ", res.data);
       return res.data;
     })
     .catch((err) => {

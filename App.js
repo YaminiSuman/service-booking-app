@@ -25,7 +25,7 @@ import IconButton from "./components/ui/IconButton";
 import ResetPassword from "./screens/ResetPassword";
 import BookingForMe from "./screens/BookingForMe";
 import SwitchToProfessional from "./screens/SwitchToProfessional";
-import { logout } from "./util/Auth";
+import { logout, switchToGenUser } from "./util/Auth";
 
 const i18n = new I18n(translations);
 i18n.locale = defaultLocale;
@@ -110,6 +110,29 @@ function ProfessionsOverview() {
                             onPress: () => navigation.navigate("ResetPassword"),
                           },
                           {
+                            text: i18n.t("Switch to General User"),
+                            onPress: () => {
+                              Alert.alert(
+                                i18n.t("Switch to General User"),
+                                i18n.t("Are you sure?"),
+                                [
+                                  {
+                                    text: i18n.t("Yes, please"),
+                                    onPress: () => {
+                                      switchToGenUser(
+                                        authCtx.token
+                                      ).then(authCtx.setProfUser(false));
+                                    },
+                                  },
+                                  {
+                                    text: i18n.t("Cancel"),
+                                    style: "cancel",
+                                  },
+                                ]
+                              );
+                            },
+                          },
+                          {
                             text: i18n.t("Logout"),
                             onPress: () => {
                               logout(authCtx.token).then(authCtx.logout());
@@ -134,20 +157,24 @@ function ProfessionsOverview() {
                 size={24}
                 color={tintColor}
                 onPress={() => {
-                  Alert.alert(i18n.t("Have an account?"), i18n.t("Sign up or Login!"), [
-                    {
-                      text: i18n.t("Login"),
-                      onPress: () =>
-                        navigation.navigate("Login", {
-                          redirectScreenName: "Categories",
-                        }),
-                    },
-                    {
-                      text: i18n.t("Cancel"),
-                      onPress: () => console.log("Cancel Pressed"),
-                      style: "cancel",
-                    },
-                  ]);
+                  Alert.alert(
+                    i18n.t("Have an account?"),
+                    i18n.t("Sign up or Login!"),
+                    [
+                      {
+                        text: i18n.t("Login"),
+                        onPress: () =>
+                          navigation.navigate("Login", {
+                            redirectScreenName: "Categories",
+                          }),
+                      },
+                      {
+                        text: i18n.t("Cancel"),
+                        onPress: () => console.log("Cancel Pressed"),
+                        style: "cancel",
+                      },
+                    ]
+                  );
                 }}
               />
             );

@@ -1,4 +1,10 @@
-import { StyleSheet, View, Alert, TextInput } from "react-native";
+import {
+  StyleSheet,
+  View,
+  Alert,
+  TextInput,
+  ScrollView,
+} from "react-native";
 import { useState, useContext, useCallback, useEffect } from "react";
 import { useNavigation } from "@react-navigation/native";
 import Toast from "react-native-root-toast";
@@ -16,6 +22,7 @@ import {
   dropDownItemsForArea,
   dropDownItemsForCategory,
 } from "../util/Common";
+import ImagePicker from "../components/ui/ImagePicker";
 
 const i18n = new I18n(translations);
 i18n.locale = defaultLocale;
@@ -28,6 +35,9 @@ function SwitchToProfessional() {
   const [openCountyDropDown, setOpenCountyDropDown] = useState(false);
   const [countyDropDownValue, setCountyDropDownValue] = useState(null);
   const [countyDropDownItems, setCountyDropDownItems] = useState([]);
+  const [businessLogo, setBusinessLogo] = useState("");
+  const [profCertificate, setProfCertificate] = useState("");
+  const [notes, setNotes] = useState("");
 
   const onOpenCountyDropDown = useCallback(() => {
     setOpenCountyDropDown(true);
@@ -69,13 +79,26 @@ function SwitchToProfessional() {
     fetchDropDownItems().catch(console.error);
   }, [countyDropDownValue, areaDropDownValue, categoryDropDownValue]);
 
+  function handleBusinessLogoUpload(logo) {
+    setBusinessLogo(logo);
+  }
+  function handleProfCertUpload(cert) {
+    setProfCertificate(cert);
+  }
+
   async function handleSwitchToProfessional() {
     try {
       if (!Number.isFinite(Number(cost))) {
         return Alert.alert(i18n.t("Cost should be numeric"));
       }
       if (
-        !(countyDropDownValue && areaDropDownValue && categoryDropDownValue)
+        !(
+          countyDropDownValue &&
+          areaDropDownValue &&
+          categoryDropDownValue &&
+          profCertificate &&
+          businessLogo
+        )
       ) {
         return Alert.alert(i18n.t("Please fill all the fields"));
       } else {
@@ -86,6 +109,9 @@ function SwitchToProfessional() {
           countyDropDownValue,
           areaDropDownValue,
           cost,
+          businessLogo,
+          profCertificate,
+          notes,
           token
         );
 
@@ -107,75 +133,93 @@ function SwitchToProfessional() {
   }
 
   return (
-    <View style={styles.inputContainer}>
-      <TextInput
-        style={styles.input}
-        placeholder={i18n.t("Enter your cost per hour")}
-        value={cost}
-        onChangeText={setCost}
-        keyboardType="number-pad"
-      />
-      <DropDownPicker
-        placeholder={i18n.t("Select County")}
-        open={openCountyDropDown}
-        value={countyDropDownValue}
-        items={countyDropDownItems}
-        onOpen={onOpenCountyDropDown}
-        onClose={() => setOpenCountyDropDown(false)}
-        setValue={setCountyDropDownValue}
-        setItems={setCountyDropDownItems}
-        style={styles.dropDownContainer}
-        dropDownDirection="AUTO"
-        zIndex={3000}
-        zIndexInverse={1000}
-        dropDownContainerStyle={{
-          backgroundColor: Colors.primary100,
-          borderColor: Colors.primary800,
-        }}
-      />
-      <DropDownPicker
-        placeholder={i18n.t("Select Area")}
-        open={openAreaDropDown}
-        value={areaDropDownValue}
-        items={areaDropDownItems}
-        onOpen={onOpenAreaDropDown}
-        onClose={() => setOpenAreaDropDown(false)}
-        setValue={setAreaDropDownValue}
-        setItems={setAreaDropDownItems}
-        style={styles.dropDownContainer}
-        dropDownDirection="AUTO"
-        zIndex={2000}
-        zIndexInverse={2000}
-        dropDownContainerStyle={{
-          backgroundColor: Colors.primary100,
-          borderColor: Colors.primary800,
-        }}
-      />
-      <DropDownPicker
-        placeholder={i18n.t("Select Category")}
-        open={openCategoryDropDown}
-        value={categoryDropDownValue}
-        items={categoryDropDownItems}
-        onOpen={onOpenCategoryDropDown}
-        onClose={() => setOpenCategoryDropDown(false)}
-        setValue={setCategoryDropDownValue}
-        setItems={setCategoryDropDownItems}
-        style={styles.dropDownContainer}
-        dropDownDirection="AUTO"
-        zIndex={1000}
-        zIndexInverse={3000}
-        dropDownContainerStyle={{
-          backgroundColor: Colors.primary100,
-          borderColor: Colors.primary800,
-        }}
-      />
-
-      <View style={styles.buttons}>
-        <Button onPress={handleSwitchToProfessional}>
-          {i18n.t("SWITCH_TO_PROF_USER")}
-        </Button>
-      </View>
-    </View>
+      <ScrollView
+        keyboardShouldPersistTaps="handled"
+        style={styles.inputContainer}
+      >
+        <TextInput
+          style={styles.input}
+          placeholder={i18n.t("Enter your cost per hour")}
+          value={cost}
+          onChangeText={setCost}
+          keyboardType="number-pad"
+        />
+        <DropDownPicker
+          placeholder={i18n.t("Select County")}
+          open={openCountyDropDown}
+          value={countyDropDownValue}
+          items={countyDropDownItems}
+          onOpen={onOpenCountyDropDown}
+          onClose={() => setOpenCountyDropDown(false)}
+          setValue={setCountyDropDownValue}
+          setItems={setCountyDropDownItems}
+          style={styles.dropDownContainer}
+          dropDownDirection="AUTO"
+          zIndex={3000}
+          zIndexInverse={1000}
+          dropDownContainerStyle={{
+            backgroundColor: Colors.primary100,
+            borderColor: Colors.primary800,
+          }}
+        />
+        <DropDownPicker
+          placeholder={i18n.t("Select Area")}
+          open={openAreaDropDown}
+          value={areaDropDownValue}
+          items={areaDropDownItems}
+          onOpen={onOpenAreaDropDown}
+          onClose={() => setOpenAreaDropDown(false)}
+          setValue={setAreaDropDownValue}
+          setItems={setAreaDropDownItems}
+          style={styles.dropDownContainer}
+          dropDownDirection="AUTO"
+          zIndex={2000}
+          zIndexInverse={2000}
+          dropDownContainerStyle={{
+            backgroundColor: Colors.primary100,
+            borderColor: Colors.primary800,
+          }}
+        />
+        <DropDownPicker
+          placeholder={i18n.t("Select Category")}
+          open={openCategoryDropDown}
+          value={categoryDropDownValue}
+          items={categoryDropDownItems}
+          onOpen={onOpenCategoryDropDown}
+          onClose={() => setOpenCategoryDropDown(false)}
+          setValue={setCategoryDropDownValue}
+          setItems={setCategoryDropDownItems}
+          style={styles.dropDownContainer}
+          dropDownDirection="AUTO"
+          zIndex={1000}
+          zIndexInverse={3000}
+          dropDownContainerStyle={{
+            backgroundColor: Colors.primary100,
+            borderColor: Colors.primary800,
+          }}
+        />
+        <TextInput
+          style={styles.input}
+          placeholder={"Add notes for your customer - if any"}
+          multiline={true}
+          numberOfLines={3}
+          onChangeText={setNotes}
+          value={notes}
+        />
+        <ImagePicker
+          textToShow="Upload Business Logo"
+          handleCallback={handleBusinessLogoUpload}
+        />
+        <ImagePicker
+          textToShow="Upload Professional certificate"
+          handleCallback={handleProfCertUpload}
+        />
+        <View style={styles.buttons}>
+          <Button onPress={handleSwitchToProfessional}>
+            {i18n.t("SWITCH_TO_PROF_USER")}
+          </Button>
+        </View>
+      </ScrollView>
   );
 }
 
@@ -183,7 +227,9 @@ export default SwitchToProfessional;
 
 const styles = StyleSheet.create({
   inputContainer: {
-    marginTop: 64,
+    flex:1,
+    marginTop: 2,
+    marginBottom:2,
     marginHorizontal: 32,
     padding: 16,
     borderRadius: 8,
