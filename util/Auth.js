@@ -324,3 +324,24 @@ export async function patchBookingStatus(status, token, id) {
       console.log("**AXIOS ERROR: ", err.response.data);
     });
 }
+
+export async function getMyReviews(profId) {
+  let data = JSON.stringify({
+    professional_id: profId,
+  });
+  let axiosConfig = {
+    headers: {
+      "Content-Type": "application/json;charset=UTF-8",
+      "Access-Control-Allow-Origin": "*",
+    },
+  };
+  return axios
+    .post(`${Base_URL}/profession/get_all_reviews/`, data, axiosConfig)
+    .then((res) => {
+      console.log("Review Response: ", res.data);
+      return res.data;
+    })
+    .catch((err) => {
+      console.log("**AXIOS ERROR: ", err.response.data);
+    });
+}

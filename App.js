@@ -27,6 +27,7 @@ import BookingForMe from "./screens/BookingForMe";
 import SwitchToProfessional from "./screens/SwitchToProfessional";
 import { logout, switchToGenUser } from "./util/Auth";
 import ProfessionalPreviewScreen from "./screens/ProfessionalPreviewScreen";
+import ReviewScreen from "./screens/ReviewScreen";
 
 const i18n = new I18n(translations);
 i18n.locale = defaultLocale;
@@ -120,9 +121,9 @@ function ProfessionsOverview() {
                                   {
                                     text: i18n.t("Yes, please"),
                                     onPress: () => {
-                                      switchToGenUser(
-                                        authCtx.token
-                                      ).then(authCtx.setProfUser(false));
+                                      switchToGenUser(authCtx.token).then(
+                                        authCtx.setProfUser(false)
+                                      );
                                     },
                                   },
                                   {
@@ -275,7 +276,11 @@ function AuthStack() {
         component={ProfessionalPreviewScreen}
         options={{ title: i18n.t("PROF_PREVIEW_SCREEN") }}
       />
-      
+      <Stack.Screen
+        name="ReviewScreen"
+        component={ReviewScreen}
+        options={{ title: i18n.t("REVIEW_SCREEN") }}
+      />
     </Stack.Navigator>
   );
 }

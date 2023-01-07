@@ -47,7 +47,7 @@ function ProfessionalPreviewScreen({ route }) {
   const startTime = `${selectedDate} ${selectedStartTime}`;
   const endTime = `${selectedDate} ${selectedEndTime}`;
 
-  console.log("selectedStartTime", selectedStartTime);
+
   async function handleConfirmBookingRequest(token) {
     try {
       const booking = await confirmBookingRequest(
@@ -106,6 +106,11 @@ function ProfessionalPreviewScreen({ route }) {
     }
   }
 
+  function showReview() {
+    navigation.navigate("ReviewScreen", {
+      profId: id,
+    });
+  }
   return (
     <View style={styles.rootContainer}>
       <View style={styles.row}>
@@ -151,7 +156,9 @@ function ProfessionalPreviewScreen({ route }) {
       </TouchableOpacity>
 
       <View style={styles.buttons}>
-        <Button style={styles.btn}>Show Reviews</Button>
+        <Button style={styles.btn} onPress={() => showReview()}>
+          Show Reviews
+        </Button>
       </View>
       <View style={styles.buttons}>
         <Button style={styles.btn} onPress={() => confirmBooking()}>

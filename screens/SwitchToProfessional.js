@@ -202,7 +202,6 @@ function SwitchToProfessional() {
           style={styles.input}
           placeholder={"Add notes for your customer - if any"}
           multiline={true}
-          numberOfLines={3}
           onChangeText={setNotes}
           value={notes}
         />
