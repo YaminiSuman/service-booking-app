@@ -26,6 +26,7 @@ import ResetPassword from "./screens/ResetPassword";
 import BookingForMe from "./screens/BookingForMe";
 import SwitchToProfessional from "./screens/SwitchToProfessional";
 import { logout, switchToGenUser } from "./util/Auth";
+import ProfessionalPreviewScreen from "./screens/ProfessionalPreviewScreen";
 
 const i18n = new I18n(translations);
 i18n.locale = defaultLocale;
@@ -269,6 +270,12 @@ function AuthStack() {
         component={SwitchToProfessional}
         options={{ title: i18n.t("SWITCH_TO_PROF_USER") }}
       />
+      <Stack.Screen
+        name="ProfessionalPreviewScreen"
+        component={ProfessionalPreviewScreen}
+        options={{ title: i18n.t("PROF_PREVIEW_SCREEN") }}
+      />
+      
     </Stack.Navigator>
   );
 }

@@ -1,14 +1,11 @@
-import { Pressable, StyleSheet, Text, View, Alert } from "react-native";
+import { Pressable, StyleSheet, Text, View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import { useEffect, useContext } from "react";
-import Toast from "react-native-root-toast";
+import { useEffect } from "react";
 
 import { I18n } from "i18n-js";
 import { translations, defaultLocale } from "../../i18n/supportedLanguages";
 
 import { Colors } from "../../constants/styles";
-import { AuthContext } from "../../store/AuthContext";
-import { confirmBookingRequest } from "../../util/Auth";
 
 const i18n = new I18n(translations);
 i18n.locale = defaultLocale;
@@ -21,9 +18,11 @@ function ProfessionalListItem({
   selectedDate,
   selectedStartTime,
   selectedEndTime,
+  business_logo,
+  certificate,
+  note_text,
 }) {
   const navigation = useNavigation();
-  const authCtx = useContext(AuthContext);
 
   useEffect(() => {
     navigation.setOptions({
@@ -31,74 +30,20 @@ function ProfessionalListItem({
     });
   }, [navigation, category]);
 
-  const token = authCtx.token;
-  const startTime = `${selectedDate} ${selectedStartTime}`;
-  const endTime = `${selectedDate} ${selectedEndTime}`;
-
-  async function handleConfirmBookingRequest(token) {
-    try {
-      const booking = await confirmBookingRequest(
-        id,
-        startTime,
-        endTime,
-        token
-      );
-      if (booking) {
-        authCtx.setBookingByMe(booking);
-        navigation.navigate("MyBookingList");
-        Toast.show(i18n.t("Booking Successful"), {
-          duration: Toast.durations.LONG,
-          position: Toast.positions.CENTER,
-        });
-      }
-    } catch (error) {
-      console.log(error.message);
-      Alert.alert(
-        i18n.t("Booking failed!"),
-        i18n.t("Something went wrong. Please try again later!")
-      );
-    }
-  }
-
-  async function confirmBooking() {
-    try {
-      if (!authCtx.isAuthenticated) {
-        Alert.alert(i18n.t("Not Authenticated !!"), i18n.t("Take me to login?"), [
-          {
-            text: i18n.t("Cancel"),
-            onPress: () => console.log("Cancel Pressed"),
-            style: "cancel",
-          },
-          {
-            text: i18n.t("Yes, please"),
-            onPress: () =>
-              navigation.navigate("Login", {
-                callBackFunction: handleConfirmBookingRequest,
-              }),
-          },
-        ]);
-      } else {
-        handleConfirmBookingRequest(token);
-      }
-    } catch (error) {
-      console.log(error.message);
-      Alert.alert(
-        i18n.t("Booking failed!"),
-        i18n.t("Something went wrong. Please try again later!")
-      );
-    }
-  }
-
   function workerDetailHandler() {
     {
-      Alert.alert(i18n.t("Confirm Booking!"), i18n.t("Are you sure?"), [
-        {
-          text: i18n.t("Cancel"),
-          onPress: () => console.log("Cancel Pressed"),
-          style: "cancel",
-        },
-        { text: i18n.t("Yes"), onPress: () => confirmBooking() },
-      ]);
+      navigation.navigate("ProfessionalPreviewScreen", {
+        id,
+        category,
+        cost,
+        professional_user_name,
+        selectedDate,
+        selectedStartTime,
+        selectedEndTime,
+        business_logo,
+        certificate,
+        note_text,
+      });
     }
   }
   return (

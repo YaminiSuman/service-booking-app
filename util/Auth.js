@@ -1,7 +1,7 @@
 import axios from "axios";
 
-// const Base_URL = "http://kul.pythonanywhere.com/api";
-const Base_URL = "http://10.10.165.37:8081/api";
+// export const Base_URL = "http://kul.pythonanywhere.com/api";
+export const Base_URL = "http://10.10.165.37:8081/api";
 
 export async function createUser(email, password, name) {
   let userData = JSON.stringify({
@@ -213,7 +213,7 @@ export async function switchToProfessionalUser(
     county: county,
     area: area,
     cost: cost,
-    note_text:notes,
+    note_text: notes,
   };
 
   const formData = createFormData(businessLogo, profCertificate, userData);
