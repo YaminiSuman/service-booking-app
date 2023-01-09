@@ -58,7 +58,6 @@ function ProfessionalPreviewScreen({ route }) {
   const startTime = `${selectedDate} ${selectedStartTime}`;
   const endTime = `${selectedDate} ${selectedEndTime}`;
 
-
   async function handleConfirmBookingRequest(token) {
     try {
       const booking = await confirmBookingRequest(
@@ -144,8 +143,16 @@ function ProfessionalPreviewScreen({ route }) {
           <Text style={styles.title}>{selectedDate}</Text>
         </View>
         <View style={styles.row}>
-          <Text style={styles.label}>Booking Time</Text>
-          <Text style={styles.title}>{selectedStartTime}</Text>
+          <Text style={styles.label}>Start Time</Text>
+          <Text style={[styles.title, { marginLeft: 40 }]}>
+            {selectedStartTime}
+          </Text>
+        </View>
+        <View style={styles.row}>
+          <Text style={styles.label}>End Time</Text>
+          <Text style={[styles.title, { marginLeft: 50 }]}>
+            {selectedEndTime}
+          </Text>
         </View>
         <View style={styles.row}>
           <Text style={styles.label}>Notes</Text>
@@ -190,7 +197,7 @@ export default ProfessionalPreviewScreen;
 const styles = StyleSheet.create({
   rootContainer: {
     marginTop: 5,
-    marginBottom:5,
+    marginBottom: 5,
     marginHorizontal: 32,
     padding: 16,
     borderRadius: 8,

@@ -217,6 +217,13 @@ function SwitchToProfessional() {
           </Button>
         </View>
       </View>
+      {/* <BannerAd
+        unitId={adUnitId}
+        size={BannerAdSize.FULL_BANNER}
+        requestOptions={{
+          requestNonPersonalizedAdsOnly: true,
+        }}
+      /> */}
     </ScrollView>
   );
 }
