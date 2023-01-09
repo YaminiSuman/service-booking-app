@@ -27,6 +27,16 @@ import ImagePicker from "../components/ui/ImagePicker";
 const i18n = new I18n(translations);
 i18n.locale = defaultLocale;
 
+import {
+  BannerAd,
+  BannerAdSize,
+  TestIds,
+} from "react-native-google-mobile-ads";
+
+const adUnitId = __DEV__
+  ? TestIds.BANNER
+  : "ca-app-pub-2257380265518883/9609405903";
+
 function SwitchToProfessional() {
   const navigation = useNavigation();
   const authCtx = useContext(AuthContext);
@@ -217,13 +227,13 @@ function SwitchToProfessional() {
           </Button>
         </View>
       </View>
-      {/* <BannerAd
+      <BannerAd
         unitId={adUnitId}
         size={BannerAdSize.FULL_BANNER}
         requestOptions={{
           requestNonPersonalizedAdsOnly: true,
         }}
-      /> */}
+      />
     </ScrollView>
   );
 }
