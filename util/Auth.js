@@ -303,10 +303,11 @@ export async function switchToGenUser(token) {
     });
 }
 
-export async function patchBookingStatus(status, token, id) {
+export async function patchBookingStatus(status, token, id, byMeOrForMe) {
   let data = JSON.stringify({
     status: status,
   });
+
   let axiosConfig = {
     headers: {
       "Content-Type": "application/json;charset=UTF-8",
@@ -315,7 +316,7 @@ export async function patchBookingStatus(status, token, id) {
     },
   };
   return axios
-    .patch(`${Base_URL}/booking/forMe/${id}/`, data, axiosConfig)
+    .patch(`${Base_URL}/booking/${byMeOrForMe}/${id}/`, data, axiosConfig)
     .then((res) => {
       console.log("Booking Patch Response: ", res.data);
       return res.data;
@@ -339,6 +340,29 @@ export async function getMyReviews(profId) {
     .post(`${Base_URL}/profession/get_all_reviews/`, data, axiosConfig)
     .then((res) => {
       console.log("Review Response: ", res.data);
+      return res.data;
+    })
+    .catch((err) => {
+      console.log("**AXIOS ERROR: ", err.response.data);
+    });
+}
+
+export async function submitBookingReview(bookingId, review, token) {
+  let data = JSON.stringify({
+    booking_id: bookingId,
+    review: review,
+  });
+  let axiosConfig = {
+    headers: {
+      "Content-Type": "application/json;charset=UTF-8",
+      "Access-Control-Allow-Origin": "*",
+      Authorization: `${token}`,
+    },
+  };
+  return axios
+    .post(`${Base_URL}/booking/post_booking_review/`, data, axiosConfig)
+    .then((res) => {
+      console.log("Submit review Response: ", res.data);
       return res.data;
     })
     .catch((err) => {

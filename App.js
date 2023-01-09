@@ -28,6 +28,8 @@ import SwitchToProfessional from "./screens/SwitchToProfessional";
 import { logout, switchToGenUser } from "./util/Auth";
 import ProfessionalPreviewScreen from "./screens/ProfessionalPreviewScreen";
 import ReviewScreen from "./screens/ReviewScreen";
+import SubmitReviewScreen from "./screens/SubmitReviewScreen";
+import CancelledOrConfirmedBookingListScreen from "./screens/CancelledOrConfirmedBookingListScreen";
 
 const i18n = new I18n(translations);
 i18n.locale = defaultLocale;
@@ -280,6 +282,16 @@ function AuthStack() {
         name="ReviewScreen"
         component={ReviewScreen}
         options={{ title: i18n.t("REVIEW_SCREEN") }}
+      />
+      <Stack.Screen
+        name="SubmitReviewScreen"
+        component={SubmitReviewScreen}
+        options={{ title: i18n.t("SUBMIT_REVIEW_SCREEN") }}
+      />
+      <Stack.Screen
+        name="CancelledOrConfirmedBookingListScreen"
+        component={CancelledOrConfirmedBookingListScreen}
+        // options={{ title: i18n.t("SUBMIT_REVIEW_SCREEN") }}
       />
     </Stack.Navigator>
   );

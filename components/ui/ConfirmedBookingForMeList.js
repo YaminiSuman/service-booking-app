@@ -4,14 +4,14 @@ import { I18n } from "i18n-js";
 import { translations, defaultLocale } from "../../i18n/supportedLanguages";
 
 import { Colors } from "../../constants/styles";
-import BookingListItem from "../../components/ui/BookingListItem";
+import ConfirmedBookingListItem from "../../components/ui/ConfirmedBookingListItem";
 
 const i18n = new I18n(translations);
 i18n.locale = defaultLocale;
 
 function renderBookingItem(itemData) {
   return (
-    <BookingListItem
+    <ConfirmedBookingListItem
       id={itemData.item.id}
       profession={itemData.item.professional_type_name}
       name={itemData.item.general_user_name}

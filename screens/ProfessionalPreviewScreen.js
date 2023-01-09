@@ -156,12 +156,12 @@ function ProfessionalPreviewScreen({ route }) {
       </TouchableOpacity>
 
       <View style={styles.buttons}>
-        <Button style={styles.btn} onPress={() => showReview()}>
+        <Button onPress={() => showReview()}>
           Show Reviews
         </Button>
       </View>
       <View style={styles.buttons}>
-        <Button style={styles.btn} onPress={() => confirmBooking()}>
+        <Button onPress={() => confirmBooking()}>
           Confirm Booking
         </Button>
       </View>

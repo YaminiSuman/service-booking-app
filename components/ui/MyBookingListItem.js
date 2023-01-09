@@ -1,18 +1,19 @@
 import { Pressable, StyleSheet, Text, View, Alert } from "react-native";
 import { useContext } from "react";
 import { useNavigation } from "@react-navigation/native";
+import Toast from "react-native-root-toast";
 
 import { I18n } from "i18n-js";
 import { translations, defaultLocale } from "../../i18n/supportedLanguages";
 
 import { Colors } from "../../constants/styles";
-import { AuthContext } from "../../store/AuthContext";
 import { patchBookingStatus } from "../../util/Auth";
+import { AuthContext } from "../../store/AuthContext";
 
 const i18n = new I18n(translations);
 i18n.locale = defaultLocale;
 
-function WaitingBookingListItem({
+function MyBookingListItem({
   id,
   profession,
   name,
@@ -20,39 +21,58 @@ function WaitingBookingListItem({
   endTime,
   cost,
   status,
+  shortStatus,
+  review,
 }) {
   const authCtx = useContext(AuthContext);
-  const navigation = useNavigation();
   const token = authCtx.token;
-  function workerDetailHandler() {
+  const navigation = useNavigation();
+
+  function cancelAwaitedBooking() {
     {
-      Alert.alert(i18n.t("Update Booking Status"), i18n.t("Are you sure?"), [
-        {
-          text: i18n.t("Reject"),
-          onPress: () =>
-            patchBookingStatus("C", token, id, "forMe").then(
-              navigation.navigate("Categories")
-            ),
-        },
-        {
-          text: i18n.t("Confirm"),
-          onPress: () =>
-            patchBookingStatus("B", token, id, "forMe").then(
-              navigation.navigate("Categories")
-            ),
-        },
-        { text: i18n.t("Maybe later"), style: "cancel" },
-      ]);
+      {
+        Alert.alert(i18n.t("Cancel this Booking"), i18n.t("Are you sure?"), [
+          { text: i18n.t("Maybe later"), style: "cancel" },
+          {
+            text: i18n.t("Confirm"),
+            onPress: () =>
+              patchBookingStatus("C", token, id, "byMe").then(
+                navigation.navigate("Categories")
+              ),
+          },
+        ]);
+      }
+    }
+  }
+
+  function handleBookingClick(Status) {
+    console.log("status", shortStatus);
+    if (shortStatus == "B" || shortStatus == "W") {
+      cancelAwaitedBooking();
+    }
+    if (shortStatus == "D" && review == null) {
+      console.log("navigate to submit review screen");
+      navigation.navigate("SubmitReviewScreen", { bookingId: id });
+    }
+    if (shortStatus == "D" && review !== null) {
+      console.log("Review already submitted");
+      Toast.show(i18n.t("Review already submitted"), {
+        duration: Toast.durations.LONG,
+      });
+    }
+    if (shortStatus == "C") {
+      console.log("status cancelled, nothing to do");
     }
   }
 
   return (
     <Pressable
-      onPress={workerDetailHandler}
+      onPress={handleBookingClick}
       style={({ pressed }) => pressed && styles.pressed}
     >
       <View style={styles.listItem}>
         <View>
+          {status && <Text style={styles.textStatus}>{status}</Text>}
           <Text style={styles.description} numberOfLines={1}>
             {`${name} (${profession})`}
           </Text>
@@ -66,7 +86,7 @@ function WaitingBookingListItem({
   );
 }
 
-export default WaitingBookingListItem;
+export default MyBookingListItem;
 
 const styles = StyleSheet.create({
   pressed: {
@@ -94,10 +114,12 @@ const styles = StyleSheet.create({
   textStatus: {
     color: Colors.primary800,
     fontWeight: "bold",
+    paddingBottom: 5,
   },
   description: {
     color: Colors.primary50,
     marginRight: 5,
+    width: 200,
     fontSize: 16,
     marginBottom: 4,
     fontWeight: "bold",

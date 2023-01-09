@@ -1,8 +1,14 @@
-import { Pressable, StyleSheet, Text, View, Alert } from "react-native";
+import { StyleSheet, Text, View, Alert } from "react-native";
+
+import { I18n } from "i18n-js";
+import { translations, defaultLocale } from "../../i18n/supportedLanguages";
 
 import { Colors } from "../../constants/styles";
 
-function BookingListItem({
+const i18n = new I18n(translations);
+i18n.locale = defaultLocale;
+
+function CancelledOrConfirmedListItem({
   id,
   profession,
   name,
@@ -10,12 +16,13 @@ function BookingListItem({
   endTime,
   cost,
   status,
+  shortStatus,
+  review,
 }) {
   return (
     <View style={styles.listItem}>
       <View>
-        {status && <Text style={styles.textStatus}>{status}</Text>}
-        <Text style={styles.description} numberOfLines={1} >
+        <Text style={styles.description} numberOfLines={1}>
           {`${name} (${profession})`}
         </Text>
         <Text style={styles.textBase}>{startTime}</Text>
@@ -27,7 +34,7 @@ function BookingListItem({
   );
 }
 
-export default BookingListItem;
+export default CancelledOrConfirmedListItem;
 
 const styles = StyleSheet.create({
   pressed: {

@@ -12,7 +12,7 @@ import { patchBookingStatus } from "../../util/Auth";
 const i18n = new I18n(translations);
 i18n.locale = defaultLocale;
 
-function WaitingBookingListItem({
+function ConfirmedBookingListItem({
   id,
   profession,
   name,
@@ -24,7 +24,7 @@ function WaitingBookingListItem({
   const authCtx = useContext(AuthContext);
   const navigation = useNavigation();
   const token = authCtx.token;
-  function workerDetailHandler() {
+  function updateBookingStatus() {
     {
       Alert.alert(i18n.t("Update Booking Status"), i18n.t("Are you sure?"), [
         {
@@ -35,9 +35,9 @@ function WaitingBookingListItem({
             ),
         },
         {
-          text: i18n.t("Confirm"),
+          text: i18n.t("Mark as Done"),
           onPress: () =>
-            patchBookingStatus("B", token, id, "forMe").then(
+            patchBookingStatus("D", token, id, "forMe").then(
               navigation.navigate("Categories")
             ),
         },
@@ -48,11 +48,12 @@ function WaitingBookingListItem({
 
   return (
     <Pressable
-      onPress={workerDetailHandler}
+      onPress={updateBookingStatus}
       style={({ pressed }) => pressed && styles.pressed}
     >
       <View style={styles.listItem}>
         <View>
+          {status && <Text style={styles.textStatus}>{status}</Text>}
           <Text style={styles.description} numberOfLines={1}>
             {`${name} (${profession})`}
           </Text>
@@ -66,7 +67,7 @@ function WaitingBookingListItem({
   );
 }
 
-export default WaitingBookingListItem;
+export default ConfirmedBookingListItem;
 
 const styles = StyleSheet.create({
   pressed: {
@@ -94,10 +95,12 @@ const styles = StyleSheet.create({
   textStatus: {
     color: Colors.primary800,
     fontWeight: "bold",
+    paddingBottom: 5,
   },
   description: {
     color: Colors.primary50,
     marginRight: 5,
+    width: 200,
     fontSize: 16,
     marginBottom: 4,
     fontWeight: "bold",

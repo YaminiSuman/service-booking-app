@@ -1,30 +1,19 @@
-import { Text, FlatList, View, StyleSheet } from "react-native";
+import { View, StyleSheet } from "react-native";
 import { useState, useContext, useCallback } from "react";
-import { useFocusEffect } from "@react-navigation/native";
+import { useFocusEffect, useNavigation } from "@react-navigation/native";
+
 import { Colors } from "../constants/styles";
 import { getProfUserBookings } from "../util/Auth";
 import { AuthContext } from "../store/AuthContext";
-import BookingListItem from "../components/ui/BookingListItem";
 import WaitingBookingForMeList from "../components/ui/WaitingBookingForMeList";
 import ConfirmedBookingForMeList from "../components/ui/ConfirmedBookingForMeList";
-
-function renderBookingItem(itemData) {
-  return (
-    <BookingListItem
-      id={itemData.item.id}
-      profession={itemData.item.professional_type_name}
-      name={itemData.item.general_user_name}
-      startTime={itemData.item.start_at}
-      endTime={itemData.item.end_at}
-      cost={itemData.item.cost}
-    />
-  );
-}
+import Button from "../components/ui/Button";
 
 function BookingForMe() {
   const [bookings, setBookings] = useState([]);
   const authCtx = useContext(AuthContext);
   const token = authCtx.token;
+  const navigation = useNavigation();
 
   useFocusEffect(
     useCallback(() => {
@@ -50,10 +39,44 @@ function BookingForMe() {
   const awaitingConfirmationBookings = bookings.filter(
     (booking) => booking.status === "W"
   );
+
+  const cancelledBookings = bookings.filter(
+    (booking) => booking.status === "C"
+  );
+
+  const completedBookings = bookings.filter(
+    (booking) => booking.status === "D"
+  );
   return (
     <View style={styles.container}>
       <WaitingBookingForMeList bookings={awaitingConfirmationBookings} />
       <ConfirmedBookingForMeList bookings={confirmedBookings} />
+      <View style={styles.btn}>
+        <View style={styles.buttons}>
+          <Button
+            onPress={() => {
+              navigation.navigate("CancelledOrConfirmedBookingListScreen", {
+                bookings: cancelledBookings,
+                header: "Cancelled Booking List",
+              });
+            }}
+          >
+            Show Cancelled Bookings
+          </Button>
+        </View>
+        <View style={styles.buttons}>
+          <Button
+            onPress={() => {
+              navigation.navigate("CancelledOrConfirmedBookingListScreen", {
+                bookings: completedBookings,
+                header: "Completed Booking List",
+              });
+            }}
+          >
+            Show Completed Bookings
+          </Button>
+        </View>
+      </View>
     </View>
   );
 }
@@ -69,5 +92,15 @@ const styles = StyleSheet.create({
     color: Colors.primary800,
     fontWeight: "bold",
     marginLeft: 20,
+  },
+  buttons: {
+    width: "50%",
+    paddingLeft: 5,
+    paddingRight: 5,
+  },
+  btn: {
+    flexDirection: "row",
+    marginHorizontal: 10,
+    marginVertical: 5,
   },
 });

@@ -1,13 +1,15 @@
 import { Text, FlatList, View, StyleSheet } from "react-native";
-import { useState, useEffect, useContext } from "react";
+import { useState, useContext, useCallback } from "react";
+import { useFocusEffect } from "@react-navigation/native";
+
 import { Colors } from "../../constants/styles";
 import { getMyBookings } from "../../util/Auth";
 import { AuthContext } from "../../store/AuthContext";
-import BookingListItem from "../ui/BookingListItem";
+import MyBookingListItem from "./MyBookingListItem";
 
 function renderBookingItem(itemData) {
   return (
-    <BookingListItem
+    <MyBookingListItem
       id={itemData.item.id}
       profession={itemData.item.professional_type_name}
       name={itemData.item.professional_user_name}
@@ -15,24 +17,34 @@ function renderBookingItem(itemData) {
       endTime={itemData.item.end_at}
       cost={itemData.item.cost}
       status={itemData.item.long_status_name}
+      shortStatus={itemData.item.status}
+      review={itemData.item.review}
     />
   );
 }
 
 function BookingList() {
-  
   const authCtx = useContext(AuthContext);
   const [bookings, setBookings] = useState(authCtx.bookingByMe);
   const token = authCtx.token;
 
-  useEffect(() => {
-    const fetchBookings = async () => {
-      const bookings = await getMyBookings(token);
-      setBookings(bookings);
-    };
+  useFocusEffect(
+    useCallback(() => {
+      const fetchBookings = async () => {
+        try {
+          const bookings = await getMyBookings(token);
+          setBookings(bookings);
+        } catch (e) {
+          // Handle error
+          console.log(e);
+        }
+      };
 
-    fetchBookings().catch(console.error);
-  }, [authCtx]);
+      fetchBookings();
+
+      return () => {};
+    }, [authCtx])
+  );
 
   return (
     <View style={styles.container}>
