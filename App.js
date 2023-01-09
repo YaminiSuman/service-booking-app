@@ -288,22 +288,21 @@ function AuthStack() {
       <Stack.Screen
         name="ProfessionalPreviewScreen"
         component={ProfessionalPreviewScreen}
-        options={{ title: i18n.t("PROF_PREVIEW_SCREEN") }}
+        options={{ title: i18n.t("Professional Preview") }}
       />
       <Stack.Screen
         name="ReviewScreen"
         component={ReviewScreen}
-        options={{ title: i18n.t("REVIEW_SCREEN") }}
+        options={{ title: i18n.t("Reviews") }}
       />
       <Stack.Screen
         name="SubmitReviewScreen"
         component={SubmitReviewScreen}
-        options={{ title: i18n.t("SUBMIT_REVIEW_SCREEN") }}
+        options={{ title: i18n.t("Submit Review") }}
       />
       <Stack.Screen
         name="CancelledOrConfirmedBookingListScreen"
         component={CancelledOrConfirmedBookingListScreen}
-        // options={{ title: i18n.t("SUBMIT_REVIEW_SCREEN") }}
       />
     </Stack.Navigator>
   );

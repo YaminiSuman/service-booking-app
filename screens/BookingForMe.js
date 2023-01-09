@@ -2,6 +2,9 @@ import { View, StyleSheet } from "react-native";
 import { useState, useContext, useCallback } from "react";
 import { useFocusEffect, useNavigation } from "@react-navigation/native";
 
+import { I18n } from "i18n-js";
+import { translations, defaultLocale } from "../i18n/supportedLanguages";
+
 import { Colors } from "../constants/styles";
 import { getProfUserBookings } from "../util/Auth";
 import { AuthContext } from "../store/AuthContext";
@@ -18,6 +21,9 @@ import Button from "../components/ui/Button";
 // const adUnitId = __DEV__
 //   ? TestIds.BANNER
 //   : "ca-app-pub-2257380265518883/9341812590";
+
+const i18n = new I18n(translations);
+i18n.locale = defaultLocale;
 
 function BookingForMe() {
   const [bookings, setBookings] = useState([]);
@@ -67,11 +73,11 @@ function BookingForMe() {
             onPress={() => {
               navigation.navigate("CancelledOrConfirmedBookingListScreen", {
                 bookings: cancelledBookings,
-                header: "Cancelled Booking List",
+                header: i18n.t("Cancelled Booking List"),
               });
             }}
           >
-            Show Cancelled Bookings
+            {i18n.t("Show Cancelled Bookings")}
           </Button>
         </View>
         <View style={styles.buttons}>
@@ -79,11 +85,11 @@ function BookingForMe() {
             onPress={() => {
               navigation.navigate("CancelledOrConfirmedBookingListScreen", {
                 bookings: completedBookings,
-                header: "Completed Booking List",
+                header: i18n.t("Completed Booking List"),
               });
             }}
           >
-            Show Completed Bookings
+            {i18n.t("Show Completed Bookings")}
           </Button>
         </View>
       </View>
