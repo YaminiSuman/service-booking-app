@@ -133,10 +133,8 @@ function SwitchToProfessional() {
   }
 
   return (
-      <ScrollView
-        keyboardShouldPersistTaps="handled"
-        style={styles.inputContainer}
-      >
+    <ScrollView keyboardShouldPersistTaps="handled">
+      <View style={styles.inputContainer}>
         <TextInput
           style={styles.input}
           placeholder={i18n.t("Enter your cost per hour")}
@@ -218,7 +216,8 @@ function SwitchToProfessional() {
             {i18n.t("SWITCH_TO_PROF_USER")}
           </Button>
         </View>
-      </ScrollView>
+      </View>
+    </ScrollView>
   );
 }
 

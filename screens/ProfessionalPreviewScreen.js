@@ -5,6 +5,7 @@ import {
   Image,
   TouchableOpacity,
   Alert,
+  ScrollView,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { useContext } from "react";
@@ -122,63 +123,65 @@ function ProfessionalPreviewScreen({ route }) {
     });
   }
   return (
-    <View style={styles.rootContainer}>
-      <View style={styles.row}>
-        <Text style={styles.label}>Name</Text>
-        <Text style={[styles.title, { marginLeft: 78 }]}>
-          {professional_user_name}
-        </Text>
-      </View>
-      <View style={styles.row}>
-        <Text style={styles.label}>Cost</Text>
-        <Text style={[styles.title, { marginLeft: 88 }]}>{cost}</Text>
-      </View>
-      <View style={styles.row}>
-        <Text style={styles.label}>Category</Text>
-        <Text style={[styles.title, { marginLeft: 50 }]}>{category}</Text>
-      </View>
-      <View style={styles.row}>
-        <Text style={styles.label}>Booking Date</Text>
-        <Text style={styles.title}>{selectedDate}</Text>
-      </View>
-      <View style={styles.row}>
-        <Text style={styles.label}>Booking Time</Text>
-        <Text style={styles.title}>{selectedStartTime}</Text>
-      </View>
-      <View style={styles.row}>
-        <Text style={styles.label}>Notes</Text>
-        <Text style={[styles.title, { marginLeft: 78 }]}>
-          {note_text ? note_text : "None"}
-        </Text>
-      </View>
-      <TouchableOpacity onPress={() => () => SaveImageToDevice(certURI)}>
-        <View style={styles.column}>
-          <Text style={styles.ImageLabel}>Business Logo</Text>
-          <Image source={{ uri: logoURI }} style={styles.image} />
+    <ScrollView>
+      <View style={styles.rootContainer}>
+        <View style={styles.row}>
+          <Text style={styles.label}>Name</Text>
+          <Text style={[styles.title, { marginLeft: 78 }]}>
+            {professional_user_name}
+          </Text>
         </View>
-      </TouchableOpacity>
-
-      <TouchableOpacity onPress={() => SaveImageToDevice(certURI)}>
-        <View style={styles.column} onPress={() => console.log("clicked")}>
-          <Text style={styles.ImageLabel}>Certificate</Text>
-          <Image source={{ uri: certURI }} style={styles.image} />
+        <View style={styles.row}>
+          <Text style={styles.label}>Cost</Text>
+          <Text style={[styles.title, { marginLeft: 88 }]}>{cost}</Text>
         </View>
-      </TouchableOpacity>
+        <View style={styles.row}>
+          <Text style={styles.label}>Category</Text>
+          <Text style={[styles.title, { marginLeft: 50 }]}>{category}</Text>
+        </View>
+        <View style={styles.row}>
+          <Text style={styles.label}>Booking Date</Text>
+          <Text style={styles.title}>{selectedDate}</Text>
+        </View>
+        <View style={styles.row}>
+          <Text style={styles.label}>Booking Time</Text>
+          <Text style={styles.title}>{selectedStartTime}</Text>
+        </View>
+        <View style={styles.row}>
+          <Text style={styles.label}>Notes</Text>
+          <Text style={[styles.title, { marginLeft: 78 }]}>
+            {note_text ? note_text : "None"}
+          </Text>
+        </View>
+        <TouchableOpacity onPress={() => () => SaveImageToDevice(certURI)}>
+          <View style={styles.column}>
+            <Text style={styles.ImageLabel}>Business Logo</Text>
+            <Image source={{ uri: logoURI }} style={styles.image} />
+          </View>
+        </TouchableOpacity>
 
-      <View style={styles.buttons}>
-        <Button onPress={() => showReview()}>Show Reviews</Button>
-      </View>
-      <View style={styles.buttons}>
-        <Button onPress={() => confirmBooking()}>Confirm Booking</Button>
-      </View>
-      {/* <BannerAd
+        <TouchableOpacity onPress={() => SaveImageToDevice(certURI)}>
+          <View style={styles.column} onPress={() => console.log("clicked")}>
+            <Text style={styles.ImageLabel}>Certificate</Text>
+            <Image source={{ uri: certURI }} style={styles.image} />
+          </View>
+        </TouchableOpacity>
+
+        <View style={styles.buttons}>
+          <Button onPress={() => showReview()}>Show Reviews</Button>
+        </View>
+        <View style={styles.buttons}>
+          <Button onPress={() => confirmBooking()}>Confirm Booking</Button>
+        </View>
+        {/* <BannerAd
         unitId={adUnitId}
         size={BannerAdSize.FULL_BANNER}
         requestOptions={{
           requestNonPersonalizedAdsOnly: true,
         }}
       /> */}
-    </View>
+      </View>
+    </ScrollView>
   );
 }
 
@@ -186,7 +189,8 @@ export default ProfessionalPreviewScreen;
 
 const styles = StyleSheet.create({
   rootContainer: {
-    marginTop: 25,
+    marginTop: 5,
+    marginBottom:5,
     marginHorizontal: 32,
     padding: 16,
     borderRadius: 8,

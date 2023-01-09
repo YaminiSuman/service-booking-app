@@ -1,4 +1,4 @@
-import { FlatList, View, StyleSheet } from "react-native";
+import { FlatList, View, StyleSheet, ScrollView } from "react-native";
 import { useState, useEffect } from "react";
 import { Colors } from "../constants/styles";
 import { getMyReviews } from "../util/Auth";
@@ -39,20 +39,22 @@ function ReviewScreen({ route }) {
   }, []);
 
   return (
-    <View style={styles.container}>
-      <FlatList
-        data={reviews}
-        keyExtractor={(item) => item.id}
-        renderItem={renderReviewItem}
-      />
-      {/* <BannerAd
+    <ScrollView>
+      <View style={styles.container}>
+        <FlatList
+          data={reviews}
+          keyExtractor={(item) => item.id}
+          renderItem={renderReviewItem}
+        />
+        {/* <BannerAd
         unitId={adUnitId}
         size={BannerAdSize.FULL_BANNER}
         requestOptions={{
           requestNonPersonalizedAdsOnly: true,
         }}
       /> */}
-    </View>
+      </View>
+    </ScrollView>
   );
 }
 
