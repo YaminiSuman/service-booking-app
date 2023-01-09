@@ -5,6 +5,16 @@ import { useEffect } from "react";
 import { Colors } from "../constants/styles";
 import CancelledOrConfirmedListItem from "../components/ui/CancelledOrConfirmListItem";
 
+// import {
+//   BannerAd,
+//   BannerAdSize,
+//   TestIds,
+// } from "react-native-google-mobile-ads";
+
+// const adUnitId = __DEV__
+//   ? TestIds.BANNER
+//   : "ca-app-pub-2257380265518883/4253137444";
+
 function renderBookingItem(itemData) {
   return (
     <CancelledOrConfirmedListItem
@@ -38,6 +48,13 @@ function CancelledOrConfirmedBookingListScreen({ route }) {
         keyExtractor={(item) => item.id}
         renderItem={renderBookingItem}
       />
+      {/* <BannerAd
+        unitId={adUnitId}
+        size={BannerAdSize.FULL_BANNER}
+        requestOptions={{
+          requestNonPersonalizedAdsOnly: true,
+        }}
+      /> */}
     </View>
   );
 }

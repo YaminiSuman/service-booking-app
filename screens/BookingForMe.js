@@ -9,6 +9,16 @@ import WaitingBookingForMeList from "../components/ui/WaitingBookingForMeList";
 import ConfirmedBookingForMeList from "../components/ui/ConfirmedBookingForMeList";
 import Button from "../components/ui/Button";
 
+// import {
+//   BannerAd,
+//   BannerAdSize,
+//   TestIds,
+// } from "react-native-google-mobile-ads";
+
+// const adUnitId = __DEV__
+//   ? TestIds.BANNER
+//   : "ca-app-pub-2257380265518883/9341812590";
+
 function BookingForMe() {
   const [bookings, setBookings] = useState([]);
   const authCtx = useContext(AuthContext);
@@ -77,6 +87,13 @@ function BookingForMe() {
           </Button>
         </View>
       </View>
+      {/* <BannerAd
+        unitId={adUnitId}
+        size={BannerAdSize.FULL_BANNER}
+        requestOptions={{
+          requestNonPersonalizedAdsOnly: true,
+        }}
+      /> */}
     </View>
   );
 }

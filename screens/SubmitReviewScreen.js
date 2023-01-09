@@ -11,6 +11,16 @@ import Button from "../components/ui/Button";
 import { AuthContext } from "../store/AuthContext";
 import { submitBookingReview } from "../util/Auth";
 
+// import {
+//   BannerAd,
+//   BannerAdSize,
+//   TestIds,
+// } from "react-native-google-mobile-ads";
+
+// const adUnitId = __DEV__
+//   ? TestIds.BANNER
+//   : "ca-app-pub-2257380265518883/7645587540";
+
 const i18n = new I18n(translations);
 i18n.locale = defaultLocale;
 
@@ -57,6 +67,13 @@ function SubmitReviewScreen({ route }) {
       <View style={styles.buttons}>
         <Button onPress={handleSubmitReview}>{i18n.t("Submit Review")}</Button>
       </View>
+      {/* <BannerAd
+        unitId={adUnitId}
+        size={BannerAdSize.FULL_BANNER}
+        requestOptions={{
+          requestNonPersonalizedAdsOnly: true,
+        }}
+      /> */}
     </View>
   );
 }

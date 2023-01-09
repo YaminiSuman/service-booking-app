@@ -12,6 +12,16 @@ import { Colors } from "../../constants/styles";
 const i18n = new I18n(translations);
 i18n.locale = defaultLocale;
 
+// import {
+//   BannerAd,
+//   BannerAdSize,
+//   TestIds,
+// } from "react-native-google-mobile-ads";
+
+// const adUnitId = __DEV__
+//   ? TestIds.BANNER
+//   : "ca-app-pub-2257380265518883/2556912397";
+
 function AuthContent({ isLogin, onAuthenticate }) {
   const navigation = useNavigation();
   const [credentialsInvalid, setCredentialsInvalid] = useState({
@@ -69,6 +79,13 @@ function AuthContent({ isLogin, onAuthenticate }) {
           {isLogin ? i18n.t("Create a new user") : i18n.t("Log in instead")}
         </FlatButton>
       </View>
+      {/* <BannerAd
+        unitId={adUnitId}
+        size={BannerAdSize.FULL_BANNER}
+        requestOptions={{
+          requestNonPersonalizedAdsOnly: true,
+        }}
+      /> */}
     </View>
   );
 }

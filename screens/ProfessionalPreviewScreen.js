@@ -20,6 +20,16 @@ import { SaveImageToDevice } from "../util/SaveImageToDevice";
 import { AuthContext } from "../store/AuthContext";
 import { confirmBookingRequest } from "../util/Auth";
 
+// import {
+//   BannerAd,
+//   BannerAdSize,
+//   TestIds,
+// } from "react-native-google-mobile-ads";
+
+// const adUnitId = __DEV__
+//   ? TestIds.BANNER
+//   : "ca-app-pub-2257380265518883/6524077563";
+
 const i18n = new I18n(translations);
 i18n.locale = defaultLocale;
 
@@ -156,15 +166,18 @@ function ProfessionalPreviewScreen({ route }) {
       </TouchableOpacity>
 
       <View style={styles.buttons}>
-        <Button onPress={() => showReview()}>
-          Show Reviews
-        </Button>
+        <Button onPress={() => showReview()}>Show Reviews</Button>
       </View>
       <View style={styles.buttons}>
-        <Button onPress={() => confirmBooking()}>
-          Confirm Booking
-        </Button>
+        <Button onPress={() => confirmBooking()}>Confirm Booking</Button>
       </View>
+      {/* <BannerAd
+        unitId={adUnitId}
+        size={BannerAdSize.FULL_BANNER}
+        requestOptions={{
+          requestNonPersonalizedAdsOnly: true,
+        }}
+      /> */}
     </View>
   );
 }

@@ -4,6 +4,16 @@ import { Colors } from "../constants/styles";
 import { getMyReviews } from "../util/Auth";
 import ReviewListItem from "../components/ui/ReviewListItem";
 
+// import {
+//   BannerAd,
+//   BannerAdSize,
+//   TestIds,
+// } from "react-native-google-mobile-ads";
+
+// const adUnitId = __DEV__
+//   ? TestIds.BANNER
+//   : "ca-app-pub-2257380265518883/7645587540";
+
 function renderReviewItem(itemData) {
   return (
     <ReviewListItem
@@ -35,6 +45,13 @@ function ReviewScreen({ route }) {
         keyExtractor={(item) => item.id}
         renderItem={renderReviewItem}
       />
+      {/* <BannerAd
+        unitId={adUnitId}
+        size={BannerAdSize.FULL_BANNER}
+        requestOptions={{
+          requestNonPersonalizedAdsOnly: true,
+        }}
+      /> */}
     </View>
   );
 }

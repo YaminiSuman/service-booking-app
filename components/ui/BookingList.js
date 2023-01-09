@@ -7,6 +7,16 @@ import { getMyBookings } from "../../util/Auth";
 import { AuthContext } from "../../store/AuthContext";
 import MyBookingListItem from "./MyBookingListItem";
 
+// import {
+//   BannerAd,
+//   BannerAdSize,
+//   TestIds,
+// } from "react-native-google-mobile-ads";
+
+// const adUnitId = __DEV__
+//   ? TestIds.BANNER
+//   : "ca-app-pub-2257380265518883/5280629720";
+
 function renderBookingItem(itemData) {
   return (
     <MyBookingListItem
@@ -53,6 +63,13 @@ function BookingList() {
         keyExtractor={(item) => item.id}
         renderItem={renderBookingItem}
       />
+      {/* <BannerAd
+        unitId={adUnitId}
+        size={BannerAdSize.FULL_BANNER}
+        requestOptions={{
+          requestNonPersonalizedAdsOnly: true,
+        }}
+      /> */}
     </View>
   );
 }

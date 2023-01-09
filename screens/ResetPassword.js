@@ -11,6 +11,16 @@ import Button from "../components/ui/Button";
 import { AuthContext } from "../store/AuthContext";
 import { updateUserPassword } from "../util/Auth";
 
+// import {
+//   BannerAd,
+//   BannerAdSize,
+//   TestIds,
+// } from "react-native-google-mobile-ads";
+
+// const adUnitId = __DEV__
+//   ? TestIds.BANNER
+//   : "ca-app-pub-2257380265518883/1080179190";
+
 const i18n = new I18n(translations);
 i18n.locale = defaultLocale;
 
@@ -66,6 +76,13 @@ function ResetPassword() {
       <View style={styles.buttons}>
         <Button onPress={resetPassword}>{i18n.t("Reset Password")}</Button>
       </View>
+      {/* <BannerAd
+        unitId={adUnitId}
+        size={BannerAdSize.FULL_BANNER}
+        requestOptions={{
+          requestNonPersonalizedAdsOnly: true,
+        }}
+      /> */}
     </View>
   );
 }
