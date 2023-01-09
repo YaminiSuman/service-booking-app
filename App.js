@@ -1,5 +1,5 @@
 import { NavigationContainer } from "@react-navigation/native";
-import { Alert } from "react-native";
+import { Alert, Image } from "react-native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { StatusBar } from "expo-status-bar";
@@ -58,6 +58,12 @@ function ProfessionsOverview() {
         tabBarStyle: { backgroundColor: Colors.primary500 },
         tabBarActiveTintColor: "white",
         tabBarInactiveTintColor: "#454443",
+        headerLeft: () => (
+          <Image
+            style={{ width: 50, height: 30, margin: 20 }}
+            source={require("./assets/logo.png")}
+          />
+        ),
         headerRight: ({ tintColor }) => {
           if (authCtx.isAuthenticated) {
             return (
@@ -190,7 +196,7 @@ function ProfessionsOverview() {
         name="Categories"
         component={CategoriesScreen}
         options={{
-          title: `${i18n.t("Categories")}`,
+          title: `${i18n.t("Need For Business")}`,
           tabBarLabel: `${i18n.t("Categories")}`,
           tabBarIcon: ({ color, size }) => (
             <MaterialIcons name="category" size={size} color="white" />
@@ -232,6 +238,12 @@ function AuthStack() {
         headerStyle: { backgroundColor: Colors.primary500 },
         headerTintColor: "white",
         contentStyle: { backgroundColor: Colors.primary100 },
+        headerLeft: () => (
+          <Image
+            style={{ width: 50, height: 30, margin: 10 }}
+            source={require("./assets/logo.png")}
+          />
+        ),
       }}
     >
       <Stack.Screen
