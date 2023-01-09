@@ -4,15 +4,15 @@ import { Colors } from "../constants/styles";
 import ProfessionalListItem from "../components/ui/ProfessionalListItem";
 import EmptyListDialog from "../components/ui/EmptyListDialog";
 
-import {
-  BannerAd,
-  BannerAdSize,
-  TestIds,
-} from "react-native-google-mobile-ads";
+// import {
+//   BannerAd,
+//   BannerAdSize,
+//   TestIds,
+// } from "react-native-google-mobile-ads";
 
-const adUnitId = __DEV__
-  ? TestIds.BANNER
-  : "ca-app-pub-2257380265518883/4897486343";
+// const adUnitId = __DEV__
+//   ? TestIds.BANNER
+//   : "ca-app-pub-2257380265518883/4897486343";
 
 function ProfessionalList({ route }) {
   const professionalDetail = route.params.workerDetails;
@@ -38,13 +38,13 @@ function ProfessionalList({ route }) {
           )}
           keyExtractor={(item) => item.id}
         />
-        <BannerAd
+        {/* <BannerAd
           unitId={adUnitId}
           size={BannerAdSize.FULL_BANNER}
           requestOptions={{
             requestNonPersonalizedAdsOnly: true,
           }}
-        />
+        /> */}
       </View>
     );
   } else {
