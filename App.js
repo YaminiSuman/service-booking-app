@@ -268,7 +268,8 @@ function AuthStack() {
     const user = authCtx.userName;
   return (
     <Stack.Navigator
-      screenOptions={{
+      screenOptions={({ navigation }) => ({
+      // screenOptions={{
         headerStyle: { backgroundColor: Colors.primary500 },
         headerTintColor: "white",
         contentStyle: { backgroundColor: Colors.primary100 },
@@ -436,7 +437,7 @@ function AuthStack() {
             );
           }
         },
-      }}
+      })}
     >
       <Stack.Screen
         name="ProfessionsOverview"

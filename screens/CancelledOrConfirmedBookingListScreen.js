@@ -1,4 +1,4 @@
-import { FlatList, View, StyleSheet } from "react-native";
+import { FlatList, View, StyleSheet,Text } from "react-native";
 import { useEffect } from "react";
 
 import { I18n } from "i18n-js";
