@@ -1,4 +1,4 @@
-import { FlatList, View, StyleSheet, ScrollView } from "react-native";
+import { FlatList, View, StyleSheet, ScrollView,Text } from "react-native";
 import { useState, useEffect } from "react";
 
 import { I18n } from "i18n-js";
@@ -46,12 +46,13 @@ function ReviewScreen({ navigation, route }) {
   }, []);
 
   if (!reviews.length) {
-    navigation.navigate("EmptyScreen", {
-      header: `${i18n.t("Reviews")}`,
-      text: `${i18n.t("No reviews at the moment")}`,
-    });
-  }
-  return (
+    return (
+      <View style={styles.rootContainer}>
+        <Text style={styles.title}> {i18n.t("No reviews at the moment")}</Text>
+      </View>
+    );
+  } else {
+    return (
       <ScrollView>
         <View style={styles.container}>
           <FlatList
@@ -68,7 +69,8 @@ function ReviewScreen({ navigation, route }) {
       /> */}
         </View>
       </ScrollView>
-  );
+    );
+  }
 }
 
 export default ReviewScreen;
@@ -77,5 +79,17 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: Colors.primary100,
+  },
+  rootContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    padding: 32,
+    backgroundColor: Colors.primary100,
+  },
+  title: {
+    fontSize: 20,
+    fontWeight: "bold",
+    marginBottom: 8,
   },
 });

@@ -36,7 +36,7 @@ function renderBookingItem(itemData) {
   );
 }
 
-function CancelledOrConfirmedBookingListScreen({ navigation,route }) {
+function CancelledOrConfirmedBookingListScreen({ navigation, route }) {
   const bookings = route.params.bookings;
   const header = route.params.header;
 
@@ -47,27 +47,29 @@ function CancelledOrConfirmedBookingListScreen({ navigation,route }) {
   }, [navigation]);
 
   if (!bookings.length) {
-    navigation.navigate("EmptyScreen", {
-      header: header,
-      text: `${i18n.t("No bookings at the moment")}`,
-    });
-  }
-  return (
-    <View style={styles.container}>
-      <FlatList
-        data={bookings}
-        keyExtractor={(item) => item.id}
-        renderItem={renderBookingItem}
-      />
-      {/* <BannerAd
+    return (
+      <View style={styles.rootContainer}>
+        <Text style={styles.title}> {i18n.t("No bookings at the moment")}</Text>
+      </View>
+    );
+  } else {
+    return (
+      <View style={styles.container}>
+        <FlatList
+          data={bookings}
+          keyExtractor={(item) => item.id}
+          renderItem={renderBookingItem}
+        />
+        {/* <BannerAd
         unitId={adUnitId}
         size={BannerAdSize.FULL_BANNER}
         requestOptions={{
           requestNonPersonalizedAdsOnly: true,
         }}
       /> */}
-    </View>
-  );
+      </View>
+    );
+  }
 }
 
 export default CancelledOrConfirmedBookingListScreen;
@@ -76,5 +78,17 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: Colors.primary100,
+  },
+  rootContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    padding: 32,
+    backgroundColor: Colors.primary100,
+  },
+  title: {
+    fontSize: 20,
+    fontWeight: "bold",
+    marginBottom: 8,
   },
 });
