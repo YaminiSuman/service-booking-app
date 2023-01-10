@@ -108,6 +108,13 @@ const translations = {
 "Professional Preview":  "Professional Preview",
 "Reviews":  "Reviews",
 "Are you sure?":  "Are you sure?",
+"Email already exists": "Email already exists",
+"Could not create user, please check your input and try again later.": "Could not create user, please check your input and try again later.",
+"No, not yet": "No, not yet",
+"Yes, cancel": "Yes, cancel",
+"No bookings at the moment": "No bookings at the moment",
+"Please come back later..!": "Please come back later..!",
+"No reviews at the moment": "No reviews at the moment",
   },
   pt: {
     "Update Booking Status":  "Atualize o status de reserva",
@@ -218,6 +225,13 @@ const translations = {
 "Reviews":  "Avaliações",
 "Reset Password":  "Redefinir senha",
 "Are you sure?":  "Tem certeza?",
+"Email already exists": "e-mail já existe",
+"Could not create user, please check your input and try again later.": "Não foi possível criar o usuário, verifique sua entrada e tente novamente mais tarde.",
+"No, not yet": "Não, ainda não",
+"Yes, cancel": "Sim, cancelar",
+"No bookings at the moment": "Sem reservas no momento",
+"Please come back later..!": "Por favor, volte mais tarde..!",
+"No reviews at the moment": "Sem comentários no momento",
   },
 };
 
