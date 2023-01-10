@@ -240,7 +240,8 @@ const styles = StyleSheet.create({
     marginBottom: 8,
     marginLeft: 15,
     color: "white",
-    marginRight: 10,
+    flex: 1,
+    flexWrap: "wrap",
   },
   buttons: {
     marginTop: 10,
