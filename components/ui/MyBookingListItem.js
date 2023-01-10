@@ -32,9 +32,9 @@ function MyBookingListItem({
     {
       {
         Alert.alert(i18n.t("Cancel this Booking"), i18n.t("Are you sure?"), [
-          { text: i18n.t("Maybe later"), style: "cancel" },
+          { text: i18n.t("No, not yet"), style: "cancel" },
           {
-            text: i18n.t("Confirm"),
+            text: i18n.t("Yes, cancel"),
             onPress: () =>
               patchBookingStatus("C", token, id, "byMe").then(
                 navigation.navigate("Categories")

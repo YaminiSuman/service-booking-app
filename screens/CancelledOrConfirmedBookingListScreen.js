@@ -2,6 +2,9 @@ import { FlatList, View, StyleSheet } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { useEffect } from "react";
 
+import { I18n } from "i18n-js";
+import { translations, defaultLocale } from "../i18n/supportedLanguages";
+
 import { Colors } from "../constants/styles";
 import CancelledOrConfirmedListItem from "../components/ui/CancelledOrConfirmListItem";
 
@@ -14,6 +17,9 @@ import CancelledOrConfirmedListItem from "../components/ui/CancelledOrConfirmLis
 // const adUnitId = __DEV__
 //   ? TestIds.BANNER
 //   : "ca-app-pub-2257380265518883/4253137444";
+
+const i18n = new I18n(translations);
+i18n.locale = defaultLocale;
 
 function renderBookingItem(itemData) {
   return (
@@ -31,16 +37,22 @@ function renderBookingItem(itemData) {
   );
 }
 
-function CancelledOrConfirmedBookingListScreen({ route }) {
+function CancelledOrConfirmedBookingListScreen({ navigation,route }) {
   const bookings = route.params.bookings;
   const header = route.params.header;
-  const navigation = useNavigation();
+
   useEffect(() => {
     navigation.setOptions({
       title: `${header}`,
     });
   }, [navigation]);
 
+  if (!bookings.length) {
+    navigation.navigate("EmptyScreen", {
+      header: header,
+      text: `${i18n.t("No bookings at the moment")}`,
+    });
+  }
   return (
     <View style={styles.container}>
       <FlatList

@@ -35,12 +35,21 @@ function SignupScreen({ navigation }) {
             },
           ]
         );
+      } else {
+        Alert.alert(
+          i18n.t("Email already exists"),
+          i18n.t(
+            "Could not create user, please check your input and try again later."
+          )
+        );
       }
     } catch (error) {
       console.log(error.message);
       Alert.alert(
         i18n.t("Authentication failed!"),
-        i18n.t("Could not create user, please check your input and try again later.")
+        i18n.t(
+          "Could not create user, please check your input and try again later."
+        )
       );
     }
 

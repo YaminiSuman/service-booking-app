@@ -1,5 +1,9 @@
 import { FlatList, View, StyleSheet, ScrollView } from "react-native";
 import { useState, useEffect } from "react";
+
+import { I18n } from "i18n-js";
+import { translations, defaultLocale } from "../i18n/supportedLanguages";
+
 import { Colors } from "../constants/styles";
 import { getMyReviews } from "../util/Auth";
 import ReviewListItem from "../components/ui/ReviewListItem";
@@ -14,6 +18,9 @@ import ReviewListItem from "../components/ui/ReviewListItem";
 //   ? TestIds.BANNER
 //   : "ca-app-pub-2257380265518883/7645587540";
 
+const i18n = new I18n(translations);
+i18n.locale = defaultLocale;
+
 function renderReviewItem(itemData) {
   return (
     <ReviewListItem
@@ -25,7 +32,7 @@ function renderReviewItem(itemData) {
   );
 }
 
-function ReviewScreen({ route }) {
+function ReviewScreen({ navigation,route }) {
   const profId = route.params.profId;
   const [reviews, setReviews] = useState([]);
 
@@ -38,6 +45,12 @@ function ReviewScreen({ route }) {
     fetchReviews().catch(console.error);
   }, []);
 
+  if (!reviews.length) {
+    navigation.navigate("EmptyScreen", {
+      header: `${i18n.t("Reviews")}`,
+      text: `${i18n.t("No reviews at the moment")}`,
+    });
+  }
   return (
     <ScrollView>
       <View style={styles.container}>

@@ -139,7 +139,7 @@ function ProfessionalPreviewScreen({ route }) {
           <Text style={[styles.title, { marginLeft: 50 }]}>{category}</Text>
         </View>
         <View style={styles.row}>
-          <Text style={styles.label}>{i18n.t("Booking Date") }</Text>
+          <Text style={styles.label}>{i18n.t("Booking Date")}</Text>
           <Text style={styles.title}>{selectedDate}</Text>
         </View>
         <View style={styles.row}>
@@ -198,9 +198,9 @@ export default ProfessionalPreviewScreen;
 
 const styles = StyleSheet.create({
   rootContainer: {
-    marginTop: 5,
+    marginTop: 10,
     marginBottom: 5,
-    marginHorizontal: 32,
+    marginHorizontal: 10,
     padding: 16,
     borderRadius: 8,
     backgroundColor: Colors.primary800,
@@ -228,7 +228,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     color: "#ddd7d7",
     marginBottom: 5,
-    marginLeft: 85,
+    marginLeft: 110,
   },
   title: {
     fontSize: 18,
@@ -236,6 +236,7 @@ const styles = StyleSheet.create({
     marginBottom: 8,
     marginLeft: 15,
     color: "white",
+    marginRight: 10,
   },
   buttons: {
     marginTop: 10,
