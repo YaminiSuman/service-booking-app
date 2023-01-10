@@ -32,7 +32,7 @@ function renderReviewItem(itemData) {
   );
 }
 
-function ReviewScreen({ navigation,route }) {
+function ReviewScreen({ navigation, route }) {
   const profId = route.params.profId;
   const [reviews, setReviews] = useState([]);
 
@@ -52,7 +52,6 @@ function ReviewScreen({ navigation,route }) {
     });
   }
   return (
-    <View>
       <ScrollView>
         <View style={styles.container}>
           <FlatList
@@ -60,16 +59,15 @@ function ReviewScreen({ navigation,route }) {
             keyExtractor={(item) => item.id}
             renderItem={renderReviewItem}
           />
-        </View>
-      </ScrollView>
-      {/* <BannerAd
+          {/* <BannerAd
         unitId={adUnitId}
         size={BannerAdSize.FULL_BANNER}
         requestOptions={{
           requestNonPersonalizedAdsOnly: true,
         }}
       /> */}
-    </View>
+        </View>
+      </ScrollView>
   );
 }
 

@@ -23,22 +23,20 @@ function ProfessionalList({ route }) {
 
   if (professionalDetail?.length) {
     return (
-      <View>
-        <View style={styles.container}>
-          <FlatList
-            data={professionalDetail}
-            renderItem={(itemData) => (
-              <ProfessionalListItem
-                {...itemData.item}
-                selectedDate={selectedDate}
-                selectedStartTime={selectedStartTime}
-                selectedEndTime={selectedEndTime}
-                category={category}
-              />
-            )}
-            keyExtractor={(item) => item.id}
-          />
-        </View>
+      <View style={styles.container}>
+        <FlatList
+          data={professionalDetail}
+          renderItem={(itemData) => (
+            <ProfessionalListItem
+              {...itemData.item}
+              selectedDate={selectedDate}
+              selectedStartTime={selectedStartTime}
+              selectedEndTime={selectedEndTime}
+              category={category}
+            />
+          )}
+          keyExtractor={(item) => item.id}
+        />
         {/* <BannerAd
           unitId={adUnitId}
           size={BannerAdSize.FULL_BANNER}

@@ -95,7 +95,7 @@ export default AuthContent;
 const styles = StyleSheet.create({
   authContent: {
     marginTop: 64,
-    marginBottom: 100,
+    marginBottom: 40,
     marginHorizontal: 32,
     padding: 16,
     borderRadius: 8,

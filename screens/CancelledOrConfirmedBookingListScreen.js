@@ -53,14 +53,12 @@ function CancelledOrConfirmedBookingListScreen({ navigation,route }) {
     });
   }
   return (
-    <View>
-      <View style={styles.container}>
-        <FlatList
-          data={bookings}
-          keyExtractor={(item) => item.id}
-          renderItem={renderBookingItem}
-        />
-      </View>
+    <View style={styles.container}>
+      <FlatList
+        data={bookings}
+        keyExtractor={(item) => item.id}
+        renderItem={renderBookingItem}
+      />
       {/* <BannerAd
         unitId={adUnitId}
         size={BannerAdSize.FULL_BANNER}
