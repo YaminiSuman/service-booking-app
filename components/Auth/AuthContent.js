@@ -38,8 +38,7 @@ function AuthContent({ isLogin, onAuthenticate }) {
   }
 
   function submitHandler(credentials) {
-    let { email, password, confirmPassword, name } =
-      credentials;
+    let { email, password, confirmPassword, name } = credentials;
 
     email = email.trim();
     password = password.trim();
@@ -50,12 +49,11 @@ function AuthContent({ isLogin, onAuthenticate }) {
     const passwordsAreEqual = password === confirmPassword;
     const nameIsValid = name.length > 2 && name.length < 20;
 
-    if (
-      !emailIsValid ||
-      !passwordIsValid ||
-      (!isLogin &&  !passwordsAreEqual)
-    ) {
-      Alert.alert(i18n.t("Invalid input"), i18n.t("Please check your entered credentials."));
+    if (!emailIsValid || !passwordIsValid || (!isLogin && !passwordsAreEqual)) {
+      Alert.alert(
+        i18n.t("Invalid input"),
+        i18n.t("Please check your entered credentials.")
+      );
       setCredentialsInvalid({
         email: !emailIsValid,
         password: !passwordIsValid,
@@ -68,16 +66,18 @@ function AuthContent({ isLogin, onAuthenticate }) {
   }
 
   return (
-    <View style={styles.authContent}>
-      <AuthForm
-        isLogin={isLogin}
-        onSubmit={submitHandler}
-        credentialsInvalid={credentialsInvalid}
-      />
-      <View style={styles.buttons}>
-        <FlatButton onPress={switchAuthModeHandler}>
-          {isLogin ? i18n.t("Create a new user") : i18n.t("Log in instead")}
-        </FlatButton>
+    <View>
+      <View style={styles.authContent}>
+        <AuthForm
+          isLogin={isLogin}
+          onSubmit={submitHandler}
+          credentialsInvalid={credentialsInvalid}
+        />
+        <View style={styles.buttons}>
+          <FlatButton onPress={switchAuthModeHandler}>
+            {isLogin ? i18n.t("Create a new user") : i18n.t("Log in instead")}
+          </FlatButton>
+        </View>
       </View>
       {/* <BannerAd
         unitId={adUnitId}
@@ -95,6 +95,7 @@ export default AuthContent;
 const styles = StyleSheet.create({
   authContent: {
     marginTop: 64,
+    marginBottom: 100,
     marginHorizontal: 32,
     padding: 16,
     borderRadius: 8,

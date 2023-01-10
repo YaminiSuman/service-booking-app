@@ -122,75 +122,79 @@ function ProfessionalPreviewScreen({ route }) {
     });
   }
   return (
-    <ScrollView>
-      <View style={styles.rootContainer}>
-        <View style={styles.row}>
-          <Text style={styles.label}>{i18n.t("Name")}</Text>
-          <Text style={[styles.title, { marginLeft: 78 }]}>
-            {professional_user_name}
-          </Text>
-        </View>
-        <View style={styles.row}>
-          <Text style={styles.label}>{i18n.t("Cost")}</Text>
-          <Text style={[styles.title, { marginLeft: 88 }]}>{cost}</Text>
-        </View>
-        <View style={styles.row}>
-          <Text style={styles.label}>{i18n.t("Category")}</Text>
-          <Text style={[styles.title, { marginLeft: 50 }]}>{category}</Text>
-        </View>
-        <View style={styles.row}>
-          <Text style={styles.label}>{i18n.t("Booking Date")}</Text>
-          <Text style={styles.title}>{selectedDate}</Text>
-        </View>
-        <View style={styles.row}>
-          <Text style={styles.label}>{i18n.t("Start Time")}</Text>
-          <Text style={[styles.title, { marginLeft: 40 }]}>
-            {selectedStartTime}
-          </Text>
-        </View>
-        <View style={styles.row}>
-          <Text style={styles.label}>{i18n.t("End Time")}</Text>
-          <Text style={[styles.title, { marginLeft: 50 }]}>
-            {selectedEndTime}
-          </Text>
-        </View>
-        <View style={styles.row}>
-          <Text style={styles.label}>{i18n.t("Notes")}</Text>
-          <Text style={[styles.title, { marginLeft: 78 }]}>
-            {note_text ? note_text : i18n.t("None")}
-          </Text>
-        </View>
-        <TouchableOpacity onPress={() => () => SaveImageToDevice(certURI)}>
-          <View style={styles.column}>
-            <Text style={styles.ImageLabel}>{i18n.t("Business Logo")}</Text>
-            <Image source={{ uri: logoURI }} style={styles.image} />
+    <View>
+      <ScrollView>
+        <View style={styles.rootContainer}>
+          <View style={styles.row}>
+            <Text style={styles.label}>{i18n.t("Name")}</Text>
+            <Text style={[styles.title, { marginLeft: 78 }]}>
+              {professional_user_name}
+            </Text>
           </View>
-        </TouchableOpacity>
-
-        <TouchableOpacity onPress={() => SaveImageToDevice(certURI)}>
-          <View style={styles.column} onPress={() => console.log("clicked")}>
-            <Text style={styles.ImageLabel}>{i18n.t("Certificate")}</Text>
-            <Image source={{ uri: certURI }} style={styles.image} />
+          <View style={styles.row}>
+            <Text style={styles.label}>{i18n.t("Cost")}</Text>
+            <Text style={[styles.title, { marginLeft: 88 }]}>{cost}</Text>
           </View>
-        </TouchableOpacity>
+          <View style={styles.row}>
+            <Text style={styles.label}>{i18n.t("Category")}</Text>
+            <Text style={[styles.title, { marginLeft: 50 }]}>{category}</Text>
+          </View>
+          <View style={styles.row}>
+            <Text style={styles.label}>{i18n.t("Booking Date")}</Text>
+            <Text style={styles.title}>{selectedDate}</Text>
+          </View>
+          <View style={styles.row}>
+            <Text style={styles.label}>{i18n.t("Start Time")}</Text>
+            <Text style={[styles.title, { marginLeft: 40 }]}>
+              {selectedStartTime}
+            </Text>
+          </View>
+          <View style={styles.row}>
+            <Text style={styles.label}>{i18n.t("End Time")}</Text>
+            <Text style={[styles.title, { marginLeft: 50 }]}>
+              {selectedEndTime}
+            </Text>
+          </View>
+          <View style={styles.row}>
+            <Text style={styles.label}>{i18n.t("Notes")}</Text>
+            <Text style={[styles.title, { marginLeft: 78 }]}>
+              {note_text ? note_text : i18n.t("None")}
+            </Text>
+          </View>
+          <TouchableOpacity onPress={() => () => SaveImageToDevice(certURI)}>
+            <View style={styles.column}>
+              <Text style={styles.ImageLabel}>{i18n.t("Business Logo")}</Text>
+              <Image source={{ uri: logoURI }} style={styles.image} />
+            </View>
+          </TouchableOpacity>
 
-        <View style={styles.buttons}>
-          <Button onPress={() => showReview()}>{i18n.t("Show Reviews")}</Button>
+          <TouchableOpacity onPress={() => SaveImageToDevice(certURI)}>
+            <View style={styles.column} onPress={() => console.log("clicked")}>
+              <Text style={styles.ImageLabel}>{i18n.t("Certificate")}</Text>
+              <Image source={{ uri: certURI }} style={styles.image} />
+            </View>
+          </TouchableOpacity>
+
+          <View style={styles.buttons}>
+            <Button onPress={() => showReview()}>
+              {i18n.t("Show Reviews")}
+            </Button>
+          </View>
+          <View style={styles.buttons}>
+            <Button onPress={() => confirmBooking()}>
+              {i18n.t("Confirm Booking")}
+            </Button>
+          </View>
         </View>
-        <View style={styles.buttons}>
-          <Button onPress={() => confirmBooking()}>
-            {i18n.t("Confirm Booking")}
-          </Button>
-        </View>
-        {/* <BannerAd
+      </ScrollView>
+      {/* <BannerAd
         unitId={adUnitId}
         size={BannerAdSize.FULL_BANNER}
         requestOptions={{
           requestNonPersonalizedAdsOnly: true,
         }}
       /> */}
-      </View>
-    </ScrollView>
+    </View>
   );
 }
 

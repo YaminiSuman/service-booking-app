@@ -55,17 +55,21 @@ function SubmitReviewScreen({ route }) {
   }
 
   return (
-    <View style={styles.inputContainer}>
-      <TextInput
-        style={styles.input}
-        placeholder={i18n.t("Please enter your review comments")}
-        value={review}
-        onChangeText={setReview}
-        multiline="true"
-      />
+    <View>
+      <View style={styles.inputContainer}>
+        <TextInput
+          style={styles.input}
+          placeholder={i18n.t("Please enter your review comments")}
+          value={review}
+          onChangeText={setReview}
+          multiline="true"
+        />
 
-      <View style={styles.buttons}>
-        <Button onPress={handleSubmitReview}>{i18n.t("Submit Review")}</Button>
+        <View style={styles.buttons}>
+          <Button onPress={handleSubmitReview}>
+            {i18n.t("Submit Review")}
+          </Button>
+        </View>
       </View>
       {/* <BannerAd
         unitId={adUnitId}
@@ -84,6 +88,7 @@ const styles = StyleSheet.create({
   inputContainer: {
     marginTop: 64,
     marginHorizontal: 32,
+    marginBottom:50,
     padding: 16,
     borderRadius: 8,
     backgroundColor: Colors.primary800,

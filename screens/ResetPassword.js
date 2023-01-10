@@ -57,24 +57,26 @@ function ResetPassword() {
   }
 
   return (
-    <View style={styles.inputContainer}>
-      <TextInput
-        style={styles.input}
-        placeholder={i18n.t("password")}
-        value={password}
-        secureTextEntry={true}
-        onChangeText={setPassword}
-      />
-      <TextInput
-        style={styles.input}
-        placeholder={i18n.t("confirm password")}
-        value={confirmPassword}
-        secureTextEntry={true}
-        onChangeText={setConfirmPassword}
-      />
+    <View>
+      <View style={styles.inputContainer}>
+        <TextInput
+          style={styles.input}
+          placeholder={i18n.t("password")}
+          value={password}
+          secureTextEntry={true}
+          onChangeText={setPassword}
+        />
+        <TextInput
+          style={styles.input}
+          placeholder={i18n.t("confirm password")}
+          value={confirmPassword}
+          secureTextEntry={true}
+          onChangeText={setConfirmPassword}
+        />
 
-      <View style={styles.buttons}>
-        <Button onPress={resetPassword}>{i18n.t("Reset Password")}</Button>
+        <View style={styles.buttons}>
+          <Button onPress={resetPassword}>{i18n.t("Reset Password")}</Button>
+        </View>
       </View>
       {/* <BannerAd
         unitId={adUnitId}
@@ -92,6 +94,7 @@ export default ResetPassword;
 const styles = StyleSheet.create({
   inputContainer: {
     marginTop: 64,
+    marginBottom:100,
     marginHorizontal: 32,
     padding: 16,
     borderRadius: 8,

@@ -1,4 +1,4 @@
-import { View,FlatList,StyleSheet } from "react-native";
+import { View, FlatList, StyleSheet } from "react-native";
 
 import { Colors } from "../constants/styles";
 import ProfessionalListItem from "../components/ui/ProfessionalListItem";
@@ -22,22 +22,23 @@ function ProfessionalList({ route }) {
   const category = route.params.category;
 
   if (professionalDetail?.length) {
-
     return (
-      <View style={styles.container}>
-        <FlatList
-          data={professionalDetail}
-          renderItem={(itemData) => (
-            <ProfessionalListItem
-              {...itemData.item}
-              selectedDate={selectedDate}
-              selectedStartTime={selectedStartTime}
-              selectedEndTime={selectedEndTime}
-              category={category}
-            />
-          )}
-          keyExtractor={(item) => item.id}
-        />
+      <View>
+        <View style={styles.container}>
+          <FlatList
+            data={professionalDetail}
+            renderItem={(itemData) => (
+              <ProfessionalListItem
+                {...itemData.item}
+                selectedDate={selectedDate}
+                selectedStartTime={selectedStartTime}
+                selectedEndTime={selectedEndTime}
+                category={category}
+              />
+            )}
+            keyExtractor={(item) => item.id}
+          />
+        </View>
         {/* <BannerAd
           unitId={adUnitId}
           size={BannerAdSize.FULL_BANNER}

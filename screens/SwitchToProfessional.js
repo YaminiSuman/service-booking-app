@@ -143,90 +143,92 @@ function SwitchToProfessional() {
   }
 
   return (
-    <ScrollView keyboardShouldPersistTaps="handled">
-      <View style={styles.inputContainer}>
-        <TextInput
-          style={styles.input}
-          placeholder={i18n.t("Enter your cost per hour")}
-          value={cost}
-          onChangeText={setCost}
-          keyboardType="number-pad"
-        />
-        <DropDownPicker
-          placeholder={i18n.t("Select County")}
-          open={openCountyDropDown}
-          value={countyDropDownValue}
-          items={countyDropDownItems}
-          onOpen={onOpenCountyDropDown}
-          onClose={() => setOpenCountyDropDown(false)}
-          setValue={setCountyDropDownValue}
-          setItems={setCountyDropDownItems}
-          style={styles.dropDownContainer}
-          dropDownDirection="AUTO"
-          zIndex={3000}
-          zIndexInverse={1000}
-          dropDownContainerStyle={{
-            backgroundColor: Colors.primary100,
-            borderColor: Colors.primary800,
-          }}
-        />
-        <DropDownPicker
-          placeholder={i18n.t("Select Area")}
-          open={openAreaDropDown}
-          value={areaDropDownValue}
-          items={areaDropDownItems}
-          onOpen={onOpenAreaDropDown}
-          onClose={() => setOpenAreaDropDown(false)}
-          setValue={setAreaDropDownValue}
-          setItems={setAreaDropDownItems}
-          style={styles.dropDownContainer}
-          dropDownDirection="AUTO"
-          zIndex={2000}
-          zIndexInverse={2000}
-          dropDownContainerStyle={{
-            backgroundColor: Colors.primary100,
-            borderColor: Colors.primary800,
-          }}
-        />
-        <DropDownPicker
-          placeholder={i18n.t("Select Category")}
-          open={openCategoryDropDown}
-          value={categoryDropDownValue}
-          items={categoryDropDownItems}
-          onOpen={onOpenCategoryDropDown}
-          onClose={() => setOpenCategoryDropDown(false)}
-          setValue={setCategoryDropDownValue}
-          setItems={setCategoryDropDownItems}
-          style={styles.dropDownContainer}
-          dropDownDirection="AUTO"
-          zIndex={1000}
-          zIndexInverse={3000}
-          dropDownContainerStyle={{
-            backgroundColor: Colors.primary100,
-            borderColor: Colors.primary800,
-          }}
-        />
-        <TextInput
-          style={styles.input}
-          placeholder={i18n.t("Add notes for your customer - if any")}
-          multiline={true}
-          onChangeText={setNotes}
-          value={notes}
-        />
-        <ImagePicker
-          textToShow={i18n.t("Upload Business Logo")}
-          handleCallback={handleBusinessLogoUpload}
-        />
-        <ImagePicker
-          textToShow={i18n.t("Upload Professional certificate")}
-          handleCallback={handleProfCertUpload}
-        />
-        <View style={styles.buttons}>
-          <Button onPress={handleSwitchToProfessional}>
-            {i18n.t("SWITCH_TO_PROF_USER")}
-          </Button>
+    <View>
+      <ScrollView keyboardShouldPersistTaps="handled">
+        <View style={styles.inputContainer}>
+          <TextInput
+            style={styles.input}
+            placeholder={i18n.t("Enter your cost per hour")}
+            value={cost}
+            onChangeText={setCost}
+            keyboardType="number-pad"
+          />
+          <DropDownPicker
+            placeholder={i18n.t("Select County")}
+            open={openCountyDropDown}
+            value={countyDropDownValue}
+            items={countyDropDownItems}
+            onOpen={onOpenCountyDropDown}
+            onClose={() => setOpenCountyDropDown(false)}
+            setValue={setCountyDropDownValue}
+            setItems={setCountyDropDownItems}
+            style={styles.dropDownContainer}
+            dropDownDirection="AUTO"
+            zIndex={3000}
+            zIndexInverse={1000}
+            dropDownContainerStyle={{
+              backgroundColor: Colors.primary100,
+              borderColor: Colors.primary800,
+            }}
+          />
+          <DropDownPicker
+            placeholder={i18n.t("Select Area")}
+            open={openAreaDropDown}
+            value={areaDropDownValue}
+            items={areaDropDownItems}
+            onOpen={onOpenAreaDropDown}
+            onClose={() => setOpenAreaDropDown(false)}
+            setValue={setAreaDropDownValue}
+            setItems={setAreaDropDownItems}
+            style={styles.dropDownContainer}
+            dropDownDirection="AUTO"
+            zIndex={2000}
+            zIndexInverse={2000}
+            dropDownContainerStyle={{
+              backgroundColor: Colors.primary100,
+              borderColor: Colors.primary800,
+            }}
+          />
+          <DropDownPicker
+            placeholder={i18n.t("Select Category")}
+            open={openCategoryDropDown}
+            value={categoryDropDownValue}
+            items={categoryDropDownItems}
+            onOpen={onOpenCategoryDropDown}
+            onClose={() => setOpenCategoryDropDown(false)}
+            setValue={setCategoryDropDownValue}
+            setItems={setCategoryDropDownItems}
+            style={styles.dropDownContainer}
+            dropDownDirection="AUTO"
+            zIndex={1000}
+            zIndexInverse={3000}
+            dropDownContainerStyle={{
+              backgroundColor: Colors.primary100,
+              borderColor: Colors.primary800,
+            }}
+          />
+          <TextInput
+            style={styles.input}
+            placeholder={i18n.t("Add notes for your customer - if any")}
+            multiline={true}
+            onChangeText={setNotes}
+            value={notes}
+          />
+          <ImagePicker
+            textToShow={i18n.t("Upload Business Logo")}
+            handleCallback={handleBusinessLogoUpload}
+          />
+          <ImagePicker
+            textToShow={i18n.t("Upload Professional certificate")}
+            handleCallback={handleProfCertUpload}
+          />
+          <View style={styles.buttons}>
+            <Button onPress={handleSwitchToProfessional}>
+              {i18n.t("SWITCH_TO_PROF_USER")}
+            </Button>
+          </View>
         </View>
-      </View>
+      </ScrollView>
       {/* <BannerAd
         unitId={adUnitId}
         size={BannerAdSize.FULL_BANNER}
@@ -234,7 +236,7 @@ function SwitchToProfessional() {
           requestNonPersonalizedAdsOnly: true,
         }}
       /> */}
-    </ScrollView>
+    </View>
   );
 }
 

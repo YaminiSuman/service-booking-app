@@ -57,12 +57,14 @@ function BookingList() {
   );
 
   return (
-    <View style={styles.container}>
-      <FlatList
-        data={bookings}
-        keyExtractor={(item) => item.id}
-        renderItem={renderBookingItem}
-      />
+    <View>
+      <View style={styles.container}>
+        <FlatList
+          data={bookings}
+          keyExtractor={(item) => item.id}
+          renderItem={renderBookingItem}
+        />
+      </View>
       {/* <BannerAd
         unitId={adUnitId}
         size={BannerAdSize.FULL_BANNER}

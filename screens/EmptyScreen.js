@@ -1,5 +1,4 @@
 import { StyleSheet, Text, View } from "react-native";
-import { useNavigation } from "@react-navigation/native";
 import { useEffect } from "react";
 
 import { I18n } from "i18n-js";

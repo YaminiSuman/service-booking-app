@@ -52,22 +52,24 @@ function ReviewScreen({ navigation,route }) {
     });
   }
   return (
-    <ScrollView>
-      <View style={styles.container}>
-        <FlatList
-          data={reviews}
-          keyExtractor={(item) => item.id}
-          renderItem={renderReviewItem}
-        />
-        {/* <BannerAd
+    <View>
+      <ScrollView>
+        <View style={styles.container}>
+          <FlatList
+            data={reviews}
+            keyExtractor={(item) => item.id}
+            renderItem={renderReviewItem}
+          />
+        </View>
+      </ScrollView>
+      {/* <BannerAd
         unitId={adUnitId}
         size={BannerAdSize.FULL_BANNER}
         requestOptions={{
           requestNonPersonalizedAdsOnly: true,
         }}
       /> */}
-      </View>
-    </ScrollView>
+    </View>
   );
 }
 

@@ -1,5 +1,4 @@
 import { FlatList, View, StyleSheet } from "react-native";
-import { useNavigation } from "@react-navigation/native";
 import { useEffect } from "react";
 
 import { I18n } from "i18n-js";
@@ -54,12 +53,14 @@ function CancelledOrConfirmedBookingListScreen({ navigation,route }) {
     });
   }
   return (
-    <View style={styles.container}>
-      <FlatList
-        data={bookings}
-        keyExtractor={(item) => item.id}
-        renderItem={renderBookingItem}
-      />
+    <View>
+      <View style={styles.container}>
+        <FlatList
+          data={bookings}
+          keyExtractor={(item) => item.id}
+          renderItem={renderBookingItem}
+        />
+      </View>
       {/* <BannerAd
         unitId={adUnitId}
         size={BannerAdSize.FULL_BANNER}
