@@ -22,7 +22,7 @@
       "package": "com.ub.neb",
       "googleServicesFile": "./google-services.json",
       "adaptiveIcon": {
-        "foregroundImage": "./app_icon/logo.png",
+        "foregroundImage": "./assets/app_icon.png",
         "backgroundColor": "#FFFFFF"
       }
     },
