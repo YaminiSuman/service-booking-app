@@ -8,6 +8,7 @@ import { MaterialIcons } from "@expo/vector-icons";
 import { RootSiblingParent } from "react-native-root-siblings";
 import * as Notifications from "expo-notifications";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import * as MediaLibrary from "expo-media-library";
 
 import { I18n } from "i18n-js";
 import { translations, defaultLocale } from "./i18n/supportedLanguages";
@@ -265,8 +266,8 @@ function ProfessionsOverview() {
 }
 
 function AuthStack() {
-    const authCtx = useContext(AuthContext);
-    const user = authCtx.userName;
+  const authCtx = useContext(AuthContext);
+  const user = authCtx.userName;
   return (
     <Stack.Navigator
       screenOptions={({ navigation }) => ({
@@ -532,8 +533,22 @@ function Navigation() {
         });
       }
     }
+    async function saveToLibraryPermission() {
+      let { status } = await MediaLibrary.getPermissionsAsync();
+      let finalStatus = status;
+
+      if (finalStatus !== "granted") {
+        const { status } = await MediaLibrary.requestPermissionsAsync();
+        finalStatus = status;
+      }
+      if (finalStatus !== "granted") {
+        Alert.alert(i18n.t("Permission required"));
+        return;
+      }
+    }
 
     configurePushNotifications();
+    saveToLibraryPermission();
   }, []);
   return (
     <NavigationContainer>
