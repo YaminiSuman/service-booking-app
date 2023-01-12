@@ -27,7 +27,8 @@ function MyReviewScreen({ navigation, route }) {
 
         <Text style={styles.instructionText}>{review}</Text>
         <Text style={styles.nameLabelText}>
-          {i18n.t("For the booking at")}
+          {i18n.t("For the booking at ")}
+
           {time}
         </Text>
         <View style={styles.buttons}>
