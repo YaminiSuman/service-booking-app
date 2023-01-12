@@ -7,6 +7,16 @@ import { translations, defaultLocale } from "../../i18n/supportedLanguages";
 import Button from "../ui/Button";
 import { Colors } from "../../constants/styles";
 
+// import {
+//   BannerAd,
+//   BannerAdSize,
+//   TestIds,
+// } from "react-native-google-mobile-ads";
+
+// const adUnitId = __DEV__
+//   ? TestIds.BANNER
+//   : "ca-app-pub-2257380265518883/6232425413";
+
 const i18n = new I18n(translations);
 i18n.locale = defaultLocale;
 
@@ -18,14 +28,30 @@ function EmptyListDialog() {
     
   return (
     <View style={styles.container}>
+      {/* <BannerAd
+        unitId={adUnitId}
+        size={BannerAdSize.FULL_BANNER}
+        requestOptions={{
+          requestNonPersonalizedAdsOnly: true,
+        }}
+      /> */}
       <View style={styles.inputContainer}>
         <Text style={styles.instructionText}>
           {i18n.t("Professionals not available at the moment")}
         </Text>
         <View style={styles.buttons}>
-          <Button onPress={navigateToCategory}>{i18n.t("Take me back!")}</Button>
+          <Button onPress={navigateToCategory}>
+            {i18n.t("Take me back!")}
+          </Button>
         </View>
       </View>
+      {/* <BannerAd
+        unitId={adUnitId}
+        size={BannerAdSize.FULL_BANNER}
+        requestOptions={{
+          requestNonPersonalizedAdsOnly: true,
+        }}
+      /> */}
     </View>
   );
 }
