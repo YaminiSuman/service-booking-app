@@ -161,8 +161,8 @@ function ProfessionalPreviewScreen({ route }) {
               {note_text ? note_text : i18n.t("None")}
             </Text>
           </View>
-          <TouchableOpacity onPress={() => () => SaveImageToDevice(certURI)}>
-            <View style={styles.column}>
+          <TouchableOpacity onPress={() => SaveImageToDevice(logoURI)}>
+            <View style={styles.column} onPress={() => console.log("clicked")}>
               <Text style={styles.ImageLabel}>{i18n.t("Business Logo")}</Text>
               <Image source={{ uri: logoURI }} style={styles.image} />
             </View>

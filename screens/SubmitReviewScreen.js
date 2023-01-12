@@ -62,7 +62,7 @@ function SubmitReviewScreen({ route }) {
           placeholder={i18n.t("Please enter your review comments")}
           value={review}
           onChangeText={setReview}
-          multiline="true"
+          multiline={true}
         />
 
         <View style={styles.buttons}>
