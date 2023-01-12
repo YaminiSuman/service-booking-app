@@ -30,6 +30,7 @@ import ProfessionalPreviewScreen from "./screens/ProfessionalPreviewScreen";
 import ReviewScreen from "./screens/ReviewScreen";
 import SubmitReviewScreen from "./screens/SubmitReviewScreen";
 import CancelledOrConfirmedBookingListScreen from "./screens/CancelledOrConfirmedBookingListScreen";
+import MyReviewScreen from "./screens/MyReviewScreen";
 
 const i18n = new I18n(translations);
 i18n.locale = defaultLocale;
@@ -269,7 +270,7 @@ function AuthStack() {
   return (
     <Stack.Navigator
       screenOptions={({ navigation }) => ({
-      // screenOptions={{
+        // screenOptions={{
         headerStyle: { backgroundColor: Colors.primary500 },
         headerTintColor: "white",
         contentStyle: { backgroundColor: Colors.primary100 },
@@ -488,6 +489,11 @@ function AuthStack() {
       <Stack.Screen
         name="CancelledOrConfirmedBookingListScreen"
         component={CancelledOrConfirmedBookingListScreen}
+      />
+      <Stack.Screen
+        name="MyReviewScreen"
+        component={MyReviewScreen}
+        options={{ title: i18n.t("My Review") }}
       />
     </Stack.Navigator>
   );

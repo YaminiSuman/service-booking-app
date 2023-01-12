@@ -32,6 +32,7 @@ function renderBookingItem(itemData) {
       status={itemData.item.long_status_name}
       shortStatus={itemData.item.status}
       review={itemData.item.review}
+      general_user_name={itemData.item.general_user_name}
     />
   );
 }

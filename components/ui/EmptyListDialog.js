@@ -23,7 +23,7 @@ function EmptyListDialog() {
           {i18n.t("Professionals not available at the moment")}
         </Text>
         <View style={styles.buttons}>
-          <Button onPress={navigateToCategory}>{i18n.t("Take me Back!")}</Button>
+          <Button onPress={navigateToCategory}>{i18n.t("Take me back!")}</Button>
         </View>
       </View>
     </View>

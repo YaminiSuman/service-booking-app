@@ -1,4 +1,5 @@
-import { StyleSheet, Text, View, Alert } from "react-native";
+import { StyleSheet, Text, View, Alert, Pressable } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 
 import { I18n } from "i18n-js";
 import { translations, defaultLocale } from "../../i18n/supportedLanguages";
@@ -7,6 +8,7 @@ import { Colors } from "../../constants/styles";
 
 const i18n = new I18n(translations);
 i18n.locale = defaultLocale;
+
 
 function CancelledOrConfirmedListItem({
   id,
@@ -17,20 +19,36 @@ function CancelledOrConfirmedListItem({
   cost,
   status,
   shortStatus,
+  general_user_name,
   review,
 }) {
+
+  const navigation = useNavigation();
+  function navigateToReviewScreen() {
+    navigation.navigate("MyReviewScreen", {
+      review: review,
+      time: endTime,
+      user: general_user_name,
+    });
+  }
+
   return (
-    <View style={styles.listItem}>
-      <View>
-        <Text style={styles.description} numberOfLines={1}>
-          {`${name} (${profession})`}
-        </Text>
-        <Text style={styles.textBase}>{startTime}</Text>
+    <Pressable
+      onPress={navigateToReviewScreen}
+      style={({ pressed }) => pressed && styles.pressed}
+    >
+      <View style={styles.listItem}>
+        <View>
+          <Text style={styles.description} numberOfLines={1}>
+            {`${name} (${profession})`}
+          </Text>
+          <Text style={styles.textBase}>{startTime}</Text>
+        </View>
+        <View style={styles.costContainer}>
+          <Text style={styles.amount}>{`Kz${cost}`}</Text>
+        </View>
       </View>
-      <View style={styles.costContainer}>
-        <Text style={styles.amount}>{`Kz${cost}`}</Text>
-      </View>
-    </View>
+    </Pressable>
   );
 }
 
