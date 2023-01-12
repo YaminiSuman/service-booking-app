@@ -217,7 +217,7 @@ const translations = {
     "Select County": "Select County",
     "Logging in": "Login",
     password: "senha",
-    Cost: "Custo",
+    Cost: "Preço Inicial",
     "Please fill all the fields": "Por favor, preencha todos os campos",
     "Booking Successful": "Reserva bem -sucedida",
     "Business Logo": "Logotipo de negócios",
@@ -274,6 +274,6 @@ const translations = {
   },
 };
 
-const defaultLocale = "en"; // switch here for pt or en
+const defaultLocale = "pt"; // switch here for pt or en
 
 export { translations, defaultLocale };

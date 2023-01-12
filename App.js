@@ -230,7 +230,7 @@ function ProfessionsOverview() {
         name="Categories"
         component={CategoriesScreen}
         options={{
-          title: `${i18n.t("Need For Business")}`,
+          title: "Need For Business",
           tabBarLabel: `${i18n.t("Categories")}`,
           tabBarIcon: ({ color, size }) => (
             <MaterialIcons name="category" size={size} color="white" />

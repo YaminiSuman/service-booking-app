@@ -127,17 +127,17 @@ function ProfessionalPreviewScreen({ route }) {
         <View style={styles.rootContainer}>
           <View style={styles.row}>
             <Text style={styles.label}>{i18n.t("Name")}</Text>
-            <Text style={[styles.title, { marginLeft: 78 }]}>
+            <Text style={[styles.title, { marginLeft: 92 }]}>
               {professional_user_name}
             </Text>
           </View>
           <View style={styles.row}>
             <Text style={styles.label}>{i18n.t("Cost")}</Text>
-            <Text style={[styles.title, { marginLeft: 88 }]}>{cost}</Text>
+            <Text style={[styles.title, { marginLeft: 50 }]}>Kz {cost}</Text>
           </View>
           <View style={styles.row}>
             <Text style={styles.label}>{i18n.t("Category")}</Text>
-            <Text style={[styles.title, { marginLeft: 50 }]}>{category}</Text>
+            <Text style={[styles.title, { marginLeft: 65 }]}>{category}</Text>
           </View>
           <View style={styles.row}>
             <Text style={styles.label}>{i18n.t("Booking Date")}</Text>
@@ -145,19 +145,19 @@ function ProfessionalPreviewScreen({ route }) {
           </View>
           <View style={styles.row}>
             <Text style={styles.label}>{i18n.t("Start Time")}</Text>
-            <Text style={[styles.title, { marginLeft: 40 }]}>
+            <Text style={[styles.title, { marginLeft: 35 }]}>
               {selectedStartTime}
             </Text>
           </View>
           <View style={styles.row}>
             <Text style={styles.label}>{i18n.t("End Time")}</Text>
-            <Text style={[styles.title, { marginLeft: 50 }]}>
+            <Text style={[styles.title, { marginLeft: 35 }]}>
               {selectedEndTime}
             </Text>
           </View>
           <View style={styles.row}>
             <Text style={styles.label}>{i18n.t("Notes")}</Text>
-            <Text style={[styles.title, { marginLeft: 78 }]}>
+            <Text style={[styles.title, { marginLeft: 30 }]}>
               {note_text ? note_text : i18n.t("None")}
             </Text>
           </View>

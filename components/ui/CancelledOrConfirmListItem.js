@@ -45,7 +45,7 @@ function CancelledOrConfirmedListItem({
           <Text style={styles.textBase}>{startTime}</Text>
         </View>
         <View style={styles.costContainer}>
-          <Text style={styles.amount}>{`Kz${cost}`}</Text>
+          <Text style={styles.amount}>{`Kz ${cost}`}</Text>
         </View>
       </View>
     </Pressable>
