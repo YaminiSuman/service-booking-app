@@ -2,14 +2,16 @@ import { StyleSheet, View, Modal, Text, Alert } from "react-native";
 import { useState, useCallback, useContext } from "react";
 import DropDownPicker from "react-native-dropdown-picker";
 import { useNavigation } from "@react-navigation/native";
+import DatePicker from "react-native-datepicker";
 
 import { I18n } from "i18n-js";
 import { translations, defaultLocale } from "../../i18n/supportedLanguages";
 
 import {
-  dropDownItemsForXDays,
   startTimeSlots,
   endTimeSlots,
+  getNextDate,
+  getThreeMonthFromToday,
 } from "../../util/Common";
 import { displayAvailableServiceWorkers } from "../../util/Auth";
 import { Colors } from "../../constants/styles";
@@ -23,11 +25,7 @@ i18n.locale = defaultLocale;
 function ServiceInputModal(props) {
   const navigation = useNavigation();
 
-  const [openDateDropDown, setOpenDateDropDown] = useState(false);
-  const [dateDropDownValue, setDateDropDownValue] = useState(null);
-  const [dateDropDownItems, setDateDropDownItems] = useState(
-    dropDownItemsForXDays()
-  );
+  const [datePickerValue, setDay] = useState("");
 
   const [openStartTimeDropDown, setOpenStartTimeDropDown] = useState(false);
   const [startTimeDropDownValue, setStartTimeDropDownValue] = useState(null);
@@ -41,20 +39,12 @@ function ServiceInputModal(props) {
     endTimeSlots()
   );
 
-  const onOpenDateDropDown = useCallback(() => {
-    setOpenDateDropDown(true);
-    setOpenStartTimeDropDown(false);
-    setOpenEndTimeDropDown(false);
-  }, []);
-
   const onOpenStartTimeDropdown = useCallback(() => {
-    setOpenDateDropDown(false);
     setOpenStartTimeDropDown(true);
     setOpenEndTimeDropDown(false);
   }, []);
 
   const onOpenEndTimeDropdown = useCallback(() => {
-    setOpenDateDropDown(false);
     setOpenStartTimeDropDown(false);
     setOpenEndTimeDropDown(true);
   }, []);
@@ -62,10 +52,14 @@ function ServiceInputModal(props) {
   const authCtx = useContext(AuthContext);
   const token = authCtx.token;
 
+  const currentDate = getNextDate();
+
+  const maxDayForDatePicker = getThreeMonthFromToday();
+
   async function handleGetDetails() {
     try {
       if (
-        !(dateDropDownValue && startTimeDropDownValue && endTimeDropDownValue)
+        !(datePickerValue && startTimeDropDownValue && endTimeDropDownValue)
       ) {
         Alert.alert(
           i18n.t("Required Field !!!"),
@@ -74,7 +68,7 @@ function ServiceInputModal(props) {
       } else {
         const workerDetails = await displayAvailableServiceWorkers(
           props.id,
-          dateDropDownValue,
+          datePickerValue,
           startTimeDropDownValue,
           endTimeDropDownValue,
           token
@@ -87,7 +81,7 @@ function ServiceInputModal(props) {
           navigation.navigate("ProfessionalList", {
             workerDetails: workerDetails,
             category: props.category,
-            selectedDate: dateDropDownValue,
+            selectedDate: datePickerValue,
             selectedStartTime: startTimeDropDownValue,
             selectedEndTime: endTimeDropDownValue,
           });
@@ -110,22 +104,50 @@ function ServiceInputModal(props) {
             <Text style={styles.instructionText}>
               {i18n.t("Please choose your preference")}
             </Text>
-            <DropDownPicker
-              placeholder={i18n.t("Select day")}
-              open={openDateDropDown}
-              value={dateDropDownValue}
-              items={dateDropDownItems}
-              onOpen={onOpenDateDropDown}
-              onClose={() => setOpenDateDropDown(false)}
-              setValue={setDateDropDownValue}
-              setItems={setDateDropDownItems}
-              style={styles.dropDownContainer}
-              dropDownDirection="AUTO"
-              zIndex={3000}
-              zIndexInverse={1000}
-              dropDownContainerStyle={{
+            <DatePicker
+              style={{
+                width: 295,
                 backgroundColor: Colors.primary100,
                 borderColor: Colors.primary800,
+                marginBottom: 10,
+                borderRadius: 4,
+                color: "black",
+              }}
+              date={datePickerValue}
+              mode="date"
+              placeholder={i18n.t("Select day")}
+              format="DD-MM-YYYY"
+              minDate={currentDate}
+              maxDate={maxDayForDatePicker}
+              confirmBtnText={i18n.t("Confirm")}
+              cancelBtnText={i18n.t("Cancel")}
+              showIcon={false}
+              customStyles={{
+                datePickerCon: {
+                  borderColor: Colors.primary100,
+                  backgroundColor: Colors.primary800,
+                },
+                dateInput: {
+                  position: "absolute",
+                  left: 17,
+                  top: 0,
+                  borderColor: Colors.primary100,
+                  borderRadius: 4,
+                  color: "black",
+                },
+                dateText: {
+                  color: "black",
+                  fontSize: 14,
+                  right: 10,
+                },
+                placeholderText: {
+                  right: 10,
+                  color: "black",
+                  fontSize: 14,
+                },
+              }}
+              onDateChange={(date) => {
+                setDay(date);
               }}
             />
 
@@ -141,7 +163,7 @@ function ServiceInputModal(props) {
               style={styles.dropDownContainer}
               dropDownDirection="AUTO"
               zIndex={2000}
-              zIndexInverse={2000}
+              zIndexInverse={1000}
               dropDownContainerStyle={{
                 backgroundColor: Colors.primary100,
                 borderColor: Colors.primary800,
@@ -159,7 +181,7 @@ function ServiceInputModal(props) {
               style={styles.dropDownContainer}
               dropDownDirection="AUTO"
               zIndex={1000}
-              zIndexInverse={3000}
+              zIndexInverse={2000}
               dropDownContainerStyle={{
                 backgroundColor: Colors.primary100,
                 borderColor: Colors.primary800,

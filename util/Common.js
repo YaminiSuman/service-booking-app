@@ -11,6 +11,13 @@ const nextXDays = (n = 15) => {
   return days;
 };
 
+export const getNextDate = () => {
+  return dayjs().add(1, "day").format("DD-MM-YYYY");
+};
+
+export const getThreeMonthFromToday = () => {
+  return dayjs().add(1, "year").format("DD-MM-YYYY");
+};
 export const dropDownItemsForXDays = () => {
   let dropDownValue = nextXDays();
   let dropDownArr = [];
@@ -26,6 +33,8 @@ export const dropDownItemsForXDays = () => {
 
 export const startTimeSlots = () => {
   return [
+    { label: "8:00AM", value: "8:00" },
+    { label: "8:30AM ", value: "9:00" },
     { label: "9:00AM", value: "9:00" },
     { label: "9:30AM ", value: "9:30" },
     { label: "10:00AM ", value: "10:00" },
@@ -50,6 +59,7 @@ export const startTimeSlots = () => {
 
 export const endTimeSlots = () => {
   return [
+    { label: "8:30AM ", value: "9:00" },
     { label: "9:30AM ", value: "9:30" },
     { label: "10:00AM ", value: "10:00" },
     { label: "10:30AM ", value: "10:30" },
