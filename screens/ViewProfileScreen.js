@@ -54,7 +54,6 @@ export default function ViewProfileScreen({ navigation }) {
     cost,
     is_prof_user,
     category,
-    county,
     area,
     note_text,
     business_logo,
@@ -121,10 +120,6 @@ export default function ViewProfileScreen({ navigation }) {
               <Text style={[styles.title]}>{category}</Text>
             </View>
             <View style={styles.column}>
-              <Text style={styles.label}>{i18n.t("County")}</Text>
-              <Text style={[styles.title]}>{county}</Text>
-            </View>
-            <View style={styles.column}>
               <Text style={styles.label}>{i18n.t("Area")}</Text>
               <Text style={[styles.title]}>{area}</Text>
             </View>
@@ -167,7 +162,6 @@ export default function ViewProfileScreen({ navigation }) {
                     name,
                     email,
                     cost,
-                    county,
                     area,
                     note_text,
                     is_prof_user,

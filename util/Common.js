@@ -1,5 +1,9 @@
 import dayjs from "dayjs";
-import { getDropDownValuesForProfAccountSwitching } from "./Auth";
+import {
+  getDropDownValuesForProfAccountSwitching,
+  getCategories,
+  getAllArea,
+} from "./Auth";
 
 const nextXDays = (n = 15) => {
   let days = [];
@@ -103,8 +107,8 @@ export async function dropDownItemsForCounty() {
 
 export async function dropDownItemsForArea() {
   try {
-    const data = await getDropDownValuesForProfAccountSwitching();
-    let dropDownValue = data.area;
+    const data = await getAllArea();
+    let dropDownValue = data;
     let dropDownArr = [];
 
     for (let i = 0; i < dropDownValue.length; i++) {
@@ -122,8 +126,8 @@ export async function dropDownItemsForArea() {
 
 export async function dropDownItemsForCategory() {
   try {
-    const data = await getDropDownValuesForProfAccountSwitching();
-    let dropDownValue = data.profession_types;
+    const data = await getCategories();
+    let dropDownValue = data;
     let dropDownArr = [];
 
     for (let i = 0; i < dropDownValue.length; i++) {

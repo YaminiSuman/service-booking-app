@@ -56,11 +56,17 @@ export async function getCategories() {
   return data;
 }
 
+export async function getAllArea() {
+  const { data } = await axios.get(`${Base_URL}/profession/allArea/`);
+  return data;
+}
+
 export async function displayAvailableServiceWorkers(
   id,
   day,
   startTime,
   endTime,
+  areaDropDownValue,
   token = null
 ) {
   console.log("token in displayAvailableServiceWorkers", token);
@@ -71,6 +77,7 @@ export async function displayAvailableServiceWorkers(
     profession_type_id: id,
     start_time: start_time,
     end_time: end_time,
+    area: areaDropDownValue,
   });
 
   let axiosConfig = {

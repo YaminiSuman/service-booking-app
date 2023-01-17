@@ -1,5 +1,5 @@
 import { StyleSheet, View, Modal, Text, Alert } from "react-native";
-import { useState, useCallback, useContext } from "react";
+import { useState, useCallback, useContext, useEffect } from "react";
 import DropDownPicker from "react-native-dropdown-picker";
 import { useNavigation } from "@react-navigation/native";
 import DatePicker from "react-native-datepicker";
@@ -18,6 +18,7 @@ import { Colors } from "../../constants/styles";
 import Button from "./Button";
 import FlatButton from "./FlatButton";
 import { AuthContext } from "../../store/AuthContext";
+import { dropDownItemsForArea } from "../../util/Common";
 
 const i18n = new I18n(translations);
 i18n.locale = defaultLocale;
@@ -26,6 +27,10 @@ function ServiceInputModal(props) {
   const navigation = useNavigation();
 
   const [datePickerValue, setDay] = useState("");
+
+  const [openAreaDropDown, setOpenAreaDropDown] = useState(false);
+  const [areaDropDownValue, setAreaDropDownValue] = useState(null);
+  const [areaDropDownItems, setAreaDropDownItems] = useState([]);
 
   const [openStartTimeDropDown, setOpenStartTimeDropDown] = useState(false);
   const [startTimeDropDownValue, setStartTimeDropDownValue] = useState(null);
@@ -39,14 +44,32 @@ function ServiceInputModal(props) {
     endTimeSlots()
   );
 
+  const onOpenAreaDropDown = useCallback(() => {
+    setOpenAreaDropDown(true);
+    setOpenStartTimeDropDown(false);
+    setOpenEndTimeDropDown(false);
+  }, []);
+
   const onOpenStartTimeDropdown = useCallback(() => {
+    setOpenAreaDropDown(false);
     setOpenStartTimeDropDown(true);
     setOpenEndTimeDropDown(false);
   }, []);
 
   const onOpenEndTimeDropdown = useCallback(() => {
+    setOpenAreaDropDown(false);
     setOpenStartTimeDropDown(false);
     setOpenEndTimeDropDown(true);
+  }, []);
+
+  useEffect(() => {
+    const fetchDropDownItems = async () => {
+      const area = await dropDownItemsForArea();
+
+      setAreaDropDownItems(area);
+    };
+
+    fetchDropDownItems().catch(console.error);
   }, []);
 
   const authCtx = useContext(AuthContext);
@@ -71,6 +94,7 @@ function ServiceInputModal(props) {
           datePickerValue,
           startTimeDropDownValue,
           endTimeDropDownValue,
+          areaDropDownValue,
           token
         );
         console.log("workerDetails", workerDetails);
@@ -150,7 +174,24 @@ function ServiceInputModal(props) {
                 setDay(date);
               }}
             />
-
+            <DropDownPicker
+              placeholder={i18n.t("Select Area")}
+              open={openAreaDropDown}
+              value={areaDropDownValue}
+              items={areaDropDownItems}
+              onOpen={onOpenAreaDropDown}
+              onClose={() => setOpenAreaDropDown(false)}
+              setValue={setAreaDropDownValue}
+              setItems={setAreaDropDownItems}
+              style={styles.dropDownContainer}
+              dropDownDirection="AUTO"
+              zIndex={3000}
+              zIndexInverse={1000}
+              dropDownContainerStyle={{
+                backgroundColor: Colors.primary100,
+                borderColor: Colors.primary800,
+              }}
+            />
             <DropDownPicker
               placeholder={i18n.t("Select start time")}
               open={openStartTimeDropDown}
@@ -163,7 +204,7 @@ function ServiceInputModal(props) {
               style={styles.dropDownContainer}
               dropDownDirection="AUTO"
               zIndex={2000}
-              zIndexInverse={1000}
+              zIndexInverse={2000}
               dropDownContainerStyle={{
                 backgroundColor: Colors.primary100,
                 borderColor: Colors.primary800,
@@ -181,7 +222,7 @@ function ServiceInputModal(props) {
               style={styles.dropDownContainer}
               dropDownDirection="AUTO"
               zIndex={1000}
-              zIndexInverse={2000}
+              zIndexInverse={3000}
               dropDownContainerStyle={{
                 backgroundColor: Colors.primary100,
                 borderColor: Colors.primary800,

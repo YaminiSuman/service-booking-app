@@ -1,10 +1,4 @@
-import {
-  StyleSheet,
-  View,
-  Alert,
-  TextInput,
-  ScrollView,
-} from "react-native";
+import { StyleSheet, View, Alert, TextInput, ScrollView } from "react-native";
 import { useState, useContext, useCallback, useEffect } from "react";
 import { useNavigation } from "@react-navigation/native";
 import Toast from "react-native-root-toast";
@@ -17,11 +11,7 @@ import { Colors } from "../constants/styles";
 import Button from "../components/ui/Button";
 import { AuthContext } from "../store/AuthContext";
 import { switchToProfessionalUser } from "../util/Auth";
-import {
-  dropDownItemsForCounty,
-  dropDownItemsForArea,
-  dropDownItemsForCategory,
-} from "../util/Common";
+import { dropDownItemsForArea, dropDownItemsForCategory } from "../util/Common";
 import ImagePicker from "../components/ui/ImagePicker";
 
 const i18n = new I18n(translations);
@@ -42,18 +32,10 @@ function SwitchToProfessional() {
   const authCtx = useContext(AuthContext);
 
   const [cost, setCost] = useState("");
-  const [openCountyDropDown, setOpenCountyDropDown] = useState(false);
-  const [countyDropDownValue, setCountyDropDownValue] = useState(null);
-  const [countyDropDownItems, setCountyDropDownItems] = useState([]);
+
   const [businessLogo, setBusinessLogo] = useState("");
   const [profCertificate, setProfCertificate] = useState("");
   const [notes, setNotes] = useState("");
-
-  const onOpenCountyDropDown = useCallback(() => {
-    setOpenCountyDropDown(true);
-    setOpenAreaDropDown(false);
-    setOpenCategoryDropDown(false);
-  }, []);
 
   const [openAreaDropDown, setOpenAreaDropDown] = useState(false);
   const [areaDropDownValue, setAreaDropDownValue] = useState(null);
@@ -61,7 +43,6 @@ function SwitchToProfessional() {
 
   const onOpenAreaDropDown = useCallback(() => {
     setOpenAreaDropDown(true);
-    setOpenCountyDropDown(false);
     setOpenCategoryDropDown(false);
   }, []);
 
@@ -71,17 +52,14 @@ function SwitchToProfessional() {
 
   const onOpenCategoryDropDown = useCallback(() => {
     setOpenAreaDropDown(false);
-    setOpenCountyDropDown(false);
     setOpenCategoryDropDown(true);
   }, []);
 
   useEffect(() => {
     const fetchDropDownItems = async () => {
-      const county = await dropDownItemsForCounty();
       const area = await dropDownItemsForArea();
       const category = await dropDownItemsForCategory();
 
-      setCountyDropDownItems(county);
       setAreaDropDownItems(area);
       setCategoryDropDownItems(category);
     };
@@ -103,7 +81,6 @@ function SwitchToProfessional() {
       }
       if (
         !(
-          countyDropDownValue &&
           areaDropDownValue &&
           categoryDropDownValue &&
           profCertificate &&
@@ -116,7 +93,6 @@ function SwitchToProfessional() {
         const res = await switchToProfessionalUser(
           true,
           categoryDropDownValue,
-          countyDropDownValue,
           areaDropDownValue,
           cost,
           businessLogo,
@@ -154,24 +130,6 @@ function SwitchToProfessional() {
             keyboardType="number-pad"
           />
           <DropDownPicker
-            placeholder={i18n.t("Select County")}
-            open={openCountyDropDown}
-            value={countyDropDownValue}
-            items={countyDropDownItems}
-            onOpen={onOpenCountyDropDown}
-            onClose={() => setOpenCountyDropDown(false)}
-            setValue={setCountyDropDownValue}
-            setItems={setCountyDropDownItems}
-            style={styles.dropDownContainer}
-            dropDownDirection="AUTO"
-            zIndex={3000}
-            zIndexInverse={1000}
-            dropDownContainerStyle={{
-              backgroundColor: Colors.primary100,
-              borderColor: Colors.primary800,
-            }}
-          />
-          <DropDownPicker
             placeholder={i18n.t("Select Area")}
             open={openAreaDropDown}
             value={areaDropDownValue}
@@ -183,7 +141,7 @@ function SwitchToProfessional() {
             style={styles.dropDownContainer}
             dropDownDirection="AUTO"
             zIndex={2000}
-            zIndexInverse={2000}
+            zIndexInverse={1000}
             dropDownContainerStyle={{
               backgroundColor: Colors.primary100,
               borderColor: Colors.primary800,
@@ -201,7 +159,7 @@ function SwitchToProfessional() {
             style={styles.dropDownContainer}
             dropDownDirection="AUTO"
             zIndex={1000}
-            zIndexInverse={3000}
+            zIndexInverse={2000}
             dropDownContainerStyle={{
               backgroundColor: Colors.primary100,
               borderColor: Colors.primary800,
@@ -244,9 +202,9 @@ export default SwitchToProfessional;
 
 const styles = StyleSheet.create({
   inputContainer: {
-    flex:1,
+    flex: 1,
     marginTop: 2,
-    marginBottom:2,
+    marginBottom: 2,
     marginHorizontal: 32,
     padding: 16,
     borderRadius: 8,

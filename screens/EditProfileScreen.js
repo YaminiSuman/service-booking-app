@@ -1,11 +1,4 @@
-import {
-  StyleSheet,
-  Text,
-  View,
-  TextInput,
-  ScrollView,
-  Alert,
-} from "react-native";
+import { StyleSheet, View, TextInput, ScrollView, Alert } from "react-native";
 import { useState, useContext, useCallback, useEffect } from "react";
 import DropDownPicker from "react-native-dropdown-picker";
 import Toast from "react-native-root-toast";
@@ -15,7 +8,7 @@ import { translations, defaultLocale } from "../i18n/supportedLanguages";
 
 import Button from "../components/ui/Button";
 import { Colors } from "../constants/styles";
-import { dropDownItemsForCounty, dropDownItemsForArea } from "../util/Common";
+import { dropDownItemsForArea } from "../util/Common";
 import ImagePicker from "../components/ui/ImagePicker";
 import { patchGeneralUserProfile, patchProfUserProfile } from "../util/Auth";
 import { AuthContext } from "../store/AuthContext";
@@ -48,32 +41,18 @@ export default function EditProfileScreen({ navigation, route }) {
     route.params.certificate
   );
 
-  const [openCountyDropDown, setOpenCountyDropDown] = useState(false);
-  const [countyDropDownValue, setCountyDropDownValue] = useState(
-    route.params.county
-  );
-  const [countyDropDownItems, setCountyDropDownItems] = useState([]);
-
-  const onOpenCountyDropDown = useCallback(() => {
-    setOpenCountyDropDown(true);
-    setOpenAreaDropDown(false);
-  }, []);
-
   const [openAreaDropDown, setOpenAreaDropDown] = useState(false);
   const [areaDropDownValue, setAreaDropDownValue] = useState(route.params.area);
   const [areaDropDownItems, setAreaDropDownItems] = useState([]);
 
   const onOpenAreaDropDown = useCallback(() => {
     setOpenAreaDropDown(true);
-    setOpenCountyDropDown(false);
   }, []);
 
   useEffect(() => {
     const fetchDropDownItems = async () => {
-      const county = await dropDownItemsForCounty();
       const area = await dropDownItemsForArea();
 
-      setCountyDropDownItems(county);
       setAreaDropDownItems(area);
     };
 
@@ -155,7 +134,6 @@ export default function EditProfileScreen({ navigation, route }) {
           name,
           email,
           cost,
-          countyDropDownValue,
           areaDropDownValue,
           notes,
           businessLogo,
@@ -202,24 +180,7 @@ export default function EditProfileScreen({ navigation, route }) {
               value={cost}
               onChangeText={setCost}
             />
-            <DropDownPicker
-              placeholder={i18n.t("Select County")}
-              open={openCountyDropDown}
-              value={countyDropDownValue}
-              items={countyDropDownItems}
-              onOpen={onOpenCountyDropDown}
-              onClose={() => setOpenCountyDropDown(false)}
-              setValue={setCountyDropDownValue}
-              setItems={setCountyDropDownItems}
-              style={styles.dropDownContainer}
-              dropDownDirection="AUTO"
-              zIndex={2000}
-              zIndexInverse={1000}
-              dropDownContainerStyle={{
-                backgroundColor: Colors.primary100,
-                borderColor: Colors.primary800,
-              }}
-            />
+
             <DropDownPicker
               placeholder={i18n.t("Select Area")}
               open={openAreaDropDown}
