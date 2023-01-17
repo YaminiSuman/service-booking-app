@@ -58,6 +58,10 @@ export const startTimeSlots = () => {
     { label: "5:00PM ", value: "17:00" },
     { label: "5:30PM", value: "17:30" },
     { label: "6:00PM", value: "18:00" },
+    { label: "6:30PM", value: "18:30" },
+    { label: "7:00PM", value: "19:00" },
+    { label: "7:30PM", value: "19:30" },
+    { label: "8:00PM", value: "20:00" },
   ];
 };
 
@@ -83,6 +87,11 @@ export const endTimeSlots = () => {
     { label: "5:30PM", value: "17:30" },
     { label: "6:00PM", value: "18:00" },
     { label: "6:30PM", value: "18:30" },
+    { label: "6:30PM", value: "18:30" },
+    { label: "7:00PM", value: "19:00" },
+    { label: "7:30PM", value: "19:30" },
+    { label: "8:00PM", value: "20:00" },
+    { label: "8:30PM", value: "20:30" },
   ];
 };
 
