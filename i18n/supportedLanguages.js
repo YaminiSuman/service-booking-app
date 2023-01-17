@@ -143,6 +143,8 @@ const translations = {
     "Update Professional certificate": "Update Professional certificate",
     "Edit Profile": "Edit Profile",
     Email: "Email",
+    Area: "Area",
+    "My Profile": "My Profile",
   },
   pt: {
     "Update Booking Status": "Atualize o status de reserva",
@@ -290,6 +292,8 @@ const translations = {
     "Update Professional certificate": "Atualize o certificado profissional",
     "Edit Profile": "Editar Perfil",
     Email: "O email",
+    Area: "Área",
+    "My Profile": "Meu perfil",
   },
 };
 

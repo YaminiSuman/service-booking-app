@@ -175,6 +175,7 @@ const createFormData = (businessLogo, profCertificate, userData) => {
   let type = match ? `image/${match[1]}` : `image`;
 
   let match2 = /\.(\w+)$/.exec(profCertFilename);
+
   let typeCert = match ? `image/${match2[1]}` : `image`;
 
   data.append("business_logo", {
@@ -205,7 +206,6 @@ const createFormData = (businessLogo, profCertificate, userData) => {
 export async function switchToProfessionalUser(
   is_prof_user,
   prof_id,
-  county,
   area,
   cost,
   businessLogo,
@@ -217,7 +217,6 @@ export async function switchToProfessionalUser(
     user: 1,
     is_prof_user: is_prof_user,
     profession_type: prof_id,
-    county: county,
     area: area,
     cost: cost,
     note_text: notes,
@@ -414,12 +413,10 @@ export async function patchGeneralUserProfile(name, email, token) {
     });
 }
 
-
 export async function patchProfUserProfile(
   name,
   email,
   cost,
-  countyDropDownValue,
   areaDropDownValue,
   notes,
   businessLogo,
@@ -430,17 +427,12 @@ export async function patchProfUserProfile(
     name: name,
     email: email,
     cost: cost,
-    county: countyDropDownValue,
     area: areaDropDownValue,
     note_text: notes,
   };
 
-  const formData = createFormData(
-    businessLogo,
-    profCertificate,
-    userData
-  );
- 
+  const formData = createFormData(businessLogo, profCertificate, userData);
+
   let axiosConfig = {
     headers: {
       "Content-Type": "multipart/form-data",
