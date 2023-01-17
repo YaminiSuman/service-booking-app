@@ -134,6 +134,15 @@ const translations = {
     "For the booking at ": "For the booking at ",
     "Take me back!": "Take me back!",
     "Photo Saved Successfully": "Photo Saved Successfully",
+    "User profile updated successfully": "User profile updated successfully",
+    "Could not update profile. Please try again later!":
+      "Could not update profile. Please try again later!",
+    "Updating Profile": "Updating Profile",
+    "Update Profile": "Update Profile",
+    "Update Business Logo": "Update Business Logo",
+    "Update Professional certificate": "Update Professional certificate",
+    "Edit Profile": "Edit Profile",
+    Email: "Email",
   },
   pt: {
     "Update Booking Status": "Atualize o status de reserva",
@@ -271,6 +280,16 @@ const translations = {
     "For the booking at ": "Para a reserva em ",
     "Take me back!": "Me leve de volta!",
     "Photo Saved Successfully": "Foto salva com sucesso",
+    "User profile updated successfully":
+      "Perfil de usuário atualizado com sucesso",
+    "Could not update profile. Please try again later!":
+      "Não foi possível atualizar o perfil. Por favor, tente novamente mais tarde!",
+    "Updating Profile": "Perfil de atualização",
+    "Update Profile": "Atualizar perfil",
+    "Update Business Logo": "Atualizar o logotipo de negócios",
+    "Update Professional certificate": "Atualize o certificado profissional",
+    "Edit Profile": "Editar Perfil",
+    Email: "O email",
   },
 };
 
