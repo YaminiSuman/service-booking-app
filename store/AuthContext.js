@@ -8,7 +8,7 @@ export const AuthContext = createContext({
   bookingByMe: [],
   fcmToken: "",
   userName: "",
-  authenticate: (token) => {},
+  authenticate: (token, isProfUser, userName) => {},
   logout: () => {},
   setProfUser: () => {},
   setBookingByMe: () => {},
@@ -47,6 +47,7 @@ function AuthContextProvider({ children }) {
 
   function setProfUser(isProfUser) {
     setIsProfUser(isProfUser);
+    AsyncStorage.setItem("isProfUser", JSON.stringify(isProfUser));
   }
 
   function setBookingByMe(booking) {
@@ -55,6 +56,7 @@ function AuthContextProvider({ children }) {
 
   function setUserName(userName) {
     setUser(userName);
+    AsyncStorage.setItem("userName", userName);
   }
   const value = {
     token: authToken,

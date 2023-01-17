@@ -170,7 +170,7 @@ function ProfessionalPreviewScreen({ route }) {
 
           <TouchableOpacity onPress={() => SaveImageToDevice(certURI)}>
             <View style={styles.column} onPress={() => console.log("clicked")}>
-              <Text style={styles.ImageLabel}>{i18n.t("Certificate")}</Text>
+              <Text style={[styles.ImageLabel, { marginLeft: 120 }]}>{i18n.t("Certificate")}</Text>
               <Image source={{ uri: certURI }} style={styles.image} />
             </View>
           </TouchableOpacity>
@@ -232,7 +232,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     color: "#ddd7d7",
     marginBottom: 5,
-    marginLeft: 110,
+    marginLeft: 80,
   },
   title: {
     fontSize: 18,

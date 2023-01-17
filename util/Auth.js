@@ -369,3 +369,86 @@ export async function submitBookingReview(bookingId, review, token) {
       console.log("**AXIOS ERROR: ", err.response.data);
     });
 }
+
+export async function getMyUserDetails(token) {
+  let axiosConfig = {
+    headers: {
+      "Content-Type": "application/json;charset=UTF-8",
+      "Access-Control-Allow-Origin": "*",
+      Authorization: `${token}`,
+    },
+  };
+  const { data } = await axios.get(`${Base_URL}/user/update-me/`, axiosConfig);
+  console.log("User profile data response: ", data);
+  return data;
+}
+
+export async function patchGeneralUserProfile(name, email, token) {
+  let data = JSON.stringify({
+    name: name,
+    email: email,
+  });
+
+  let axiosConfig = {
+    headers: {
+      "Content-Type": "application/json;charset=UTF-8",
+      "Access-Control-Allow-Origin": "*",
+      Authorization: `${token}`,
+    },
+  };
+  return axios
+    .patch(`${Base_URL}/user/update-me/`, data, axiosConfig)
+    .then((res) => {
+      console.log("User profile update response: ", res.data);
+      return res.data;
+    })
+    .catch((err) => {
+      console.log("**AXIOS ERROR: ", err.response.data);
+    });
+}
+
+
+export async function patchProfUserProfile(
+  name,
+  email,
+  cost,
+  countyDropDownValue,
+  areaDropDownValue,
+  notes,
+  businessLogo,
+  profCertificate,
+  token
+) {
+  let userData = {
+    name: name,
+    email: email,
+    cost: cost,
+    county: countyDropDownValue,
+    area: areaDropDownValue,
+    note_text: notes,
+  };
+
+  const formData = createFormData(
+    businessLogo,
+    profCertificate,
+    userData
+  );
+ 
+  let axiosConfig = {
+    headers: {
+      "Content-Type": "multipart/form-data",
+      "Access-Control-Allow-Origin": "*",
+      Authorization: `${token}`,
+    },
+  };
+
+  return axios
+    .patch(`${Base_URL}/user/update-me/`, formData, axiosConfig)
+    .then((res) => {
+      console.log("User profile update response: ", res.data);
+      return res.data;
+    })
+    .catch((err) => {
+      console.log("**AXIOS ERROR: ", err.response.data);
+    });
+}

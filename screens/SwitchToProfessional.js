@@ -87,7 +87,7 @@ function SwitchToProfessional() {
     };
 
     fetchDropDownItems().catch(console.error);
-  }, [countyDropDownValue, areaDropDownValue, categoryDropDownValue]);
+  }, []);
 
   function handleBusinessLogoUpload(logo) {
     setBusinessLogo(logo);

@@ -175,7 +175,7 @@ const translations = {
     "Something went wrong": "Algo deu errado",
     "Add notes for your customer - if any":
       "Adicione notas para o seu cliente - se houver",
-    "Show Reviews": "Mostrar críticas",
+    "Show Reviews": "Mostrar Comentários",
     "Select Area": "Selecione área",
     "Authentication failed!": "Autenticação falhou!",
     Certificate: "Certificado",

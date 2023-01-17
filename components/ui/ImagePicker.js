@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import {  Image, View, StyleSheet } from "react-native";
+import { Image, View, StyleSheet } from "react-native";
 import { launchImageLibraryAsync, MediaTypeOptions } from "expo-image-picker";
 
 import FlatButton from "./FlatButton";
 
-export default function ImagePicker({ textToShow, handleCallback }) {
-  const [image, setImage] = useState(null);
+export default function ImagePicker({ textToShow, handleCallback, img }) {
+  const [image, setImage] = useState(img);
 
   const pickImage = async () => {
     // No permissions request is necessary for launching the image library
@@ -29,16 +29,14 @@ export default function ImagePicker({ textToShow, handleCallback }) {
       <View style={styles.button}>
         <FlatButton onPress={pickImage}>{textToShow}</FlatButton>
       </View>
-      {image && (
-        <Image source={{ uri: image }} style={styles.image} />
-      )}
+      {image && <Image source={{ uri: image }} style={styles.image} />}
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   button: {
-   marginHorizontal: 10,
+    marginHorizontal: 10,
     marginVertical: 10,
   },
   image: {

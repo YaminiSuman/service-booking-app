@@ -32,6 +32,8 @@ import ReviewScreen from "./screens/ReviewScreen";
 import SubmitReviewScreen from "./screens/SubmitReviewScreen";
 import CancelledOrConfirmedBookingListScreen from "./screens/CancelledOrConfirmedBookingListScreen";
 import MyReviewScreen from "./screens/MyReviewScreen";
+import ViewProfileScreen from "./screens/ViewProfileScreen";
+import EditProfileScreen from "./screens/EditProfileScreen";
 
 const i18n = new I18n(translations);
 i18n.locale = defaultLocale;
@@ -79,6 +81,11 @@ function ProfessionsOverview() {
                     i18n.t("Update Profile?"),
                     !authCtx.profUser
                       ? [
+                          {
+                            text: i18n.t("My Profile"),
+                            onPress: () =>
+                              navigation.navigate("ViewProfileScreen"),
+                          },
                           {
                             text: i18n.t("Reset Password"),
                             onPress: () => navigation.navigate("ResetPassword"),
@@ -134,6 +141,11 @@ function ProfessionsOverview() {
                         ]
                       : [
                           {
+                            text: i18n.t("My Profile"),
+                            onPress: () =>
+                              navigation.navigate("ViewProfileScreen"),
+                          },
+                          {
                             text: i18n.t("Reset Password"),
                             onPress: () => navigation.navigate("ResetPassword"),
                           },
@@ -147,9 +159,11 @@ function ProfessionsOverview() {
                                   {
                                     text: i18n.t("Yes, please"),
                                     onPress: () => {
+                                      navigation.navigate("Categories"),
                                       switchToGenUser(authCtx.token).then(
                                         authCtx.setProfUser(false)
                                       );
+                                      
                                     },
                                   },
                                   {
@@ -295,6 +309,11 @@ function AuthStack() {
                     !authCtx.profUser
                       ? [
                           {
+                            text: i18n.t("My Profile"),
+                            onPress: () =>
+                              navigation.navigate("ViewProfileScreen"),
+                          },
+                          {
                             text: i18n.t("Reset Password"),
                             onPress: () => navigation.navigate("ResetPassword"),
                           },
@@ -349,6 +368,11 @@ function AuthStack() {
                         ]
                       : [
                           {
+                            text: i18n.t("My Profile"),
+                            onPress: () =>
+                              navigation.navigate("ViewProfileScreen"),
+                          },
+                          {
                             text: i18n.t("Reset Password"),
                             onPress: () => navigation.navigate("ResetPassword"),
                           },
@@ -365,6 +389,7 @@ function AuthStack() {
                                       switchToGenUser(authCtx.token).then(
                                         authCtx.setProfUser(false)
                                       );
+                                       navigation.navigate("Categories")
                                     },
                                   },
                                   {
@@ -495,6 +520,16 @@ function AuthStack() {
         name="MyReviewScreen"
         component={MyReviewScreen}
         options={{ title: i18n.t("My Review") }}
+      />
+      <Stack.Screen
+        name="ViewProfileScreen"
+        component={ViewProfileScreen}
+        options={{ title: i18n.t("My Profile") }}
+      />
+      <Stack.Screen
+        name="EditProfileScreen"
+        component={EditProfileScreen}
+        options={{ title: i18n.t("Update Profile") }}
       />
     </Stack.Navigator>
   );
