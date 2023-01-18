@@ -80,128 +80,37 @@ function ProfessionsOverview() {
                   Alert.alert(
                     `${i18n.t("Hi")} ${user}`,
                     i18n.t("Update Profile?"),
-                    !authCtx.profUser
-                      ? [
-                          {
-                            text: i18n.t("My Profile"),
-                            onPress: () =>
-                              navigation.navigate("ViewProfileScreen"),
-                          },
-                          {
-                            text: i18n.t("Reset Password"),
-                            onPress: () => navigation.navigate("ResetPassword"),
-                          },
-                          {
-                            text: i18n.t("Switch to Professional"),
-                            onPress: () => {
-                              Alert.alert(
-                                i18n.t("SWITCH_TO_PROF_USER"),
-                                i18n.t("Are you sure?"),
-                                [
-                                  {
-                                    text: i18n.t("Yes, please"),
-                                    onPress: () =>
-                                      navigation.navigate(
-                                        "SwitchToProfessional"
-                                      ),
-                                  },
-                                  {
-                                    text: i18n.t("Cancel"),
-                                    style: "cancel",
-                                  },
-                                ]
-                              );
-                            },
-                          },
-                          {
-                            text: i18n.t("Logout"),
-                            onPress: () => {
-                              Alert.alert(
-                                i18n.t("Logout"),
-                                i18n.t("Are you sure?"),
-                                [
-                                  {
-                                    text: i18n.t("Yes, please"),
-                                    onPress: () =>
-                                      logout(authCtx.token).then(
-                                        authCtx.logout()
-                                      ),
-                                  },
-                                  {
-                                    text: i18n.t("Cancel"),
-                                    style: "cancel",
-                                  },
-                                ]
-                              );
-                            },
-                          },
-                          {
-                            text: i18n.t("Cancel"),
-                            style: "cancel",
-                          },
-                        ]
-                      : [
-                          {
-                            text: i18n.t("My Profile"),
-                            onPress: () =>
-                              navigation.navigate("ViewProfileScreen"),
-                          },
-                          {
-                            text: i18n.t("Reset Password"),
-                            onPress: () => navigation.navigate("ResetPassword"),
-                          },
-                          {
-                            text: i18n.t("Switch to General User"),
-                            onPress: () => {
-                              Alert.alert(
-                                i18n.t("Switch to General User"),
-                                i18n.t("Are you sure?"),
-                                [
-                                  {
-                                    text: i18n.t("Yes, please"),
-                                    onPress: () => {
-                                      navigation.navigate("Categories"),
-                                      switchToGenUser(authCtx.token).then(
-                                        authCtx.setProfUser(false)
-                                      );
-                                      
-                                    },
-                                  },
-                                  {
-                                    text: i18n.t("Cancel"),
-                                    style: "cancel",
-                                  },
-                                ]
-                              );
-                            },
-                          },
-                          {
-                            text: i18n.t("Logout"),
-                            onPress: () => {
-                              Alert.alert(
-                                i18n.t("Logout"),
-                                i18n.t("Are you sure?"),
-                                [
-                                  {
-                                    text: i18n.t("Yes, please"),
-                                    onPress: () =>
-                                      logout(authCtx.token).then(
-                                        authCtx.logout()
-                                      ),
-                                  },
-                                  {
-                                    text: i18n.t("Cancel"),
-                                    style: "cancel",
-                                  },
-                                ]
-                              );
-                            },
-                          },
-                          {
-                            text: i18n.t("Cancel"),
-                            style: "cancel",
-                          },
-                        ],
+                    [
+                      {
+                        text: i18n.t("My Profile"),
+                        onPress: () => navigation.navigate("ViewProfileScreen"),
+                      },
+                      {
+                        text: i18n.t("Logout"),
+                        onPress: () => {
+                          Alert.alert(
+                            i18n.t("Logout"),
+                            i18n.t("Are you sure?"),
+                            [
+                              {
+                                text: i18n.t("Yes, please"),
+                                onPress: () =>
+                                  logout(authCtx.token).then(authCtx.logout()),
+                              },
+                              {
+                                text: i18n.t("Cancel"),
+                                style: "cancel",
+                              },
+                            ]
+                          );
+                        },
+                      },
+                      {
+                        text: i18n.t("Cancel"),
+                        style: "cancel",
+                      },
+                    ],
+
                     {
                       cancelable: true,
                     }
@@ -307,130 +216,36 @@ function AuthStack() {
                   Alert.alert(
                     `${i18n.t("Hi")} ${user}`,
                     i18n.t("Update Profile?"),
-                    !authCtx.profUser
-                      ? [
-                          {
-                            text: i18n.t("My Profile"),
-                            onPress: () =>
-                              navigation.navigate("ViewProfileScreen"),
-                          },
-                          {
-                            text: i18n.t("Reset Password"),
-                            onPress: () => navigation.navigate("ResetPassword"),
-                          },
-                          {
-                            text: i18n.t("Switch to Professional"),
-                            onPress: () => {
-                              Alert.alert(
-                                i18n.t("SWITCH_TO_PROF_USER"),
-                                i18n.t("Are you sure?"),
-                                [
-                                  {
-                                    text: i18n.t("Yes, please"),
-                                    onPress: () =>
-                                      navigation.navigate(
-                                        "SwitchToProfessional"
-                                      ),
-                                  },
-                                  {
-                                    text: i18n.t("Cancel"),
-                                    style: "cancel",
-                                  },
-                                ]
-                              );
-                            },
-                          },
-                          {
-                            text: i18n.t("Logout"),
-                            onPress: () => {
-                              Alert.alert(
-                                i18n.t("Logout"),
-                                i18n.t("Are you sure?"),
-                                [
-                                  {
-                                    text: i18n.t("Yes, please"),
-                                    onPress: () =>
-                                      logout(authCtx.token).then(
-                                        authCtx.logout()
-                                      ),
-                                  },
-                                  {
-                                    text: i18n.t("Cancel"),
-                                    style: "cancel",
-                                  },
-                                ]
-                              );
-                            },
-                          },
-                          {
-                            text: i18n.t("Cancel"),
-                            style: "cancel",
-                          },
-                        ]
-                      : [
-                          {
-                            text: i18n.t("My Profile"),
-                            onPress: () =>
-                              navigation.navigate("ViewProfileScreen"),
-                          },
-                          {
-                            text: i18n.t("Reset Password"),
-                            onPress: () => navigation.navigate("ResetPassword"),
-                          },
-                          {
-                            text: i18n.t("Switch to General User"),
-                            onPress: () => {
-                              Alert.alert(
-                                i18n.t("Switch to General User"),
-                                i18n.t("Are you sure?"),
-                                [
-                                  {
-                                    text: i18n.t("Yes, please"),
-                                    onPress: () => {
-                                      switchToGenUser(authCtx.token).then(
-                                        authCtx.setProfUser(false)
-                                      );
-                                      navigation.navigate("Categories");
-                                    },
-                                  },
-                                  {
-                                    text: i18n.t("Cancel"),
-                                    style: "cancel",
-                                  },
-                                ]
-                              );
-                            },
-                          },
-                          {
-                            text: i18n.t("Logout"),
-                            onPress: () => {
-                              Alert.alert(
-                                i18n.t("Logout"),
-                                i18n.t("Are you sure?"),
-                                [
-                                  {
-                                    text: i18n.t("Yes, please"),
-                                    onPress: () =>
-                                      logout(authCtx.token).then(
-                                        authCtx.logout()
-                                      ),
-                                  },
-                                  {
-                                    text: i18n.t("Cancel"),
-                                    style: "cancel",
-                                  },
-                                ]
-                              );
-                            },
-                          },
-                          {
-                            text: i18n.t("Cancel"),
-                            style: "cancel",
-                          },
-                        ],
-                    {
-                      cancelable: true,
-                    }
+                    [
+                      {
+                        text: i18n.t("My Profile"),
+                        onPress: () => navigation.navigate("ViewProfileScreen"),
+                      },
+                      {
+                        text: i18n.t("Logout"),
+                        onPress: () => {
+                          Alert.alert(
+                            i18n.t("Logout"),
+                            i18n.t("Are you sure?"),
+                            [
+                              {
+                                text: i18n.t("Yes, please"),
+                                onPress: () =>
+                                  logout(authCtx.token).then(authCtx.logout()),
+                              },
+                              {
+                                text: i18n.t("Cancel"),
+                                style: "cancel",
+                              },
+                            ]
+                          );
+                        },
+                      },
+                      {
+                        text: i18n.t("Cancel"),
+                        style: "cancel",
+                      },
+                    ]
                   );
                 }}
               />

@@ -5,6 +5,7 @@ import {
   Image,
   TouchableOpacity,
   ScrollView,
+  Alert,
 } from "react-native";
 import { useEffect, useState, useContext } from "react";
 
@@ -13,7 +14,7 @@ import { translations, defaultLocale } from "../i18n/supportedLanguages";
 
 import { Colors } from "../constants/styles";
 import Button from "../components/ui/Button";
-import { getMyUserDetails } from "../util/Auth";
+import { getMyUserDetails, switchToGenUser } from "../util/Auth";
 import { AuthContext } from "../store/AuthContext";
 
 // import {
@@ -85,6 +86,18 @@ export default function ViewProfileScreen({ navigation }) {
                 }
               >
                 {i18n.t("Edit Profile")}
+              </Button>
+            </View>
+            <View style={styles.buttons}>
+              <Button onPress={() => navigation.navigate("ResetPassword")}>
+                {i18n.t("Reset Password")}
+              </Button>
+            </View>
+            <View style={styles.buttons}>
+              <Button
+                onPress={() => navigation.navigate("SwitchToProfessional")}
+              >
+                {i18n.t("Switch to Professional")}
               </Button>
             </View>
           </View>
@@ -171,6 +184,38 @@ export default function ViewProfileScreen({ navigation }) {
                 }
               >
                 {i18n.t("Edit Profile")}
+              </Button>
+            </View>
+            <View style={styles.buttons}>
+              <Button onPress={() => navigation.navigate("ResetPassword")}>
+                {i18n.t("Reset Password")}
+              </Button>
+            </View>
+            <View style={styles.buttons}>
+              <Button
+                onPress={() =>
+                  Alert.alert(
+                    i18n.t("Switch to General User"),
+                    i18n.t("Are you sure?"),
+                    [
+                      {
+                        text: i18n.t("Yes, please"),
+                        onPress: () => {
+                          navigation.navigate("Categories"),
+                            switchToGenUser(authCtx.token).then(
+                              authCtx.setProfUser(false)
+                            );
+                        },
+                      },
+                      {
+                        text: i18n.t("Cancel"),
+                        style: "cancel",
+                      },
+                    ]
+                  )
+                }
+              >
+                {i18n.t("Switch to General User")}
               </Button>
             </View>
           </View>
