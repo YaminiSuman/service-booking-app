@@ -13,6 +13,7 @@ import { AuthContext } from "../store/AuthContext";
 import { switchToProfessionalUser } from "../util/Auth";
 import { dropDownItemsForArea, dropDownItemsForCategory } from "../util/Common";
 import ImagePicker from "../components/ui/ImagePicker";
+import LoadingOverlay from "../components/ui/LoadingOverlay";
 
 const i18n = new I18n(translations);
 i18n.locale = defaultLocale;
@@ -31,6 +32,7 @@ function SwitchToProfessional() {
   const navigation = useNavigation();
   const authCtx = useContext(AuthContext);
 
+  const [isUpdating, setIsUpdating] = useState(false);
   const [cost, setCost] = useState("");
 
   const [businessLogo, setBusinessLogo] = useState("");
@@ -89,6 +91,7 @@ function SwitchToProfessional() {
       ) {
         return Alert.alert(i18n.t("Please fill all the fields"));
       } else {
+        setIsUpdating(true);
         const token = authCtx.token;
         const userId = authCtx.userId;
         const res = await switchToProfessionalUser(
@@ -105,6 +108,7 @@ function SwitchToProfessional() {
 
         if (!!res) {
           authCtx.setProfUser(true);
+          setIsUpdating(false);
           Toast.show(i18n.t("Switched to professional account successfully"), {
             duration: Toast.durations.LONG,
           });
@@ -119,7 +123,9 @@ function SwitchToProfessional() {
       );
     }
   }
-
+  if (isUpdating) {
+    return <LoadingOverlay message={i18n.t("Updating Profile")} />;
+  }
   return (
     <View>
       <ScrollView keyboardShouldPersistTaps="handled">

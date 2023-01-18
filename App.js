@@ -244,7 +244,7 @@ function AuthStack() {
                                 onPress: () => {
                                   logout(authCtx.token).then(authCtx.logout());
                                   navigation.navigate("Categories");
-                                }
+                                },
                               },
                               {
                                 text: i18n.t("Cancel"),
@@ -258,7 +258,10 @@ function AuthStack() {
                         text: i18n.t("Cancel"),
                         style: "cancel",
                       },
-                    ]
+                    ],
+                    {
+                      cancelable: true,
+                    }
                   );
                 }}
               />
