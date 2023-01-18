@@ -2,49 +2,45 @@ import { useState, useEffect, useContext } from "react";
 import { View, StyleSheet } from "react-native";
 import { GiftedChat } from "react-native-gifted-chat";
 
+import { I18n } from "i18n-js";
+import { translations, defaultLocale } from "../i18n/supportedLanguages";
+
 import { AuthContext } from "../store/AuthContext";
 import { getMyMessages, postMyMessage } from "../util/Auth";
 
+const i18n = new I18n(translations);
+i18n.locale = defaultLocale;
+
 function ChatScreen({ navigation, route }) {
-  const profId = route.params.profId;
+  const otherUserId = route.params.profId;
+
   const authCtx = useContext(AuthContext);
   const token = authCtx.token;
 
   const myUserId = authCtx.userId;
+  const [messages, setMessages] = useState([]);
 
-  const [messages, setMessages] = useState([
-    // {
-    //   _id: 1,
-    //   text: "Hello developer",
-    //   createdAt: new Date(),
-    //   user: {
-    //     _id: 2,
-    //     name: "Other user",
-    //   },
-    // },
-    // {
-    //   _id: 2,
-    //   text: "Hello developer",
-    //   createdAt: new Date(),
-    //   user: {
-    //     _id: 1,
-    //     name: "Myself",
-    //   },
-    // },
-  ]);
+  const fetchMessages = async () => {
+    const messages = await getMyMessages(otherUserId, token);
+    setMessages(messages);
+  };
 
   useEffect(() => {
-    const timer = setInterval(async () => {
-      const messages = await getMyMessages(profId, token);
-      setMessages(messages);
-    }, 5000);
+    fetchMessages();
+  }, []);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      fetchMessages();
+    }, 15000);
+
     return () => clearTimeout(timer);
   }, []);
 
   const onSend = (newMessages = []) => {
     const text = newMessages[0].text;
     setMessages(GiftedChat.append(messages, newMessages));
-    postMyMessage(profId, text, token).then(() =>
+    postMyMessage(otherUserId, text, token).then(() =>
       console.log("message sent successfully")
     );
   };

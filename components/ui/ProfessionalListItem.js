@@ -21,6 +21,7 @@ function ProfessionalListItem({
   business_logo,
   certificate,
   note_text,
+  user
 }) {
   const navigation = useNavigation();
 
@@ -43,6 +44,7 @@ function ProfessionalListItem({
         business_logo,
         certificate,
         note_text,
+        user
       });
     }
   }

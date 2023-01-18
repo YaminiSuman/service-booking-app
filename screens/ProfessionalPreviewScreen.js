@@ -51,6 +51,7 @@ function ProfessionalPreviewScreen({ route }) {
   const business_logo = route.params.business_logo;
   const certificate = route.params.certificate;
   const note_text = route.params.note_text;
+  const userId = route.params.user
 
   const logoURI = `${prefixForImageURI}${business_logo}`;
   const certURI = `${prefixForImageURI}${certificate}`;
@@ -123,7 +124,7 @@ function ProfessionalPreviewScreen({ route }) {
   }
   function navigateToChatScreen() {
     navigation.navigate("ChatScreen", {
-      profId: id,
+      profId: userId,
     });
   }
   return (

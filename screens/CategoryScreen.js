@@ -1,4 +1,5 @@
-import { useState, useEffect } from "react";
+import { useFocusEffect } from "@react-navigation/native";
+import { useState, useCallback } from "react";
 import { View, FlatList, StyleSheet } from "react-native";
 import CategoryGridTile from "../components/ui/CategoryGridTile";
 import { Colors } from "../constants/styles";
@@ -28,15 +29,19 @@ function renderCategoryItem(itemData) {
 function CategoriesScreen() {
   const [categories, setCategories] = useState([]);
 
-  useEffect(() => {
-    const fetchCategories = async () => {
-      const categories = await getCategories();
-      setCategories(categories);
-    };
+    useFocusEffect(
+      useCallback(() => {
+        const fetchCategories = async () => {
+          const categories = await getCategories();
+          setCategories(categories);
+        };
 
-    fetchCategories().catch(console.error);
-  }, []);
+         fetchCategories().catch(console.error);
 
+        return () => {};
+      }, [])
+  );
+  
   return (
     <View style={styles.container}>
       <FlatList

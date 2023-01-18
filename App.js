@@ -35,6 +35,7 @@ import MyReviewScreen from "./screens/MyReviewScreen";
 import ViewProfileScreen from "./screens/ViewProfileScreen";
 import EditProfileScreen from "./screens/EditProfileScreen";
 import ChatScreen from "./screens/ChatScreen";
+import ChatListScreen from "./screens/ChatListScreen";
 
 const i18n = new I18n(translations);
 i18n.locale = defaultLocale;
@@ -86,6 +87,10 @@ function ProfessionsOverview() {
                         onPress: () => navigation.navigate("ViewProfileScreen"),
                       },
                       {
+                        text: i18n.t("View chat history"),
+                        onPress: () => navigation.navigate("ChatListScreen"),
+                      },
+                      {
                         text: i18n.t("Logout"),
                         onPress: () => {
                           Alert.alert(
@@ -94,8 +99,10 @@ function ProfessionsOverview() {
                             [
                               {
                                 text: i18n.t("Yes, please"),
-                                onPress: () =>
-                                  logout(authCtx.token).then(authCtx.logout()),
+                                onPress: () => {
+                                  logout(authCtx.token).then(authCtx.logout());
+                                  navigation.navigate("Categories");
+                                },
                               },
                               {
                                 text: i18n.t("Cancel"),
@@ -222,6 +229,10 @@ function AuthStack() {
                         onPress: () => navigation.navigate("ViewProfileScreen"),
                       },
                       {
+                        text: i18n.t("View chat history"),
+                        onPress: () => navigation.navigate("ChatListScreen"),
+                      },
+                      {
                         text: i18n.t("Logout"),
                         onPress: () => {
                           Alert.alert(
@@ -230,8 +241,10 @@ function AuthStack() {
                             [
                               {
                                 text: i18n.t("Yes, please"),
-                                onPress: () =>
-                                  logout(authCtx.token).then(authCtx.logout()),
+                                onPress: () => {
+                                  logout(authCtx.token).then(authCtx.logout());
+                                  navigation.navigate("Categories");
+                                }
                               },
                               {
                                 text: i18n.t("Cancel"),
@@ -351,6 +364,11 @@ function AuthStack() {
         name="ChatScreen"
         component={ChatScreen}
         options={{ title: i18n.t("Chat") }}
+      />
+      <Stack.Screen
+        name="ChatListScreen"
+        component={ChatListScreen}
+        options={{ title: i18n.t("Chat History") }}
       />
     </Stack.Navigator>
   );
