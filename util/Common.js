@@ -16,12 +16,16 @@ const nextXDays = (n = 15) => {
 };
 
 export const getNextDate = () => {
-  return dayjs().add(1, "day").format("DD-MM-YYYY");
+  return dayjs().add(1, "day");
 };
 
 export const getThreeMonthFromToday = () => {
-  return dayjs().add(1, "year").format("DD-MM-YYYY");
+  return dayjs().add(1, "year");
 };
+
+export const formatDate = (date) => {
+  return dayjs(date).format("DD-MM-YYYY");
+}
 export const dropDownItemsForXDays = () => {
   let dropDownValue = nextXDays();
   let dropDownArr = [];

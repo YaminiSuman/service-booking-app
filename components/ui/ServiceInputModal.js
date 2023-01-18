@@ -4,15 +4,13 @@ import {
   Modal,
   Text,
   Alert,
-  // TouchableOpacity,
-  // Input
+  TouchableOpacity,
+  Input,
 } from "react-native";
 import { useState, useCallback, useContext, useEffect } from "react";
 import DropDownPicker from "react-native-dropdown-picker";
 import { useNavigation } from "@react-navigation/native";
-import DatePicker from "react-native-datepicker";
-//import DateTimePickerModal from "react-native-modal-datetime-picker";
-// import DateTimePicker from "@react-native-community/datetimepicker";
+import DateTimePicker from "react-native-modal-datetime-picker";
 
 import { I18n } from "i18n-js";
 import { translations, defaultLocale } from "../../i18n/supportedLanguages";
@@ -22,6 +20,7 @@ import {
   endTimeSlots,
   getNextDate,
   getThreeMonthFromToday,
+  formatDate,
 } from "../../util/Common";
 import { displayAvailableServiceWorkers } from "../../util/Auth";
 import { Colors } from "../../constants/styles";
@@ -36,23 +35,24 @@ i18n.locale = defaultLocale;
 function ServiceInputModal(props) {
   const navigation = useNavigation();
 
-  const [datePickerValue, setDay] = useState("");
-  // const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
+  const currentDate = new Date(getNextDate());
+  const formattedInitialDate = formatDate(currentDate);
+  const [datePickerValue, setDay] = useState(formattedInitialDate);
+  const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
 
-  // const showDatePicker = () => {
-  //   setDatePickerVisibility(true);
-  // };
+  const showDatePicker = () => {
+    setDatePickerVisibility(true);
+  };
 
-  // const hideDatePicker = () => {
-  //   setDatePickerVisibility(false);
-  // };
+  const hideDatePicker = () => {
+    setDatePickerVisibility(false);
+  };
 
-  // const handleConfirm = (date) => {
-  //   console.warn("A date has been picked: ", date);
-  //   setDay(date);
-  //   hideDatePicker();
-  // };
-
+  const handleConfirm = (date) => {
+    const formattedDate = formatDate(date);
+    setDay(formattedDate);
+    hideDatePicker();
+  };
 
   const [openAreaDropDown, setOpenAreaDropDown] = useState(false);
   const [areaDropDownValue, setAreaDropDownValue] = useState(null);
@@ -101,10 +101,8 @@ function ServiceInputModal(props) {
   const authCtx = useContext(AuthContext);
   const token = authCtx.token;
 
-  const currentDate = getNextDate();
-
-  const maxDayForDatePicker = getThreeMonthFromToday();
-
+  const maxDayForDatePicker = new Date(getThreeMonthFromToday());
+  console.log("maxDayForDatePicker", maxDayForDatePicker);
   async function handleGetDetails() {
     try {
       if (
@@ -146,12 +144,6 @@ function ServiceInputModal(props) {
     }
   }
 
-  // const onChange = (event, selectedDate) => {
-  //   const currentDate = selectedDate || date;
-  //   // setShow(Platform.OS === "ios");
-  //   setDay(currentDate);
-  // };
-
   return (
     <>
       <Modal visible={props.visible} animationType="slide">
@@ -160,75 +152,59 @@ function ServiceInputModal(props) {
             <Text style={styles.instructionText}>
               {i18n.t("Please choose your preference")}
             </Text>
-            {/* <TouchableOpacity
+            <TouchableOpacity
               activeOpaticy={1}
               onPress={() => setDatePickerVisibility(true)}
             >
-              <Input
-                value={datePickerValue}
-                editable={false} // optional
-              />
+              <View
+                style={styles.column}
+                onPress={() => console.log("clicked")}
+              >
+                <Text style={styles.datePickerText}>{datePickerValue}</Text>
+                <DateTimePicker
+                  style={{
+                    width: "100%",
+                    padding: 10,
+                    backgroundColor: Colors.primary100,
+                    borderColor: Colors.primary800,
+                    marginBottom: 10,
+                    borderRadius: 4,
+                    color: "black",
+                  }}
+                  isVisible={isDatePickerVisible}
+                  onConfirm={handleConfirm}
+                  onCancel={hideDatePicker}
+                  minimumDate={currentDate}
+                  maximumDate={maxDayForDatePicker}
+                  mode={"date"}
+                  customStyles={{
+                    datePickerCon: {
+                      borderColor: Colors.primary100,
+                      backgroundColor: Colors.primary800,
+                    },
+                    dateInput: {
+                      position: "absolute",
+                      left: 17,
+                      top: 0,
+                      borderColor: Colors.primary100,
+                      borderRadius: 4,
+                      color: "black",
+                    },
+                    dateText: {
+                      color: "black",
+                      fontSize: 14,
+                      right: 10,
+                    },
+                    placeholderText: {
+                      right: 10,
+                      color: "black",
+                      fontSize: 14,
+                    },
+                  }}
+                />
+              </View>
             </TouchableOpacity>
-            <DateTimePickerModal
-              isVisible={isDatePickerVisible}
-              mode="date"
-              onConfirm={handleConfirm}
-              onCancel={hideDatePicker}
-            />
-            {/* <DateTimePicker
-              testID="dateTimePicker"
-              value={datePickerValue}
-              mode="date"
-              display="default"
-              onChange={onChange}
-            /> */}
-            <DatePicker
-              style={{
-                width: "100%",
-                padding: 10,
-                backgroundColor: Colors.primary100,
-                borderColor: Colors.primary800,
-                marginBottom: 10,
-                borderRadius: 4,
-                color: "black",
-              }}
-              date={datePickerValue}
-              mode="date"
-              placeholder={i18n.t("Select day")}
-              format="DD-MM-YYYY"
-              minDate={currentDate}
-              maxDate={maxDayForDatePicker}
-              confirmBtnText={i18n.t("Confirm")}
-              cancelBtnText={i18n.t("Cancel")}
-              showIcon={false}
-              customStyles={{
-                datePickerCon: {
-                  borderColor: Colors.primary100,
-                  backgroundColor: Colors.primary800,
-                },
-                dateInput: {
-                  position: "absolute",
-                  left: 17,
-                  top: 0,
-                  borderColor: Colors.primary100,
-                  borderRadius: 4,
-                  color: "black",
-                },
-                dateText: {
-                  color: "black",
-                  fontSize: 14,
-                  right: 10,
-                },
-                placeholderText: {
-                  right: 10,
-                  color: "black",
-                  fontSize: 14,
-                },
-              }}
-              onDateChange={(date) => {
-                setDay(date);
-              }}
-            />
+
             <DropDownPicker
               placeholder={i18n.t("Select Area")}
               open={openAreaDropDown}
@@ -327,6 +303,10 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     color: "white",
   },
+  datePickerText: {
+    fontSize: 16,
+    color: "black",
+  },
   dropDownContainer: {
     borderWidth: 1,
     padding: 10,
@@ -343,5 +323,14 @@ const styles = StyleSheet.create({
     marginHorizontal: 10,
     marginVertical: 10,
     //width: "30%",
+  },
+  column: {
+    borderWidth: 1,
+    padding: 10,
+    borderColor: Colors.primary100,
+    backgroundColor: Colors.primary100,
+    color: "#e4d0ff",
+    borderRadius: 6,
+    marginBottom: 8,
   },
 });
