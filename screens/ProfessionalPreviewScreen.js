@@ -121,6 +121,11 @@ function ProfessionalPreviewScreen({ route }) {
       profId: id,
     });
   }
+  function navigateToChatScreen() {
+    navigation.navigate("ChatScreen", {
+      profId: id,
+    });
+  }
   return (
     <View>
       <ScrollView>
@@ -170,16 +175,24 @@ function ProfessionalPreviewScreen({ route }) {
 
           <TouchableOpacity onPress={() => SaveImageToDevice(certURI)}>
             <View style={styles.column} onPress={() => console.log("clicked")}>
-              <Text style={[styles.ImageLabel, { marginLeft: 120 }]}>{i18n.t("Certificate")}</Text>
+              <Text style={[styles.ImageLabel, { marginLeft: 120 }]}>
+                {i18n.t("Certificate")}
+              </Text>
               <Image source={{ uri: certURI }} style={styles.image} />
             </View>
           </TouchableOpacity>
 
           <View style={styles.buttons}>
+            <Button onPress={() => navigateToChatScreen()}>
+              {i18n.t("Send a message")}
+            </Button>
+          </View>
+          <View style={styles.buttons}>
             <Button onPress={() => showReview()}>
               {i18n.t("Show Reviews")}
             </Button>
           </View>
+
           <View style={styles.buttons}>
             <Button onPress={() => confirmBooking()}>
               {i18n.t("Confirm Booking")}

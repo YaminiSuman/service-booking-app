@@ -69,7 +69,6 @@ export async function displayAvailableServiceWorkers(
   areaDropDownValue,
   token = null
 ) {
-  console.log("token in displayAvailableServiceWorkers", token);
   const start_time = `${day} ${startTime}`;
   const end_time = `${day} ${endTime}`;
 
@@ -204,6 +203,7 @@ const createFormData = (businessLogo, profCertificate, userData) => {
 };
 
 export async function switchToProfessionalUser(
+  userId,
   is_prof_user,
   prof_id,
   area,
@@ -214,7 +214,7 @@ export async function switchToProfessionalUser(
   token
 ) {
   let userData = {
-    user: 1,
+    user: userId,
     is_prof_user: is_prof_user,
     profession_type: prof_id,
     area: area,
@@ -445,6 +445,51 @@ export async function patchProfUserProfile(
     .patch(`${Base_URL}/user/update-me/`, formData, axiosConfig)
     .then((res) => {
       console.log("User profile update response: ", res.data);
+      return res.data;
+    })
+    .catch((err) => {
+      console.log("**AXIOS ERROR: ", err.response.data);
+    });
+}
+
+export async function getMyMessages(profId, token) {
+  let data = JSON.stringify({
+    other_user: profId,
+  });
+  let axiosConfig = {
+    headers: {
+      "Content-Type": "application/json;charset=UTF-8",
+      "Access-Control-Allow-Origin": "*",
+      Authorization: `${token}`,
+    },
+  };
+  return axios
+    .post(`${Base_URL}/chat/all/`, data, axiosConfig)
+    .then((res) => {
+      console.log("Message Response: ", res.data);
+      return res.data;
+    })
+    .catch((err) => {
+      console.log("**AXIOS ERROR: ", err.response.data);
+    });
+}
+
+export async function postMyMessage(profId, message, token) {
+  let data = JSON.stringify({
+    receiver: profId,
+    message: message,
+  });
+  let axiosConfig = {
+    headers: {
+      "Content-Type": "application/json;charset=UTF-8",
+      "Access-Control-Allow-Origin": "*",
+      Authorization: `${token}`,
+    },
+  };
+  return axios
+    .post(`${Base_URL}/chat/`, data, axiosConfig)
+    .then((res) => {
+      console.log("Post message response: ", res.data);
       return res.data;
     })
     .catch((err) => {

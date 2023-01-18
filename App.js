@@ -34,6 +34,7 @@ import CancelledOrConfirmedBookingListScreen from "./screens/CancelledOrConfirme
 import MyReviewScreen from "./screens/MyReviewScreen";
 import ViewProfileScreen from "./screens/ViewProfileScreen";
 import EditProfileScreen from "./screens/EditProfileScreen";
+import ChatScreen from "./screens/ChatScreen";
 
 const i18n = new I18n(translations);
 i18n.locale = defaultLocale;
@@ -389,7 +390,7 @@ function AuthStack() {
                                       switchToGenUser(authCtx.token).then(
                                         authCtx.setProfUser(false)
                                       );
-                                       navigation.navigate("Categories")
+                                      navigation.navigate("Categories");
                                     },
                                   },
                                   {
@@ -495,7 +496,7 @@ function AuthStack() {
       <Stack.Screen
         name="SwitchToProfessional"
         component={SwitchToProfessional}
-        options={{ title: i18n.t("SWITCH_TO_PROF_USER") }}
+        options={{ title: i18n.t("Update Profession") }}
       />
       <Stack.Screen
         name="ProfessionalPreviewScreen"
@@ -530,6 +531,11 @@ function AuthStack() {
         name="EditProfileScreen"
         component={EditProfileScreen}
         options={{ title: i18n.t("Update Profile") }}
+      />
+      <Stack.Screen
+        name="ChatScreen"
+        component={ChatScreen}
+        options={{ title: i18n.t("Chat") }}
       />
     </Stack.Navigator>
   );
@@ -600,8 +606,14 @@ function Root() {
       const storedToken = await AsyncStorage.getItem("token");
       const profUser = await AsyncStorage.getItem("isProfUser");
       const userName = await AsyncStorage.getItem("userName");
+      const userId = await AsyncStorage.getItem("userId");
       if (storedToken) {
-        authCtx.authenticate(storedToken, JSON.parse(profUser), userName);
+        authCtx.authenticate(
+          storedToken,
+          JSON.parse(profUser),
+          userName,
+          JSON.parse(userId)
+        );
       }
     }
 

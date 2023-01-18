@@ -145,6 +145,7 @@ const translations = {
     Email: "Email",
     Area: "Area",
     "My Profile": "My Profile",
+    "Update Profession": "Update Profession",
   },
   pt: {
     "Update Booking Status": "Atualize o status de reserva",
@@ -294,6 +295,7 @@ const translations = {
     Email: "O email",
     Area: "Área",
     "My Profile": "Meu perfil",
+    "Update Profession": "Atualizar profissão",
   },
 };
 

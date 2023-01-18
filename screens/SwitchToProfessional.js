@@ -90,7 +90,9 @@ function SwitchToProfessional() {
         return Alert.alert(i18n.t("Please fill all the fields"));
       } else {
         const token = authCtx.token;
+        const userId = authCtx.userId;
         const res = await switchToProfessionalUser(
+          userId,
           true,
           categoryDropDownValue,
           areaDropDownValue,

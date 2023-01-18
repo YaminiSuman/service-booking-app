@@ -1,8 +1,18 @@
-import { StyleSheet, View, Modal, Text, Alert } from "react-native";
+import {
+  StyleSheet,
+  View,
+  Modal,
+  Text,
+  Alert,
+  // TouchableOpacity,
+  // Input
+} from "react-native";
 import { useState, useCallback, useContext, useEffect } from "react";
 import DropDownPicker from "react-native-dropdown-picker";
 import { useNavigation } from "@react-navigation/native";
 import DatePicker from "react-native-datepicker";
+//import DateTimePickerModal from "react-native-modal-datetime-picker";
+// import DateTimePicker from "@react-native-community/datetimepicker";
 
 import { I18n } from "i18n-js";
 import { translations, defaultLocale } from "../../i18n/supportedLanguages";
@@ -27,6 +37,22 @@ function ServiceInputModal(props) {
   const navigation = useNavigation();
 
   const [datePickerValue, setDay] = useState("");
+  // const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
+
+  // const showDatePicker = () => {
+  //   setDatePickerVisibility(true);
+  // };
+
+  // const hideDatePicker = () => {
+  //   setDatePickerVisibility(false);
+  // };
+
+  // const handleConfirm = (date) => {
+  //   console.warn("A date has been picked: ", date);
+  //   setDay(date);
+  //   hideDatePicker();
+  // };
+
 
   const [openAreaDropDown, setOpenAreaDropDown] = useState(false);
   const [areaDropDownValue, setAreaDropDownValue] = useState(null);
@@ -65,8 +91,8 @@ function ServiceInputModal(props) {
   useEffect(() => {
     const fetchDropDownItems = async () => {
       const area = await dropDownItemsForArea();
-
       setAreaDropDownItems(area);
+      setAreaDropDownValue(area[0].value);
     };
 
     fetchDropDownItems().catch(console.error);
@@ -120,6 +146,12 @@ function ServiceInputModal(props) {
     }
   }
 
+  // const onChange = (event, selectedDate) => {
+  //   const currentDate = selectedDate || date;
+  //   // setShow(Platform.OS === "ios");
+  //   setDay(currentDate);
+  // };
+
   return (
     <>
       <Modal visible={props.visible} animationType="slide">
@@ -128,9 +160,32 @@ function ServiceInputModal(props) {
             <Text style={styles.instructionText}>
               {i18n.t("Please choose your preference")}
             </Text>
+            {/* <TouchableOpacity
+              activeOpaticy={1}
+              onPress={() => setDatePickerVisibility(true)}
+            >
+              <Input
+                value={datePickerValue}
+                editable={false} // optional
+              />
+            </TouchableOpacity>
+            <DateTimePickerModal
+              isVisible={isDatePickerVisible}
+              mode="date"
+              onConfirm={handleConfirm}
+              onCancel={hideDatePicker}
+            />
+            {/* <DateTimePicker
+              testID="dateTimePicker"
+              value={datePickerValue}
+              mode="date"
+              display="default"
+              onChange={onChange}
+            /> */}
             <DatePicker
               style={{
-                width: 295,
+                width: "100%",
+                padding: 10,
                 backgroundColor: Colors.primary100,
                 borderColor: Colors.primary800,
                 marginBottom: 10,
