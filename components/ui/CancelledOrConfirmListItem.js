@@ -25,11 +25,13 @@ function CancelledOrConfirmedListItem({
 
   const navigation = useNavigation();
   function navigateToReviewScreen() {
-    navigation.navigate("MyReviewScreen", {
-      review: review,
-      time: endTime,
-      user: general_user_name,
-    });
+    if (shortStatus === "D") {
+      navigation.navigate("MyReviewScreen", {
+        review: review,
+        time: endTime,
+        user: general_user_name,
+      });
+    }
   }
 
   return (
