@@ -180,7 +180,7 @@ const translations = {
     "You need to fill in all the values to get details":
       "Você precisa preencher todos os valores para obter detalhes",
     "Please choose your preference": "Escolha sua preferência",
-    "Cancelled Booking List": "Lista de reservas canceladas",
+    "Cancelled Booking List": "Reservas canceladas",
     "Upload Professional certificate": "Carregue o certificado profissional",
     USER_IN_CREATION: "Usuário em criação",
     "Password does not match": "Senha não corresponde",
@@ -225,7 +225,7 @@ const translations = {
     "Not Authenticated !!": "Não autenticado !!",
     "Switched to professional account successfully":
       "Mudou para a conta profissional com sucesso",
-    "Completed Booking List": "Lista de reservas concluída",
+    "Completed Booking List": "Reservas concluída",
     None: "Nenhum",
     Name: "Nome",
     "Show Cancelled Bookings": "Mostrar reservas canceladas",
