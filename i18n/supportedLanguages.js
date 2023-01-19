@@ -146,6 +146,11 @@ const translations = {
     Area: "Area",
     "My Profile": "My Profile",
     "Update Profession": "Update Profession",
+    Chat: "Chat",
+    "Send a message": "Send a message",
+    "View chat history": "View chat history",
+    "Chat History": "Chat History",
+    "No chats at the moment": "No chats at the moment",
   },
   pt: {
     "Update Booking Status": "Atualize o status de reserva",
@@ -296,6 +301,11 @@ const translations = {
     Area: "Área",
     "My Profile": "Meu perfil",
     "Update Profession": "Atualizar profissão",
+    Chat: "Bate-papo",
+    "Send a message": "Envie uma mensagem",
+    "View chat history": "Veja o histórico de bate -papo",
+    "Chat History": "Histórico de conversa",
+    "No chats at the moment": "Sem bate -papos no momento",
   },
 };
 

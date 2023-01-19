@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export const Base_URL = "http://kul.pythonanywhere.com/api";
-// export const Base_URL = "http://10.10.165.37:8081/api";
+//export const Base_URL = "http://10.10.165.37:8081/api";
 
 export async function createUser(email, password, name) {
   let userData = JSON.stringify({
@@ -474,11 +474,12 @@ export async function getMyMessages(profId, token) {
     });
 }
 
-export async function postMyMessage(profId, message, token) {
+export async function postMyMessage(otherUserId, message, token) {
   let data = JSON.stringify({
-    receiver: profId,
+    receiver: otherUserId,
     message: message,
   });
+  console.log("receiver id ", otherUserId);
   let axiosConfig = {
     headers: {
       "Content-Type": "application/json;charset=UTF-8",
@@ -495,4 +496,20 @@ export async function postMyMessage(profId, message, token) {
     .catch((err) => {
       console.log("**AXIOS ERROR: ", err.response.data);
     });
+}
+
+export async function getAllChats(token) {
+  let axiosConfig = {
+    headers: {
+      "Content-Type": "application/json;charset=UTF-8",
+      "Access-Control-Allow-Origin": "*",
+      Authorization: `${token}`,
+    },
+  };
+  const { data } = await axios.get(
+    `${Base_URL}/chat/get_chat_list/`,
+    axiosConfig
+  );
+  console.log("Chat list Response: ", data);
+  return data;
 }
