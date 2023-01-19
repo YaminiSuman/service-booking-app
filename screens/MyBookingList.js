@@ -10,8 +10,19 @@ import BookingList from "../components/ui/BookingList";
 import Button from "../components/ui/Button";
 import { Colors } from "../constants/styles";
 
+// import {
+//   BannerAd,
+//   BannerAdSize,
+//   TestIds,
+// } from "react-native-google-mobile-ads";
+
+// const adUnitId = __DEV__
+//   ? TestIds.BANNER
+//   : "ca-app-pub-2257380265518883/1080179190";
+
 const i18n = new I18n(translations);
 i18n.locale = defaultLocale;
+
 
 function DefaultBookingInfo() {
   const navigation = useNavigation();
@@ -22,14 +33,26 @@ function DefaultBookingInfo() {
   };
 
   return (
-    <View style={styles.container}>
-      <View style={styles.inputContainer}>
-        <Text style={styles.instructionText}>{i18n.t("Log in to see your bookings")}
-        </Text>
-        <View style={styles.buttons}>
-          <Button onPress={navigateToLogin}>{i18n.t("Take me to Login")}</Button>
+    <View>
+      <View style={styles.container}>
+        <View style={styles.inputContainer}>
+          <Text style={styles.instructionText}>
+            {i18n.t("Log in to see your bookings")}
+          </Text>
+          <View style={styles.buttons}>
+            <Button onPress={navigateToLogin}>
+              {i18n.t("Take me to Login")}
+            </Button>
+          </View>
         </View>
       </View>
+      {/* <BannerAd
+          unitId={adUnitId}
+          size={BannerAdSize.FULL_BANNER}
+          requestOptions={{
+            requestNonPersonalizedAdsOnly: true,
+          }}
+        /> */}
     </View>
   );
 }

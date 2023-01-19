@@ -1,4 +1,4 @@
-import { FlatList, View, StyleSheet, Text } from "react-native";
+import { FlatList, View, StyleSheet, Text, ScrollView } from "react-native";
 import { useState, useContext, useCallback } from "react";
 import { useFocusEffect } from "@react-navigation/native";
 
@@ -60,18 +60,29 @@ function ChatListScreen() {
 
   if (!chats.length) {
     return (
-      <View style={styles.rootContainer}>
-        <Text style={styles.title}> {i18n.t("No chats at the moment")}</Text>
+      <View>
+        <View style={styles.rootContainer}>
+          <Text style={styles.title}> {i18n.t("No chats at the moment")}</Text>
+        </View>
+        {/* <BannerAd
+          unitId={adUnitId}
+          size={BannerAdSize.FULL_BANNER}
+          requestOptions={{
+            requestNonPersonalizedAdsOnly: true,
+          }}
+        /> */}
       </View>
     );
   } else {
     return (
-      <View style={styles.container}>
-        <FlatList
-          data={chats}
-          keyExtractor={(item) => item.id}
-          renderItem={renderChatItem}
-        />
+      <View>
+        <View style={styles.container}>
+          <FlatList
+            data={chats}
+            keyExtractor={(item) => item.id}
+            renderItem={renderChatItem}
+          />
+        </View>
         {/* <BannerAd
         unitId={adUnitId}
         size={BannerAdSize.FULL_BANNER}
