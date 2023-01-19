@@ -75,14 +75,12 @@ function ChatListScreen() {
     );
   } else {
     return (
-      <View>
-        <View style={styles.container}>
-          <FlatList
-            data={chats}
-            keyExtractor={(item) => item.id}
-            renderItem={renderChatItem}
-          />
-        </View>
+      <View style={styles.container}>
+        <FlatList
+          data={chats}
+          keyExtractor={(item) => item.id}
+          renderItem={renderChatItem}
+        />
         {/* <BannerAd
         unitId={adUnitId}
         size={BannerAdSize.FULL_BANNER}

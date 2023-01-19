@@ -63,45 +63,41 @@ export default function ViewProfileScreen({ navigation }) {
 
   if (!is_prof_user) {
     return (
-      <View>
-        <ScrollView>
-          <View style={styles.genUserContainer}>
-            <View style={styles.column}>
-              <Text style={styles.label}>{i18n.t("Name")}</Text>
-              <Text style={[styles.title]}>{name}</Text>
-            </View>
-            <View style={styles.column}>
-              <Text style={styles.label}>{i18n.t("Email")}</Text>
-              <Text style={[styles.title]}>{email}</Text>
-            </View>
-
-            <View style={styles.buttons}>
-              <Button
-                onPress={() =>
-                  navigation.navigate("EditProfileScreen", {
-                    name,
-                    email,
-                    is_prof_user,
-                  })
-                }
-              >
-                {i18n.t("Edit Profile")}
-              </Button>
-            </View>
-            <View style={styles.buttons}>
-              <Button onPress={() => navigation.navigate("ResetPassword")}>
-                {i18n.t("Reset Password")}
-              </Button>
-            </View>
-            <View style={styles.buttons}>
-              <Button
-                onPress={() => navigation.navigate("SwitchToProfessional")}
-              >
-                {i18n.t("Switch to Professional")}
-              </Button>
-            </View>
+      <ScrollView>
+        <View style={styles.genUserContainer}>
+          <View style={styles.column}>
+            <Text style={styles.label}>{i18n.t("Name")}</Text>
+            <Text style={[styles.title]}>{name}</Text>
           </View>
-        </ScrollView>
+          <View style={styles.column}>
+            <Text style={styles.label}>{i18n.t("Email")}</Text>
+            <Text style={[styles.title]}>{email}</Text>
+          </View>
+
+          <View style={styles.buttons}>
+            <Button
+              onPress={() =>
+                navigation.navigate("EditProfileScreen", {
+                  name,
+                  email,
+                  is_prof_user,
+                })
+              }
+            >
+              {i18n.t("Edit Profile")}
+            </Button>
+          </View>
+          <View style={styles.buttons}>
+            <Button onPress={() => navigation.navigate("ResetPassword")}>
+              {i18n.t("Reset Password")}
+            </Button>
+          </View>
+          <View style={styles.buttons}>
+            <Button onPress={() => navigation.navigate("SwitchToProfessional")}>
+              {i18n.t("Switch to Professional")}
+            </Button>
+          </View>
+        </View>
         {/* <BannerAd
         unitId={adUnitId}
         size={BannerAdSize.FULL_BANNER}
@@ -109,7 +105,7 @@ export default function ViewProfileScreen({ navigation }) {
           requestNonPersonalizedAdsOnly: true,
         }}
       /> */}
-      </View>
+      </ScrollView>
     );
   } else
     return (

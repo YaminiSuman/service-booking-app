@@ -51,6 +51,13 @@ function CancelledOrConfirmedBookingListScreen({ navigation, route }) {
     return (
       <View style={styles.rootContainer}>
         <Text style={styles.title}> {i18n.t("No bookings at the moment")}</Text>
+        {/* <BannerAd
+        unitId={adUnitId}
+        size={BannerAdSize.FULL_BANNER}
+        requestOptions={{
+          requestNonPersonalizedAdsOnly: true,
+        }}
+      /> */}
       </View>
     );
   } else {

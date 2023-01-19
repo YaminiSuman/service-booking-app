@@ -51,7 +51,7 @@ function ProfessionalPreviewScreen({ route }) {
   const business_logo = route.params.business_logo;
   const certificate = route.params.certificate;
   const note_text = route.params.note_text;
-  const userId = route.params.user
+  const userId = route.params.user;
 
   const logoURI = `${prefixForImageURI}${business_logo}`;
   const certURI = `${prefixForImageURI}${certificate}`;
@@ -123,12 +123,25 @@ function ProfessionalPreviewScreen({ route }) {
     });
   }
   function navigateToChatScreen() {
-    navigation.navigate("ChatScreen", {
-      profId: userId,
-    });
+    if (!authCtx.isAuthenticated) {
+      Alert.alert(i18n.t("Not Authenticated !!"), i18n.t("Take me to login?"), [
+        {
+          text: i18n.t("Cancel"),
+          onPress: () => console.log("Cancel Pressed"),
+          style: "cancel",
+        },
+        {
+          text: i18n.t("Yes, please"),
+          onPress: () => navigation.navigate("Login"),
+        },
+      ]);
+    } else {
+      navigation.navigate("ChatScreen", {
+        profId: userId,
+      });
+    }
   }
   return (
-    <View>
       <ScrollView>
         <View style={styles.rootContainer}>
           <View style={styles.row}>
@@ -200,15 +213,14 @@ function ProfessionalPreviewScreen({ route }) {
             </Button>
           </View>
         </View>
-      </ScrollView>
-      {/* <BannerAd
+        {/* <BannerAd
         unitId={adUnitId}
         size={BannerAdSize.FULL_BANNER}
         requestOptions={{
           requestNonPersonalizedAdsOnly: true,
         }}
       /> */}
-    </View>
+      </ScrollView>
   );
 }
 

@@ -159,7 +159,6 @@ export default function EditProfileScreen({ navigation, route }) {
     }
 
     return (
-      <View>
         <ScrollView>
           <View style={styles.inputContainer}>
             <TextInput
@@ -231,7 +230,6 @@ export default function EditProfileScreen({ navigation, route }) {
         }}
       /> */}
         </ScrollView>
-      </View>
     );
   }
 }

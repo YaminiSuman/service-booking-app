@@ -23,7 +23,6 @@ import { Colors } from "../constants/styles";
 const i18n = new I18n(translations);
 i18n.locale = defaultLocale;
 
-
 function DefaultBookingInfo() {
   const navigation = useNavigation();
   const navigateToLogin = () => {
@@ -33,17 +32,15 @@ function DefaultBookingInfo() {
   };
 
   return (
-    <View>
-      <View style={styles.container}>
-        <View style={styles.inputContainer}>
-          <Text style={styles.instructionText}>
-            {i18n.t("Log in to see your bookings")}
-          </Text>
-          <View style={styles.buttons}>
-            <Button onPress={navigateToLogin}>
-              {i18n.t("Take me to Login")}
-            </Button>
-          </View>
+    <View style={styles.container}>
+      <View style={styles.inputContainer}>
+        <Text style={styles.instructionText}>
+          {i18n.t("Log in to see your bookings")}
+        </Text>
+        <View style={styles.buttons}>
+          <Button onPress={navigateToLogin}>
+            {i18n.t("Take me to Login")}
+          </Button>
         </View>
       </View>
       {/* <BannerAd
@@ -68,7 +65,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: Colors.primary100,
-    justifyContent:"center"
+    justifyContent: "center",
   },
   inputContainer: {
     padding: 55,
