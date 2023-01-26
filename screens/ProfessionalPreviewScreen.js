@@ -40,6 +40,7 @@ function ProfessionalPreviewScreen({ route }) {
   const navigation = useNavigation();
   const authCtx = useContext(AuthContext);
   const token = authCtx.token;
+  const currentUserId = authCtx.userId;
 
   const id = route.params.id;
   const category = route.params.category;
@@ -62,6 +63,7 @@ function ProfessionalPreviewScreen({ route }) {
   async function handleConfirmBookingRequest(token) {
     try {
       const booking = await confirmBookingRequest(
+        currentUserId,
         id,
         startTime,
         endTime,

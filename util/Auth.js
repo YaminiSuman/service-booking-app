@@ -98,10 +98,15 @@ export async function displayAvailableServiceWorkers(
     });
 }
 
-export async function confirmBookingRequest(id, startTime, endTime, token) {
-  const gen_user = 1;
+export async function confirmBookingRequest(
+  currentUserId,
+  id,
+  startTime,
+  endTime,
+  token
+) {
   let userData = JSON.stringify({
-    general_user: gen_user,
+    general_user: currentUserId,
     profession: id,
     start_at: startTime,
     end_at: endTime,
@@ -221,7 +226,6 @@ export async function switchToProfessionalUser(
     cost: cost,
     note_text: notes,
   };
-
   const formData = createFormData(businessLogo, profCertificate, userData);
   console.log("formData", JSON.stringify(formData));
   let axiosConfig = {
