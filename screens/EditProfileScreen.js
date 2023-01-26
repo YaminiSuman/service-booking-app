@@ -152,7 +152,7 @@ export default function EditProfileScreen({ navigation, route }) {
         console.log(error.message);
         Alert.alert(
           i18n.t("Something went wrong"),
-          i18n.t("Could not update profile. Please try again later!")
+          i18n.t("Update_Profile_Err")
         );
       }
       setIsUpdating(false);

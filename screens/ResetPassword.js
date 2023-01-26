@@ -49,10 +49,7 @@ function ResetPassword() {
       }
     } catch (error) {
       console.log(error.message);
-      Alert.alert(
-        i18n.t("Something went wrong"),
-        i18n.t("Could not update password. Please try again later!")
-      );
+      Alert.alert(i18n.t("Something went wrong"), i18n.t("Update_Password_Err"));
     }
   }
 

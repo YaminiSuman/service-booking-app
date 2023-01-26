@@ -15,6 +15,7 @@ function SignupScreen({ navigation }) {
   const [isAuthenticating, setIsAuthenticating] = useState(false);
 
   async function signupHandler({ email, password, name }) {
+
     setIsAuthenticating(true);
     try {
       const data = await createUser(email, password, name);
@@ -39,18 +40,13 @@ function SignupScreen({ navigation }) {
         Alert.alert(
           i18n.t("Email already exists"),
           i18n.t(
-            "Could not create user, please check your input and try again later."
+            "Signup_Error"
           )
         );
       }
     } catch (error) {
       console.log(error.message);
-      Alert.alert(
-        i18n.t("Authentication failed!"),
-        i18n.t(
-          "Could not create user, please check your input and try again later."
-        )
-      );
+      Alert.alert(i18n.t("Authentication failed!"), i18n.t("Signup_Error"));
     }
 
     setIsAuthenticating(false);

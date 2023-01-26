@@ -139,7 +139,7 @@ function ServiceInputModal(props) {
       console.log(error.message);
       Alert.alert(
         i18n.t("Something went wrong"),
-        i18n.t("Could not get details. Please try again later!")
+        i18n.t("Getting_Detail_Err")
       );
     }
   }

@@ -49,7 +49,7 @@ function SubmitReviewScreen({ route }) {
       console.log(error.message);
       Alert.alert(
         i18n.t("Something went wrong"),
-        i18n.t("Could not submit review. Please try again later!")
+        i18n.t("Submit_Review_Err")
       );
     }
   }

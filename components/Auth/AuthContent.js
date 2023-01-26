@@ -49,11 +49,12 @@ function AuthContent({ isLogin, onAuthenticate }) {
     const passwordsAreEqual = password === confirmPassword;
     const nameIsValid = name.length > 2 && name.length < 20;
 
-    if (!emailIsValid || !passwordIsValid || (!isLogin && !passwordsAreEqual)) {
-      Alert.alert(
-        i18n.t("Invalid input"),
-        i18n.t("Please check your entered credentials.")
-      );
+    if (
+      !emailIsValid ||
+      !passwordIsValid ||
+      (!isLogin && !nameIsValid) || (!isLogin && !passwordsAreEqual)
+    ) {
+      Alert.alert(i18n.t("Invalid input"), i18n.t("Invalid_Input_Credentials"));
       setCredentialsInvalid({
         email: !emailIsValid,
         password: !passwordIsValid,

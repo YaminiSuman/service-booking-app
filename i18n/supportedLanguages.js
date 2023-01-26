@@ -4,8 +4,7 @@ const translations = {
     "Select day": "Select day",
     "Professionals not available at the moment":
       "Professionals not available at the moment",
-    "Could not get details. Please try again later!":
-      "Could not get details. Please try again later!",
+    Getting_Detail_Err: "Could not get details. Please try again later!",
     "Get Available Professionals": "Get Available Professionals",
     "Maybe later": "Maybe later",
     cancel: "cancel",
@@ -48,25 +47,23 @@ const translations = {
     "Sign up successful !!": "Sign up successful !!",
     "Upload Business Logo": "Upload Business Logo",
     "Cost should be numeric": "Cost should be numeric",
-    "Could not create user, please check your input and try again later.":
+    Signup_Error:
       "Could not create user, please check your input and try again later.",
     "Select Category": "Select Category",
     "End Time": "End Time",
     Notes: "Notes",
     SWITCH_TO_PROF_USER: "Switch to professional user",
-    "Could not update password. Please try again later!":
-      "Could not update password. Please try again later!",
+    Update_Password_Err: "Could not update password. Please try again later!",
     Cancel: "Cancel",
     "Show Completed Bookings": "Show Completed Bookings",
     "confirm password": "confirm password",
     "Log in to see your bookings": "Log in to see your bookings",
     "Confirm Booking": "Confirm Booking",
-    "Could not switch to professional. Please try again later!":
+    Switch_To_Prof_Err:
       "Could not switch to professional. Please try again later!",
     "Enter your cost per hour": "Enter your cost per hour",
     "Booking Date": "Booking Date",
-    "Could not submit review. Please try again later!":
-      "Could not submit review. Please try again later!",
+    Submit_Review_Err: "Could not submit review. Please try again later!",
     "Review is too short": "Review is too short",
     "Take me to login?": "Take me to login?",
     "Something went wrong. Please try again later!":
@@ -91,8 +88,7 @@ const translations = {
     "Password changed successfully": "Password changed successfully",
     "Email Address": "Email Address",
     "Invalid input": "Invalid input",
-    "Please check your entered credentials.":
-      "Please check your entered credentials.",
+    Invalid_Input_Credentials: "Please check your entered credentials.",
     Password: "Password",
     "Confirm Password": "Confirm Password",
     "Create a new user": "Create a new user",
@@ -122,8 +118,6 @@ const translations = {
     Reviews: "Reviews",
     "Are you sure?": "Are you sure?",
     "Email already exists": "Email already exists",
-    "Could not create user, please check your input and try again later.":
-      "Could not create user, please check your input and try again later.",
     "No, not yet": "No, not yet",
     "Yes, cancel": "Yes, cancel",
     "No bookings at the moment": "No bookings at the moment",
@@ -135,8 +129,7 @@ const translations = {
     "Take me back!": "Take me back!",
     "Photo Saved Successfully": "Photo Saved Successfully",
     "User profile updated successfully": "User profile updated successfully",
-    "Could not update profile. Please try again later!":
-      "Could not update profile. Please try again later!",
+    Update_Profile_Err: "Could not update profile. Please try again later!",
     "Updating Profile": "Updating Profile",
     "Update Profile": "Update Profile",
     "Update Business Logo": "Update Business Logo",
@@ -157,7 +150,7 @@ const translations = {
     "Select day": "Selecione o dia",
     "Professionals not available at the moment":
       "Profissionais não disponíveis no momento",
-    "Could not get details. Please try again later!":
+    Getting_Detail_Err:
       "Não foi possível obter detalhes. Por favor, tente novamente mais tarde!",
     "Get Available Professionals": "Obtenha profissionais disponíveis",
     "Maybe later": "Talvez mais tarde",
@@ -200,22 +193,22 @@ const translations = {
     "Sign up successful !!": "Cadastro bem sucedido !!",
     "Upload Business Logo": "Carregar o logotipo de negócios",
     "Cost should be numeric": "O custo deve ser numérico",
-    "Could not create user, please check your input and try again later.":
+    Signup_Error:
       "Não foi possível criar o usuário, verifique sua entrada e tente novamente mais tarde.",
     "Select Category": "Selecione a Categoria",
     "End Time": "Fim do tempo",
     Notes: "Notas",
-    "Could not update password. Please try again later!":
+    Update_Password_Err:
       "Não foi possível atualizar a senha. Por favor, tente novamente mais tarde!",
     "Show Completed Bookings": "Mostrar reservas completas",
     "confirm password": "Confirme a Senha",
     "Log in to see your bookings": "Faça login para ver suas reservas",
     "Confirm Booking": "Confirme a reserva",
-    "Could not switch to professional. Please try again later!":
+    Switch_To_Prof_Err:
       "Não poderia mudar para profissional. Por favor, tente novamente mais tarde!",
     "Enter your cost per hour": "Digite seu custo por hora",
     "Booking Date": "Data de reserva",
-    "Could not submit review. Please try again later!":
+    Submit_Review_Err:
       "Não foi possível enviar a revisão. Por favor, tente novamente mais tarde!",
     "Review is too short": "A revisão é muito curta",
     "Take me to login?": "Leve -me para fazer login?",
@@ -241,7 +234,7 @@ const translations = {
     "Password changed successfully": "Senha alterada com sucesso",
     "Email Address": "Endereço de e-mail",
     "Invalid input": "Entrada inválida",
-    "Please check your entered credentials.":
+    Invalid_Input_Credentials:
       "Por favor, verifique suas credenciais inseridas.",
     Password: "Senha",
     "Confirm Password": "Confirme a Senha",
@@ -276,8 +269,6 @@ const translations = {
     "Reset Password": "Redefinir senha",
     "Are you sure?": "Tem certeza?",
     "Email already exists": "e-mail já existe",
-    "Could not create user, please check your input and try again later.":
-      "Não foi possível criar o usuário, verifique sua entrada e tente novamente mais tarde.",
     "No, not yet": "Não, ainda não",
     "Yes, cancel": "Sim, cancelar",
     "No bookings at the moment": "Sem reservas no momento",
@@ -290,7 +281,7 @@ const translations = {
     "Photo Saved Successfully": "Foto salva com sucesso",
     "User profile updated successfully":
       "Perfil de usuário atualizado com sucesso",
-    "Could not update profile. Please try again later!":
+    Update_Profile_Err:
       "Não foi possível atualizar o perfil. Por favor, tente novamente mais tarde!",
     "Updating Profile": "Perfil de atualização",
     "Update Profile": "Atualizar perfil",
