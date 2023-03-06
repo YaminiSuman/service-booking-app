@@ -13,7 +13,7 @@ export default function ImagePicker({ textToShow, handleCallback, img }) {
       mediaTypes: MediaTypeOptions.All,
       allowsEditing: true,
       aspect: [4, 3],
-      quality: 0.1,
+      quality: 0.05,
     });
 
     console.log(result);

@@ -161,7 +161,7 @@ function ProfessionsOverview() {
         name="Categories"
         component={CategoriesScreen}
         options={{
-          title: "Need For Business",
+          title: "Para Reservas Profissionais",
           tabBarLabel: `${i18n.t("Categories")}`,
           tabBarIcon: ({ color, size }) => (
             <MaterialIcons name="category" size={size} color="white" />
