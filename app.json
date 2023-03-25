@@ -2,7 +2,7 @@
   "expo": {
     "name": "Need Equal Business",
     "slug": "ub-neb",
-    "version": "1.0.1",
+    "version": "2.0.0",
     "orientation": "portrait",
     "icon": "./assets/app_icon.png",
     "userInterfaceStyle": "light",
@@ -20,7 +20,7 @@
     },
     "android": {
       "package": "com.ub.neb",
-      "versionCode":10,
+      "versionCode":12,
       "googleServicesFile": "./google-services.json",
       "permissions": ["WRITE_EXTERNAL_STORAGE", "READ_EXTERNAL_STORAGE"],
       "adaptiveIcon": {

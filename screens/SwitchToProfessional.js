@@ -159,7 +159,7 @@ function SwitchToProfessional() {
         <View style={styles.inputContainer}>
           <TextInput
             style={styles.input}
-            placeholder={i18n.t("Enter your cost per hour")}
+            placeholder={i18n.t("Enter your cost")}
             value={cost}
             onChangeText={setCost}
             keyboardType="number-pad"

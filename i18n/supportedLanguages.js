@@ -61,7 +61,7 @@ const translations = {
     "Confirm Booking": "Confirm Booking",
     Switch_To_Prof_Err:
       "Could not switch to professional. Please try again later!",
-    "Enter your cost per hour": "Enter your cost per hour",
+    "Enter your cost": "Enter your cost",
     "Booking Date": "Booking Date",
     Submit_Review_Err: "Could not submit review. Please try again later!",
     "Review is too short": "Review is too short",
@@ -207,7 +207,7 @@ const translations = {
     "Confirm Booking": "Confirme a reserva",
     Switch_To_Prof_Err:
       "Não poderia mudar para profissional. Por favor, tente novamente mais tarde!",
-    "Enter your cost per hour": "Digite seu custo por hora",
+    "Enter your cost": "Digite seu custo",
     "Booking Date": "Data de reserva",
     Submit_Review_Err:
       "Não foi possível enviar a revisão. Por favor, tente novamente mais tarde!",
