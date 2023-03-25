@@ -3,6 +3,7 @@ import {
   getDropDownValuesForProfAccountSwitching,
   getCategories,
   getAllArea,
+  getSubCategoryForCategory,
 } from "./Auth";
 
 const nextXDays = (n = 15) => {
@@ -140,6 +141,25 @@ export async function dropDownItemsForArea() {
 export async function dropDownItemsForCategory() {
   try {
     const data = await getCategories();
+    let dropDownValue = data;
+    let dropDownArr = [];
+
+    for (let i = 0; i < dropDownValue.length; i++) {
+      dropDownArr.push({
+        label: dropDownValue[i].name,
+        value: dropDownValue[i].id,
+      });
+    }
+
+    return dropDownArr;
+  } catch (error) {
+    console.log(error.message);
+  }
+}
+
+export async function dropDownItemsForSubCategory(id) {
+  try {
+    const data = await getSubCategoryForCategory(id);
     let dropDownValue = data;
     let dropDownArr = [];
 

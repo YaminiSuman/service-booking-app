@@ -25,7 +25,7 @@ const translations = {
     "no name provided": "no name provided",
     "You need to fill in all the values to get details":
       "You need to fill in all the values to get details",
-    "Please choose your preference": "Please choose your preference",
+    "Please choose your preference for": "Please choose your preference for: ",
     "Reset Password": "Reset Password",
     "Cancelled Booking List": "Cancelled Booking List",
     "Upload Professional certificate": "Upload Professional certificate",
@@ -144,6 +144,7 @@ const translations = {
     "View chat history": "View chat history",
     "Chat History": "Chat History",
     "No chats at the moment": "No chats at the moment",
+    "Select sub-category": "Select sub-category",
   },
   pt: {
     "Update Booking Status": "Atualize o status de reserva",
@@ -172,7 +173,7 @@ const translations = {
     "no name provided": "Nenhum nome fornecido",
     "You need to fill in all the values to get details":
       "Você precisa preencher todos os valores para obter detalhes",
-    "Please choose your preference": "Escolha sua preferência",
+    "Please choose your preference for": "Por favor, escolha a sua preferência para: ",
     "Cancelled Booking List": "Reservas canceladas",
     "Upload Professional certificate": "Carregue o certificado profissional",
     USER_IN_CREATION: "Usuário em criação",
@@ -297,6 +298,7 @@ const translations = {
     "View chat history": "Veja o histórico de bate -papo",
     "Chat History": "Histórico de conversa",
     "No chats at the moment": "Sem bate -papos no momento",
+    "Select sub-category": "Selecione a subcategoria",
   },
 };
 

@@ -11,7 +11,11 @@ import { Colors } from "../constants/styles";
 import Button from "../components/ui/Button";
 import { AuthContext } from "../store/AuthContext";
 import { switchToProfessionalUser } from "../util/Auth";
-import { dropDownItemsForArea, dropDownItemsForCategory } from "../util/Common";
+import {
+  dropDownItemsForArea,
+  dropDownItemsForCategory,
+  dropDownItemsForSubCategory,
+} from "../util/Common";
 import ImagePicker from "../components/ui/ImagePicker";
 import LoadingOverlay from "../components/ui/LoadingOverlay";
 
@@ -46,6 +50,7 @@ function SwitchToProfessional() {
   const onOpenAreaDropDown = useCallback(() => {
     setOpenAreaDropDown(true);
     setOpenCategoryDropDown(false);
+    setOpenSubCategoryDropDown(false);
   }, []);
 
   const [openCategoryDropDown, setOpenCategoryDropDown] = useState(false);
@@ -53,8 +58,20 @@ function SwitchToProfessional() {
   const [categoryDropDownItems, setCategoryDropDownItems] = useState([]);
 
   const onOpenCategoryDropDown = useCallback(() => {
-    setOpenAreaDropDown(false);
     setOpenCategoryDropDown(true);
+    setOpenAreaDropDown(false);
+    setOpenSubCategoryDropDown(false);
+  }, []);
+
+  const [openSubCategoryDropDown, setOpenSubCategoryDropDown] = useState(false);
+  const [subCategoryDropDownValue, setSubCategoryDropDownValue] =
+    useState(null);
+  const [subCategoryDropDownItems, setSubCategoryDropDownItems] = useState([]);
+
+  const onOpenSubCategoryDropDown = useCallback(() => {
+    setOpenSubCategoryDropDown(true);
+    setOpenAreaDropDown(false);
+    setOpenCategoryDropDown(false);
   }, []);
 
   useEffect(() => {
@@ -68,6 +85,18 @@ function SwitchToProfessional() {
 
     fetchDropDownItems().catch(console.error);
   }, []);
+
+  useEffect(() => {
+    const fetchDropDownItemsForSubCategory = async () => {
+      const subCategory = await dropDownItemsForSubCategory(
+        categoryDropDownValue
+      );
+
+      setSubCategoryDropDownItems(subCategory);
+    };
+
+    fetchDropDownItemsForSubCategory().catch(console.error);
+  }, [categoryDropDownValue]);
 
   function handleBusinessLogoUpload(logo) {
     setBusinessLogo(logo);
@@ -85,6 +114,7 @@ function SwitchToProfessional() {
         !(
           areaDropDownValue &&
           categoryDropDownValue &&
+          subCategoryDropDownValue&&
           profCertificate &&
           businessLogo
         )
@@ -97,7 +127,7 @@ function SwitchToProfessional() {
         const res = await switchToProfessionalUser(
           userId,
           true,
-          categoryDropDownValue,
+          subCategoryDropDownValue,
           areaDropDownValue,
           cost,
           businessLogo,
@@ -117,10 +147,7 @@ function SwitchToProfessional() {
       }
     } catch (error) {
       console.log(error.message);
-      Alert.alert(
-        i18n.t("Something went wrong"),
-        i18n.t("Switch_To_Prof_Err")
-      );
+      Alert.alert(i18n.t("Something went wrong"), i18n.t("Switch_To_Prof_Err"));
     }
   }
   if (isUpdating) {
@@ -148,7 +175,7 @@ function SwitchToProfessional() {
             setItems={setAreaDropDownItems}
             style={styles.dropDownContainer}
             dropDownDirection="AUTO"
-            zIndex={2000}
+            zIndex={3000}
             zIndexInverse={1000}
             dropDownContainerStyle={{
               backgroundColor: Colors.primary100,
@@ -166,8 +193,26 @@ function SwitchToProfessional() {
             setItems={setCategoryDropDownItems}
             style={styles.dropDownContainer}
             dropDownDirection="AUTO"
-            zIndex={1000}
+            zIndex={2000}
             zIndexInverse={2000}
+            dropDownContainerStyle={{
+              backgroundColor: Colors.primary100,
+              borderColor: Colors.primary800,
+            }}
+          />
+          <DropDownPicker
+            placeholder={i18n.t("Select sub-category")}
+            open={openSubCategoryDropDown}
+            value={subCategoryDropDownValue}
+            items={subCategoryDropDownItems}
+            onOpen={onOpenSubCategoryDropDown}
+            onClose={() => setOpenSubCategoryDropDown(false)}
+            setValue={setSubCategoryDropDownValue}
+            setItems={setSubCategoryDropDownItems}
+            style={styles.dropDownContainer}
+            dropDownDirection="AUTO"
+            zIndex={1000}
+            zIndexInverse={3000}
             dropDownContainerStyle={{
               backgroundColor: Colors.primary100,
               borderColor: Colors.primary800,

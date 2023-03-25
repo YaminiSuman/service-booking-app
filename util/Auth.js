@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export const Base_URL = "http://kul.pythonanywhere.com/api";
+export const Base_URL = "https://kul.pythonanywhere.com/api";
 //export const Base_URL = "http://10.10.165.37:8081/api";
 
 export async function createUser(email, password, name) {
@@ -516,4 +516,34 @@ export async function getAllChats(token) {
   );
   console.log("Chat list Response: ", data);
   return data;
+}
+
+// get subcategory for given category
+
+export async function getSubCategoryForCategory(id) {
+  let userData = JSON.stringify({
+    parent_profession_id: id,
+  });
+
+  console.log("req object for sub category", userData);
+  let axiosConfig = {
+    headers: {
+      "Content-Type": "application/json;charset=UTF-8",
+      "Access-Control-Allow-Origin": "*",
+    },
+  };
+  return axios
+    .post(
+      `${Base_URL}/profession/fetchSubCategories/`,
+      userData,
+      axiosConfig
+    )
+    .then((res) => {
+      console.log("**Subcategory response: ", res.data);
+      return res.data;
+    })
+    .catch((err) => {
+      console.log("**AXIOS ERROR: ", err.response.data);
+      return err.response;
+    });
 }

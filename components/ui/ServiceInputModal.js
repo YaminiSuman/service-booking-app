@@ -27,7 +27,10 @@ import { Colors } from "../../constants/styles";
 import Button from "./Button";
 import FlatButton from "./FlatButton";
 import { AuthContext } from "../../store/AuthContext";
-import { dropDownItemsForArea } from "../../util/Common";
+import {
+  dropDownItemsForArea,
+  dropDownItemsForSubCategory,
+} from "../../util/Common";
 
 const i18n = new I18n(translations);
 i18n.locale = defaultLocale;
@@ -58,6 +61,11 @@ function ServiceInputModal(props) {
   const [areaDropDownValue, setAreaDropDownValue] = useState(null);
   const [areaDropDownItems, setAreaDropDownItems] = useState([]);
 
+  const [openSubCategoryDropDown, setOpenSubCategoryDropDown] = useState(false);
+  const [subCategoryDropDownValue, setSubCategoryDropDownValue] =
+    useState(null);
+  const [subCategoryDropDownItems, setSubCategoryDropDownItems] = useState([]);
+
   const [openStartTimeDropDown, setOpenStartTimeDropDown] = useState(false);
   const [startTimeDropDownValue, setStartTimeDropDownValue] = useState(null);
   const [startTimeDropDownItems, setStartTimeDropDownItems] = useState(
@@ -70,16 +78,25 @@ function ServiceInputModal(props) {
     endTimeSlots()
   );
 
+  const onOpenSubCategoryDropDown = useCallback(() => {
+    setOpenSubCategoryDropDown(true);
+    setOpenAreaDropDown(false);
+    setOpenStartTimeDropDown(false);
+    setOpenEndTimeDropDown(false);
+  }, []);
+
   const onOpenAreaDropDown = useCallback(() => {
     setOpenAreaDropDown(true);
     setOpenStartTimeDropDown(false);
     setOpenEndTimeDropDown(false);
+    setOpenSubCategoryDropDown(false);
   }, []);
 
   const onOpenStartTimeDropdown = useCallback(() => {
     setOpenAreaDropDown(false);
     setOpenStartTimeDropDown(true);
     setOpenEndTimeDropDown(false);
+    setOpenSubCategoryDropDown(false);
   }, []);
 
   const onOpenEndTimeDropdown = useCallback(() => {
@@ -91,8 +108,13 @@ function ServiceInputModal(props) {
   useEffect(() => {
     const fetchDropDownItems = async () => {
       const area = await dropDownItemsForArea();
+      const subCategories = await dropDownItemsForSubCategory(props.id);
+
       setAreaDropDownItems(area);
       setAreaDropDownValue(area[0].value);
+
+      setSubCategoryDropDownItems(subCategories);
+      
     };
 
     fetchDropDownItems().catch(console.error);
@@ -102,7 +124,7 @@ function ServiceInputModal(props) {
   const token = authCtx.token;
 
   const maxDayForDatePicker = new Date(getThreeMonthFromToday());
-  console.log("maxDayForDatePicker", maxDayForDatePicker);
+
   async function handleGetDetails() {
     try {
       if (
@@ -114,7 +136,8 @@ function ServiceInputModal(props) {
         );
       } else {
         const workerDetails = await displayAvailableServiceWorkers(
-          props.id,
+          // props.id,
+          subCategoryDropDownValue,
           datePickerValue,
           startTimeDropDownValue,
           endTimeDropDownValue,
@@ -137,10 +160,7 @@ function ServiceInputModal(props) {
       }
     } catch (error) {
       console.log(error.message);
-      Alert.alert(
-        i18n.t("Something went wrong"),
-        i18n.t("Getting_Detail_Err")
-      );
+      Alert.alert(i18n.t("Something went wrong"), i18n.t("Getting_Detail_Err"));
     }
   }
 
@@ -150,7 +170,7 @@ function ServiceInputModal(props) {
         <View style={styles.modal}>
           <View style={styles.inputContainer}>
             <Text style={styles.instructionText}>
-              {i18n.t("Please choose your preference")}
+              {`${i18n.t("Please choose your preference for")} ${props.category}`}
             </Text>
             <TouchableOpacity
               activeOpaticy={1}
@@ -206,6 +226,25 @@ function ServiceInputModal(props) {
             </TouchableOpacity>
 
             <DropDownPicker
+              placeholder={i18n.t("Select sub-category")}
+              open={openSubCategoryDropDown}
+              value={subCategoryDropDownValue}
+              items={subCategoryDropDownItems}
+              onOpen={onOpenSubCategoryDropDown}
+              onClose={() => setOpenSubCategoryDropDown(false)}
+              setValue={setSubCategoryDropDownValue}
+              setItems={setSubCategoryDropDownItems}
+              style={styles.dropDownContainer}
+              dropDownDirection="AUTO"
+              zIndex={4000}
+              zIndexInverse={1000}
+              dropDownContainerStyle={{
+                backgroundColor: Colors.primary100,
+                borderColor: Colors.primary800,
+              }}
+            />
+
+            <DropDownPicker
               placeholder={i18n.t("Select Area")}
               open={openAreaDropDown}
               value={areaDropDownValue}
@@ -217,7 +256,7 @@ function ServiceInputModal(props) {
               style={styles.dropDownContainer}
               dropDownDirection="AUTO"
               zIndex={3000}
-              zIndexInverse={1000}
+              zIndexInverse={2000}
               dropDownContainerStyle={{
                 backgroundColor: Colors.primary100,
                 borderColor: Colors.primary800,
@@ -235,7 +274,7 @@ function ServiceInputModal(props) {
               style={styles.dropDownContainer}
               dropDownDirection="AUTO"
               zIndex={2000}
-              zIndexInverse={2000}
+              zIndexInverse={3000}
               dropDownContainerStyle={{
                 backgroundColor: Colors.primary100,
                 borderColor: Colors.primary800,
@@ -253,7 +292,7 @@ function ServiceInputModal(props) {
               style={styles.dropDownContainer}
               dropDownDirection="AUTO"
               zIndex={1000}
-              zIndexInverse={3000}
+              zIndexInverse={4000}
               dropDownContainerStyle={{
                 backgroundColor: Colors.primary100,
                 borderColor: Colors.primary800,
