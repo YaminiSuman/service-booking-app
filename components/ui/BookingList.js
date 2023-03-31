@@ -20,7 +20,7 @@ import {
 const adUnitId = __DEV__
   ? TestIds.BANNER
   : Platform.OS === "ios"
-  ? "ca-app-pub-xxxxxxxxxxxxxxxx/yyyyyyyyyy"
+  ? "ca-app-pub-2257380265518883/4188240953"
   : "ca-app-pub-2257380265518883/5280629720";
 
 const i18n = new I18n(translations);
