@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { StyleSheet, View, Text } from "react-native";
+import { Platform } from "react-native";
 
 import { I18n } from "i18n-js";
 import { translations, defaultLocale } from "../i18n/supportedLanguages";
@@ -10,15 +11,17 @@ import BookingList from "../components/ui/BookingList";
 import Button from "../components/ui/Button";
 import { Colors } from "../constants/styles";
 
-// import {
-//   BannerAd,
-//   BannerAdSize,
-//   TestIds,
-// } from "react-native-google-mobile-ads";
+import {
+  BannerAd,
+  BannerAdSize,
+  TestIds,
+} from "react-native-google-mobile-ads";
 
-// const adUnitId = __DEV__
-//   ? TestIds.BANNER
-//   : "ca-app-pub-2257380265518883/1080179190";
+const adUnitId = __DEV__
+  ? TestIds.BANNER
+  : Platform.OS === "ios"
+  ? "ca-app-pub-2257380265518883/9702052394"
+  : "ca-app-pub-2257380265518883/1080179190";
 
 const i18n = new I18n(translations);
 i18n.locale = defaultLocale;
@@ -43,13 +46,13 @@ function DefaultBookingInfo() {
           </Button>
         </View>
       </View>
-      {/* <BannerAd
+      <BannerAd
           unitId={adUnitId}
           size={BannerAdSize.FULL_BANNER}
           requestOptions={{
             requestNonPersonalizedAdsOnly: true,
           }}
-        /> */}
+        />
     </View>
   );
 }

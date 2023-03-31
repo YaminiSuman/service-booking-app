@@ -1,5 +1,6 @@
 import { FlatList, View, StyleSheet,Text } from "react-native";
 import { useEffect } from "react";
+import { Platform } from "react-native";
 
 import { I18n } from "i18n-js";
 import { translations, defaultLocale } from "../i18n/supportedLanguages";
@@ -7,15 +8,17 @@ import { translations, defaultLocale } from "../i18n/supportedLanguages";
 import { Colors } from "../constants/styles";
 import CancelledOrConfirmedListItem from "../components/ui/CancelledOrConfirmListItem";
 
-// import {
-//   BannerAd,
-//   BannerAdSize,
-//   TestIds,
-// } from "react-native-google-mobile-ads";
+import {
+  BannerAd,
+  BannerAdSize,
+  TestIds,
+} from "react-native-google-mobile-ads";
 
-// const adUnitId = __DEV__
-//   ? TestIds.BANNER
-//   : "ca-app-pub-2257380265518883/4253137444";
+const adUnitId = __DEV__
+  ? TestIds.BANNER
+  : Platform.OS === "ios"
+  ? "ca-app-pub-2257380265518883/3593344588"
+  : "ca-app-pub-2257380265518883/4253137444";
 
 const i18n = new I18n(translations);
 i18n.locale = defaultLocale;
@@ -51,13 +54,13 @@ function CancelledOrConfirmedBookingListScreen({ navigation, route }) {
     return (
       <View style={styles.rootContainer}>
         <Text style={styles.title}> {i18n.t("No bookings at the moment")}</Text>
-        {/* <BannerAd
+        <BannerAd
         unitId={adUnitId}
         size={BannerAdSize.FULL_BANNER}
         requestOptions={{
           requestNonPersonalizedAdsOnly: true,
         }}
-      /> */}
+      />
       </View>
     );
   } else {
@@ -68,13 +71,13 @@ function CancelledOrConfirmedBookingListScreen({ navigation, route }) {
           keyExtractor={(item) => item.id}
           renderItem={renderBookingItem}
         />
-        {/* <BannerAd
+        <BannerAd
         unitId={adUnitId}
         size={BannerAdSize.FULL_BANNER}
         requestOptions={{
           requestNonPersonalizedAdsOnly: true,
         }}
-      /> */}
+      />
       </View>
     );
   }

@@ -3,6 +3,7 @@ import { useState, useContext, useCallback, useEffect } from "react";
 import { useNavigation } from "@react-navigation/native";
 import Toast from "react-native-root-toast";
 import DropDownPicker from "react-native-dropdown-picker";
+import { Platform } from "react-native";
 
 import { I18n } from "i18n-js";
 import { translations, defaultLocale } from "../i18n/supportedLanguages";
@@ -22,15 +23,17 @@ import LoadingOverlay from "../components/ui/LoadingOverlay";
 const i18n = new I18n(translations);
 i18n.locale = defaultLocale;
 
-// import {
-//   BannerAd,
-//   BannerAdSize,
-//   TestIds,
-// } from "react-native-google-mobile-ads";
+import {
+  BannerAd,
+  BannerAdSize,
+  TestIds,
+} from "react-native-google-mobile-ads";
 
-// const adUnitId = __DEV__
-//   ? TestIds.BANNER
-//   : "ca-app-pub-2257380265518883/9609405903";
+const adUnitId = __DEV__
+  ? TestIds.BANNER
+  : Platform.OS === "ios"
+  ? "ca-app-pub-2257380265518883/2191228034"
+  : "ca-app-pub-2257380265518883/9609405903";
 
 function SwitchToProfessional() {
   const navigation = useNavigation();
@@ -240,13 +243,13 @@ function SwitchToProfessional() {
           </View>
         </View>
       </ScrollView>
-      {/* <BannerAd
+      <BannerAd
         unitId={adUnitId}
         size={BannerAdSize.FULL_BANNER}
         requestOptions={{
           requestNonPersonalizedAdsOnly: true,
         }}
-      /> */}
+      />
     </View>
   );
 }

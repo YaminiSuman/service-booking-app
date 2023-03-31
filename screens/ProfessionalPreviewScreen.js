@@ -13,6 +13,7 @@ import Toast from "react-native-root-toast";
 
 import { I18n } from "i18n-js";
 import { translations, defaultLocale } from "../i18n/supportedLanguages";
+import { Platform } from "react-native";
 
 import { Colors } from "../constants/styles";
 import Button from "../components/ui/Button";
@@ -21,15 +22,17 @@ import { SaveImageToDevice } from "../util/SaveImageToDevice";
 import { AuthContext } from "../store/AuthContext";
 import { confirmBookingRequest } from "../util/Auth";
 
-// import {
-//   BannerAd,
-//   BannerAdSize,
-//   TestIds,
-// } from "react-native-google-mobile-ads";
+import {
+  BannerAd,
+  BannerAdSize,
+  TestIds,
+} from "react-native-google-mobile-ads";
 
-// const adUnitId = __DEV__
-//   ? TestIds.BANNER
-//   : "ca-app-pub-2257380265518883/6524077563";
+const adUnitId = __DEV__
+  ? TestIds.BANNER
+  : Platform.OS === "ios"
+  ? "ca-app-pub-2257380265518883/8388970724"
+  : "ca-app-pub-2257380265518883/6524077563";
 
 const i18n = new I18n(translations);
 i18n.locale = defaultLocale;
@@ -215,13 +218,13 @@ function ProfessionalPreviewScreen({ route }) {
             </Button>
           </View>
         </View>
-        {/* <BannerAd
+        <BannerAd
         unitId={adUnitId}
         size={BannerAdSize.FULL_BANNER}
         requestOptions={{
           requestNonPersonalizedAdsOnly: true,
         }}
-      /> */}
+      />
       </ScrollView>
   );
 }

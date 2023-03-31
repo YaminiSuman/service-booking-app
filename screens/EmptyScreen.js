@@ -1,18 +1,21 @@
 import { StyleSheet, Text, View } from "react-native";
 import { useEffect } from "react";
+import { Platform } from "react-native";
 
 import { I18n } from "i18n-js";
 import { translations, defaultLocale } from "../i18n/supportedLanguages";
 
-// import {
-//   BannerAd,
-//   BannerAdSize,
-//   TestIds,
-// } from "react-native-google-mobile-ads";
+import {
+  BannerAd,
+  BannerAdSize,
+  TestIds,
+} from "react-native-google-mobile-ads";
 
-// const adUnitId = __DEV__
-//   ? TestIds.BANNER
-//   : "ca-app-pub-2257380265518883/1080179190";
+const adUnitId = __DEV__
+  ? TestIds.BANNER
+  : Platform.OS === "ios"
+  ? "ca-app-pub-2257380265518883/8388970724"
+  : "ca-app-pub-2257380265518883/1080179190";
 
 const i18n = new I18n(translations);
 i18n.locale = defaultLocale;
@@ -33,13 +36,13 @@ function EmptyScreen({ navigation,route }) {
         <Text style={styles.title}>{text}</Text>
         <Text>{i18n.t("Please come back later..!")}</Text>
       </View>
-      {/* <BannerAd
+      <BannerAd
           unitId={adUnitId}
           size={BannerAdSize.FULL_BANNER}
           requestOptions={{
             requestNonPersonalizedAdsOnly: true,
           }}
-        /> */}
+        />
     </View>
   );
 }

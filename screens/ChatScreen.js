@@ -1,6 +1,7 @@
 import { useState, useEffect, useContext } from "react";
 import { View, StyleSheet } from "react-native";
 import { GiftedChat } from "react-native-gifted-chat";
+import { Platform } from "react-native";
 
 import { I18n } from "i18n-js";
 import { translations, defaultLocale } from "../i18n/supportedLanguages";
@@ -8,15 +9,17 @@ import { translations, defaultLocale } from "../i18n/supportedLanguages";
 import { AuthContext } from "../store/AuthContext";
 import { getMyMessages, postMyMessage } from "../util/Auth";
 
-// import {
-//   BannerAd,
-//   BannerAdSize,
-//   TestIds,
-// } from "react-native-google-mobile-ads";
+import {
+  BannerAd,
+  BannerAdSize,
+  TestIds,
+} from "react-native-google-mobile-ads";
 
-// const adUnitId = __DEV__
-//   ? TestIds.BANNER
-//   : "ca-app-pub-2257380265518883/1080179190";
+const adUnitId = __DEV__
+  ? TestIds.BANNER
+  : Platform.OS === "ios"
+  ? "ca-app-pub-2257380265518883/3593344588"
+  : "ca-app-pub-2257380265518883/1080179190";
 
 const i18n = new I18n(translations);
 i18n.locale = defaultLocale;
@@ -57,13 +60,13 @@ function ChatScreen({ navigation, route }) {
 
   return (
     <View style={styles.container}>
-      {/* <BannerAd
+      <BannerAd
           unitId={adUnitId}
           size={BannerAdSize.FULL_BANNER}
           requestOptions={{
             requestNonPersonalizedAdsOnly: true,
           }}
-        /> */}
+        />
       <GiftedChat
         {...{ messages, onSend }}
         user={{

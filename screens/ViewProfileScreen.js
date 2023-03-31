@@ -8,6 +8,7 @@ import {
   Alert,
 } from "react-native";
 import { useEffect, useState, useContext } from "react";
+import { Platform } from "react-native";
 
 import { I18n } from "i18n-js";
 import { translations, defaultLocale } from "../i18n/supportedLanguages";
@@ -17,15 +18,17 @@ import Button from "../components/ui/Button";
 import { getMyUserDetails, switchToGenUser } from "../util/Auth";
 import { AuthContext } from "../store/AuthContext";
 
-// import {
-//   BannerAd,
-//   BannerAdSize,
-//   TestIds,
-// } from "react-native-google-mobile-ads";
+import {
+  BannerAd,
+  BannerAdSize,
+  TestIds,
+} from "react-native-google-mobile-ads";
 
-// const adUnitId = __DEV__
-//   ? TestIds.BANNER
-//   : "ca-app-pub-2257380265518883/1080179190";
+const adUnitId = __DEV__
+  ? TestIds.BANNER
+  : Platform.OS === "ios"
+  ? "ca-app-pub-2257380265518883/4188240953"
+  : "ca-app-pub-2257380265518883/1080179190";
 
 const i18n = new I18n(translations);
 i18n.locale = defaultLocale;
@@ -98,13 +101,13 @@ export default function ViewProfileScreen({ navigation }) {
             </Button>
           </View>
         </View>
-        {/* <BannerAd
-        unitId={adUnitId}
-        size={BannerAdSize.FULL_BANNER}
-        requestOptions={{
-          requestNonPersonalizedAdsOnly: true,
-        }}
-      /> */}
+        <BannerAd
+          unitId={adUnitId}
+          size={BannerAdSize.FULL_BANNER}
+          requestOptions={{
+            requestNonPersonalizedAdsOnly: true,
+          }}
+        />
       </ScrollView>
     );
   } else
@@ -216,13 +219,13 @@ export default function ViewProfileScreen({ navigation }) {
             </View>
           </View>
         </ScrollView>
-        {/* <BannerAd
-        unitId={adUnitId}
-        size={BannerAdSize.FULL_BANNER}
-        requestOptions={{
-          requestNonPersonalizedAdsOnly: true,
-        }}
-      /> */}
+        <BannerAd
+          unitId={adUnitId}
+          size={BannerAdSize.FULL_BANNER}
+          requestOptions={{
+            requestNonPersonalizedAdsOnly: true,
+          }}
+        />
       </View>
     );
 }

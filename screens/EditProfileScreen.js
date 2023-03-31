@@ -5,6 +5,7 @@ import Toast from "react-native-root-toast";
 
 import { I18n } from "i18n-js";
 import { translations, defaultLocale } from "../i18n/supportedLanguages";
+import { Platform } from "react-native";
 
 import Button from "../components/ui/Button";
 import { Colors } from "../constants/styles";
@@ -14,15 +15,17 @@ import { patchGeneralUserProfile, patchProfUserProfile } from "../util/Auth";
 import { AuthContext } from "../store/AuthContext";
 import LoadingOverlay from "../components/ui/LoadingOverlay";
 
-// import {
-//   BannerAd,
-//   BannerAdSize,
-//   TestIds,
-// } from "react-native-google-mobile-ads";
+import {
+  BannerAd,
+  BannerAdSize,
+  TestIds,
+} from "react-native-google-mobile-ads";
 
-// const adUnitId = __DEV__
-//   ? TestIds.BANNER
-//   : "ca-app-pub-2257380265518883/1080179190";
+const adUnitId = __DEV__
+  ? TestIds.BANNER
+  : Platform.OS === "ios"
+  ? "ca-app-pub-2257380265518883/3593344588"
+  : "ca-app-pub-2257380265518883/1080179190";
 
 const i18n = new I18n(translations);
 i18n.locale = defaultLocale;
@@ -106,13 +109,13 @@ export default function EditProfileScreen({ navigation, route }) {
             </Button>
           </View>
         </View>
-        {/* <BannerAd
+        <BannerAd
         unitId={adUnitId}
         size={BannerAdSize.FULL_BANNER}
         requestOptions={{
           requestNonPersonalizedAdsOnly: true,
         }}
-      /> */}
+      />
       </View>
     );
   } else {
@@ -222,13 +225,13 @@ export default function EditProfileScreen({ navigation, route }) {
               </Button>
             </View>
           </View>
-          {/* <BannerAd
+          <BannerAd
         unitId={adUnitId}
         size={BannerAdSize.FULL_BANNER}
         requestOptions={{
           requestNonPersonalizedAdsOnly: true,
         }}
-      /> */}
+      />
         </ScrollView>
     );
   }

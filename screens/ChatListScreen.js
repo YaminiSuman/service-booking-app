@@ -1,6 +1,7 @@
 import { FlatList, View, StyleSheet, Text, ScrollView } from "react-native";
 import { useState, useContext, useCallback } from "react";
 import { useFocusEffect } from "@react-navigation/native";
+import { Platform } from "react-native";
 
 import { I18n } from "i18n-js";
 import { translations, defaultLocale } from "../i18n/supportedLanguages";
@@ -10,15 +11,17 @@ import { getAllChats } from "../util/Auth";
 import { AuthContext } from "../store/AuthContext";
 import ChatListItem from "../components/ui/ChatListItem";
 
-// import {
-//   BannerAd,
-//   BannerAdSize,
-//   TestIds,
-// } from "react-native-google-mobile-ads";
+import {
+  BannerAd,
+  BannerAdSize,
+  TestIds,
+} from "react-native-google-mobile-ads";
 
-// const adUnitId = __DEV__
-//   ? TestIds.BANNER
-//   : "ca-app-pub-2257380265518883/5280629720";
+const adUnitId = __DEV__
+  ? TestIds.BANNER
+  : Platform.OS === "ios"
+  ? "ca-app-pub-2257380265518883/3593344588"
+  : "ca-app-pub-2257380265518883/5280629720";
 
 const i18n = new I18n(translations);
 i18n.locale = defaultLocale;
@@ -64,13 +67,13 @@ function ChatListScreen() {
         <View style={styles.rootContainer}>
           <Text style={styles.title}> {i18n.t("No chats at the moment")}</Text>
         </View>
-        {/* <BannerAd
+        <BannerAd
           unitId={adUnitId}
           size={BannerAdSize.FULL_BANNER}
           requestOptions={{
             requestNonPersonalizedAdsOnly: true,
           }}
-        /> */}
+        />
       </View>
     );
   } else {
@@ -81,13 +84,13 @@ function ChatListScreen() {
           keyExtractor={(item) => item.id}
           renderItem={renderChatItem}
         />
-        {/* <BannerAd
+        <BannerAd
         unitId={adUnitId}
         size={BannerAdSize.FULL_BANNER}
         requestOptions={{
           requestNonPersonalizedAdsOnly: true,
         }}
-      /> */}
+      />
       </View>
     );
   }

@@ -1,5 +1,6 @@
 import { FlatList, View, StyleSheet, ScrollView,Text } from "react-native";
 import { useState, useEffect } from "react";
+import { Platform } from "react-native";
 
 import { I18n } from "i18n-js";
 import { translations, defaultLocale } from "../i18n/supportedLanguages";
@@ -8,15 +9,17 @@ import { Colors } from "../constants/styles";
 import { getMyReviews } from "../util/Auth";
 import ReviewListItem from "../components/ui/ReviewListItem";
 
-// import {
-//   BannerAd,
-//   BannerAdSize,
-//   TestIds,
-// } from "react-native-google-mobile-ads";
+import {
+  BannerAd,
+  BannerAdSize,
+  TestIds,
+} from "react-native-google-mobile-ads";
 
-// const adUnitId = __DEV__
-//   ? TestIds.BANNER
-//   : "ca-app-pub-2257380265518883/7645587540";
+const adUnitId = __DEV__
+  ? TestIds.BANNER
+  : Platform.OS === "ios"
+  ? "ca-app-pub-2257380265518883/4188240953"
+  : "ca-app-pub-2257380265518883/7645587540";
 
 const i18n = new I18n(translations);
 i18n.locale = defaultLocale;
@@ -49,13 +52,13 @@ function ReviewScreen({ navigation, route }) {
     return (
       <View style={styles.rootContainer}>
         <Text style={styles.title}> {i18n.t("No reviews at the moment")}</Text>
-        {/* <BannerAd
+        <BannerAd
         unitId={adUnitId}
         size={BannerAdSize.FULL_BANNER}
         requestOptions={{
           requestNonPersonalizedAdsOnly: true,
         }}
-      /> */}
+      />
       </View>
     );
   } else {
@@ -67,13 +70,13 @@ function ReviewScreen({ navigation, route }) {
             keyExtractor={(item) => item.id}
             renderItem={renderReviewItem}
           />
-          {/* <BannerAd
+          <BannerAd
         unitId={adUnitId}
         size={BannerAdSize.FULL_BANNER}
         requestOptions={{
           requestNonPersonalizedAdsOnly: true,
         }}
-      /> */}
+      />
         </View>
       </ScrollView>
     );

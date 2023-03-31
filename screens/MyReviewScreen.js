@@ -1,5 +1,6 @@
 import { useNavigation } from "@react-navigation/native";
 import { StyleSheet, View, Text } from "react-native";
+import { Platform } from "react-native";
 
 import { I18n } from "i18n-js";
 import { translations, defaultLocale } from "../i18n/supportedLanguages";
@@ -7,15 +8,17 @@ import { translations, defaultLocale } from "../i18n/supportedLanguages";
 import Button from "../components/ui/Button";
 import { Colors } from "../constants/styles";
 
-// import {
-//   BannerAd,
-//   BannerAdSize,
-//   TestIds,
-// } from "react-native-google-mobile-ads";
+import {
+  BannerAd,
+  BannerAdSize,
+  TestIds,
+} from "react-native-google-mobile-ads";
 
-// const adUnitId = __DEV__
-//   ? TestIds.BANNER
-//   : "ca-app-pub-2257380265518883/6232425413";
+const adUnitId = __DEV__
+  ? TestIds.BANNER
+  : Platform.OS === "ios"
+  ? "ca-app-pub-2257380265518883/8388970724"
+  : "ca-app-pub-2257380265518883/6232425413";
 
 const i18n = new I18n(translations);
 i18n.locale = defaultLocale;
@@ -30,13 +33,13 @@ function MyReviewScreen({ navigation, route }) {
 
   return (
     <View style={styles.container}>
-      {/* <BannerAd
+      <BannerAd
         unitId={adUnitId}
         size={BannerAdSize.FULL_BANNER}
         requestOptions={{
           requestNonPersonalizedAdsOnly: true,
         }}
-      /> */}
+      />
       <View style={styles.inputContainer}>
         <Text style={styles.nameLabelText}>
           {user} {i18n.t("says:")}
@@ -54,13 +57,13 @@ function MyReviewScreen({ navigation, route }) {
           </Button>
         </View>
       </View>
-      {/* <BannerAd
+      <BannerAd
         unitId={adUnitId}
         size={BannerAdSize.FULL_BANNER}
         requestOptions={{
           requestNonPersonalizedAdsOnly: true,
         }}
-      /> */}
+      />
     </View>
   );
 }

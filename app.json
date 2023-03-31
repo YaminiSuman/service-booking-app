@@ -16,11 +16,18 @@
     },
     "assetBundlePatterns": ["**/*"],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": false,
+      "bitcode": false,
+      "bundleIdentifier": "com.ub.neb",
+      "googleServicesFile": "./GoogleService-Info.plist",
+      "infoPlist": {
+        "UIBackgroundModes": ["fetch", "remote-notification"]
+      },
+      "buildNumber": "1.0.1"
     },
     "android": {
       "package": "com.ub.neb",
-      "versionCode":12,
+      "versionCode": 12,
       "googleServicesFile": "./google-services.json",
       "permissions": ["WRITE_EXTERNAL_STORAGE", "READ_EXTERNAL_STORAGE"],
       "adaptiveIcon": {
@@ -54,6 +61,7 @@
     ]
   },
   "react-native-google-mobile-ads": {
-    "android_app_id": "ca-app-pub-2257380265518883~1039808487"
+    "android_app_id": "ca-app-pub-2257380265518883~1039808487",
+    "ios_app_id": "ca-app-pub-2257380265518883~7584560487"
   }
 }

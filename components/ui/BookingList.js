@@ -1,6 +1,7 @@
 import {  FlatList, View, StyleSheet,Text } from "react-native";
 import { useState, useContext, useCallback } from "react";
 import { useFocusEffect } from "@react-navigation/native";
+import { Platform } from "react-native";
 
 import { I18n } from "i18n-js";
 import { translations, defaultLocale } from "../../i18n/supportedLanguages";
@@ -10,15 +11,17 @@ import { getMyBookings } from "../../util/Auth";
 import { AuthContext } from "../../store/AuthContext";
 import MyBookingListItem from "./MyBookingListItem";
 
-// import {
-//   BannerAd,
-//   BannerAdSize,
-//   TestIds,
-// } from "react-native-google-mobile-ads";
+import {
+  BannerAd,
+  BannerAdSize,
+  TestIds,
+} from "react-native-google-mobile-ads";
 
-// const adUnitId = __DEV__
-//   ? TestIds.BANNER
-//   : "ca-app-pub-2257380265518883/5280629720";
+const adUnitId = __DEV__
+  ? TestIds.BANNER
+  : Platform.OS === "ios"
+  ? "ca-app-pub-xxxxxxxxxxxxxxxx/yyyyyyyyyy"
+  : "ca-app-pub-2257380265518883/5280629720";
 
 const i18n = new I18n(translations);
 i18n.locale = defaultLocale;
@@ -66,13 +69,13 @@ function BookingList() {
     return (
       <View style={styles.rootContainer}>
         <Text style={styles.title}> {i18n.t("No bookings at the moment")}</Text>
-        {/* <BannerAd
+        <BannerAd
         unitId={adUnitId}
         size={BannerAdSize.FULL_BANNER}
         requestOptions={{
           requestNonPersonalizedAdsOnly: true,
         }}
-      /> */}
+      />
       </View>
     );
 
@@ -83,13 +86,13 @@ function BookingList() {
         keyExtractor={(item) => item.id}
         renderItem={renderBookingItem}
       />
-      {/* <BannerAd
+      <BannerAd
         unitId={adUnitId}
         size={BannerAdSize.FULL_BANNER}
         requestOptions={{
           requestNonPersonalizedAdsOnly: true,
         }}
-      /> */}
+      />
     </View>
   );}
 
