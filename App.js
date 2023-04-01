@@ -7,6 +7,7 @@ import { useContext, useEffect } from "react";
 import { MaterialIcons } from "@expo/vector-icons";
 import { RootSiblingParent } from "react-native-root-siblings";
 import * as Notifications from "expo-notifications";
+import messaging from "@react-native-firebase/messaging";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import * as MediaLibrary from "expo-media-library";
 
@@ -381,34 +382,16 @@ function Navigation() {
   const authCtx = useContext(AuthContext);
   useEffect(() => {
     async function configurePushNotifications() {
-      const { status } = await Notifications.getPermissionsAsync();
-      let finalStatus = status;
-
-      if (finalStatus !== "granted") {
-        const { status } = await Notifications.requestPermissionsAsync();
-        finalStatus = status;
-      }
-
-      if (finalStatus !== "granted") {
-        Alert.alert(
-          i18n.t("Permission required"),
-          i18n.t("Push notifications need the appropriate permissions.")
-        );
-        return;
-      }
-
-      const pushTokenData = (await Notifications.getDevicePushTokenAsync())
-        .data;
-      authCtx.setFcmToken(pushTokenData);
-
-      if (Platform.OS === "android") {
-        Notifications.setNotificationChannelAsync("default", {
-          name: "default",
-          importance: Notifications.AndroidImportance.DEFAULT,
-          vibrationPattern: [0, 250, 250, 250],
-          lightColor: "#FF231F7C",
+      messaging()
+        .requestPermission()
+        .then(() => messaging().getToken())
+        .then((token) => {
+          console.log("FCM Token:", token);
+          authCtx.setFcmToken(token);
+        })
+        .catch((error) => {
+          console.log("Error getting FCM token:", error);
         });
-      }
     }
     async function saveToLibraryPermission() {
       let { status } = await MediaLibrary.getPermissionsAsync();

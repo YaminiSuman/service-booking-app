@@ -57,7 +57,16 @@
           "savePhotosPermission": "Allow to save photos.",
           "isAccessMediaLocationEnabled": true
         }
-      ]
+      ],
+      [
+        "expo-build-properties",
+        {
+          "ios": {
+            "useFrameworks": "static"
+          }
+        }
+      ],
+      "@react-native-firebase/app"
     ]
   },
   "react-native-google-mobile-ads": {
