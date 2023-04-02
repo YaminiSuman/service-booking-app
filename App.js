@@ -6,7 +6,6 @@ import { StatusBar } from "expo-status-bar";
 import { useContext, useEffect } from "react";
 import { MaterialIcons } from "@expo/vector-icons";
 import { RootSiblingParent } from "react-native-root-siblings";
-import * as Notifications from "expo-notifications";
 import messaging from "@react-native-firebase/messaging";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import * as MediaLibrary from "expo-media-library";
@@ -43,16 +42,6 @@ i18n.locale = defaultLocale;
 
 const Stack = createNativeStackNavigator();
 const BottomTabs = createBottomTabNavigator();
-
-Notifications.setNotificationHandler({
-  handleNotification: async () => {
-    return {
-      shouldPlaySound: true,
-      shouldSetBadge: true,
-      shouldShowAlert: true,
-    };
-  },
-});
 
 function ProfessionsOverview() {
   const authCtx = useContext(AuthContext);
@@ -392,7 +381,40 @@ function Navigation() {
         .catch((error) => {
           console.log("Error getting FCM token:", error);
         });
+
+      messaging().setBackgroundMessageHandler(async (remoteMessage) => {
+        console.log("Received background message:", remoteMessage);
+
+        // Set the sound and priority for the notification
+        const notification = remoteMessage.notification;
+        const sound = notification.sound || "default";
+
+        // Determine the priority for the notification
+        let priority;
+        if (notification.android) {
+          priority = notification.android.priority || "high";
+        } else if (notification.ios) {
+          priority = notification.ios.priority || "high";
+        } else {
+          priority = "high";
+        }
+        // Display the notification
+        await messaging().setNotification({
+          title: notification.title,
+          body: notification.body,
+          sound: sound,
+          android: {
+            priority: priority,
+          },
+          ios: {
+            sound: sound,
+            priority: priority,
+            _displayInForeground: true,
+          },
+        });
+      });
     }
+
     async function saveToLibraryPermission() {
       let { status } = await MediaLibrary.getPermissionsAsync();
       let finalStatus = status;
