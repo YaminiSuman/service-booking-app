@@ -7,4 +7,5 @@ export const Colors = {
   error500: "#f37c13",
   gray500: "#39324a",
   accent500: "#f7bc0c",
+  danger: "#fe0707ff",
 };

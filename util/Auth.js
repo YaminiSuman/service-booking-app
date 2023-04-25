@@ -301,11 +301,31 @@ export async function switchToGenUser(token) {
       Authorization: `${token}`,
     },
   };
-  console.log("token for switch to gen", token);
+
   return axios
     .delete(`${Base_URL}/profession/switch_to_gen_user/`, axiosConfig)
     .then((res) => {
       console.log("Switch to Gen User Response: ", res.data);
+      return res.data;
+    })
+    .catch((err) => {
+      console.log("**AXIOS ERROR: ", err.response.data);
+    });
+}
+
+export async function deleteMyAccount(token) {
+  let axiosConfig = {
+    headers: {
+      "Content-Type": "application/json;charset=UTF-8",
+      "Access-Control-Allow-Origin": "*",
+      Authorization: `${token}`,
+    },
+  };
+
+  return axios
+    .delete(`${Base_URL}/user/delete/`, axiosConfig)
+    .then((res) => {
+      console.log("Delete account response: ", res.data);
       return res.data;
     })
     .catch((err) => {

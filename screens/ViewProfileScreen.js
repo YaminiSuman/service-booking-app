@@ -9,13 +9,19 @@ import {
 } from "react-native";
 import { useEffect, useState, useContext } from "react";
 import { Platform } from "react-native";
+import Toast from "react-native-root-toast";
 
 import { I18n } from "i18n-js";
 import { translations, defaultLocale } from "../i18n/supportedLanguages";
 
 import { Colors } from "../constants/styles";
 import Button from "../components/ui/Button";
-import { getMyUserDetails, switchToGenUser } from "../util/Auth";
+import DeleteButton from "../components/ui/DeleteButton";
+import {
+  getMyUserDetails,
+  switchToGenUser,
+  deleteMyAccount,
+} from "../util/Auth";
 import { AuthContext } from "../store/AuthContext";
 
 import {
@@ -99,6 +105,34 @@ export default function ViewProfileScreen({ navigation }) {
             <Button onPress={() => navigation.navigate("SwitchToProfessional")}>
               {i18n.t("Switch to Professional")}
             </Button>
+          </View>
+          <View style={styles.buttons}>
+            <DeleteButton
+              onPress={() =>
+                Alert.alert(
+                  i18n.t("Delete my account"),
+                  i18n.t("Are you sure?"),
+                  [
+                    {
+                      text: i18n.t("Yes, please"),
+                      onPress: () => {
+                        navigation.navigate("Categories"),
+                          deleteMyAccount(authCtx.token).then(authCtx.logout());
+                        Toast.show(i18n.t("Your account is deleted"), {
+                          duration: Toast.durations.LONG,
+                        });
+                      },
+                    },
+                    {
+                      text: i18n.t("Cancel"),
+                      style: "cancel",
+                    },
+                  ]
+                )
+              }
+            >
+              {i18n.t("Delete my account")}
+            </DeleteButton>
           </View>
         </View>
         <BannerAd
@@ -216,6 +250,33 @@ export default function ViewProfileScreen({ navigation }) {
               >
                 {i18n.t("Switch to General User")}
               </Button>
+            </View>
+            <View style={styles.buttons}>
+              <DeleteButton
+                onPress={() =>
+                  Alert.alert(
+                    i18n.t("Delete my account"),
+                    i18n.t("Are you sure?"),
+                    [
+                      {
+                        text: i18n.t("Yes, please"),
+                        onPress: () => {
+                          navigation.navigate("Categories"),
+                            deleteMyAccount(authCtx.token).then(
+                              authCtx.logout()
+                            );
+                        },
+                      },
+                      {
+                        text: i18n.t("Cancel"),
+                        style: "cancel",
+                      },
+                    ]
+                  )
+                }
+              >
+                {i18n.t("Delete my account")}
+              </DeleteButton>
             </View>
           </View>
         </ScrollView>
